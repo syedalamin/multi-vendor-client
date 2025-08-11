@@ -6,12 +6,17 @@ import {
   AddShoppingCartOutlinedIcon,
   MenuOpenOutlinedIcon,
   SearchOutlinedIcon,
+  CloseOutlinedIcon,
 } from "@/_Icons";
 import {
   Button,
   Container,
+  Divider,
   Drawer,
   Grid,
+  IconButton,
+  InputBase,
+  Paper,
   Stack,
   Typography,
 } from "@mui/material";
@@ -23,11 +28,9 @@ const Navbar = () => {
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
-
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -49,21 +52,7 @@ const Navbar = () => {
       </Typography>
     </>
   );
-  const MainLogo = (
-    <Typography
-      variant="h5"
-      component={"h2"}
-      sx={{
-        fontSize: {
-          xs: "1rem",
-          sm: "1.25rem",
-        },
-        fontWeight: 500,
-      }}
-    >
-      Multi Vendor
-    </Typography>
-  );
+  const MainLogo = <>Multi Vendor</>;
   return (
     <Stack bgcolor={"white"} color={"black"}>
       <Container>
@@ -92,10 +81,23 @@ const Navbar = () => {
               },
             }}
           >
-            <Button onClick={toggleDrawer(true)}>
+            <Button
+              sx={{
+                backgroundColor: "transparent",
+                color: "black",
+                "&:hover": {
+                  backgroundColor: "transparent",
+                },
+                padding: 0,
+                margin: 0,
+                minWidth: 0,
+              }}
+              onClick={toggleDrawer(true)}
+            >
               <MenuOpenOutlinedIcon />
             </Button>
             <Drawer
+              anchor="left"
               sx={{
                 "& .MuiDrawer-paper": {
                   boxSizing: "border-box",
@@ -106,15 +108,56 @@ const Navbar = () => {
               onClose={toggleDrawer(false)}
             >
               <Stack>
-                {MainLogo}
-                {NaveLinks}
+                <Stack
+                  px={1}
+                  py={2}
+                  direction={"row"}
+                  justifyContent={"space-between"}
+                  alignItems={"center"}
+                >
+                  <Typography variant="h5" component={"h2"}>
+                    {MainLogo}
+                    <Divider />
+                  </Typography>
+                  <Button
+                    onClick={toggleDrawer(false)}
+                    sx={{
+                      backgroundColor: "transparent",
+                      color: "black",
+                      "&:hover": {
+                        backgroundColor: "transparent",
+                      },
+                      padding: 0,
+                      margin: 0,
+                      minWidth: 0,
+                    }}
+                  >
+                    <CloseOutlinedIcon />
+                  </Button>
+                </Stack>
+
+                <Stack px={1} direction={"column"} gap={1}>
+                  {NaveLinks}
+                </Stack>
               </Stack>
             </Drawer>
           </Grid>
           {/* Logo  */}
           <Grid size={{ xs: 4 }}>
             <Stack direction="row" justifyContent={"center"}>
-              {MainLogo}
+              <Typography
+                variant="h5"
+                component={"h2"}
+                sx={{
+                  fontSize: {
+                    xs: "1rem",
+                    sm: "1.25rem",
+                  },
+                  fontWeight: 500,
+                }}
+              >
+                {MainLogo}
+              </Typography>
             </Stack>
           </Grid>
           {/* Icon  */}
@@ -146,14 +189,26 @@ const Navbar = () => {
               >
                 <SearchOutlinedIcon />
               </Button>
-              <AddShoppingCartOutlinedIcon />
-       
-                <AccountCircleOutlinedIcon />
-            
+
               <MenuModal anchorEl={anchorEl} setAnchorEl={setAnchorEl}>
-                Hi this is me search..............
+                <Paper
+                  component="form"
+                  sx={{
+                    px: 2,
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <InputBase sx={{ flex: 1 }} />
+                  <IconButton type="button" aria-label="search">
+                    <SearchOutlinedIcon />
+                  </IconButton>
+                </Paper>
               </MenuModal>
-            
+
+              <AddShoppingCartOutlinedIcon />
+
+              <AccountCircleOutlinedIcon />
             </Stack>
           </Grid>
         </Grid>

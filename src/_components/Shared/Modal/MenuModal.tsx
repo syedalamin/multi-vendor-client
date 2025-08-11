@@ -38,18 +38,22 @@ export default function MenuModal({
         }}
         slotProps={{
           list: {
+            sx: {
+              py: "0px",
+            },
             "aria-labelledby": "basic-button",
           },
           paper: {
             sx: {
               ...(isMobile && {
-                marginTop: "22px",
+                marginTop: "24px",
                 width: "100vw",
                 maxWidth: "100vw",
                 left: "0 !important",
                 borderRadius: "0",
               }),
-               width: "26rem",
+            
+              width: "24rem",
               marginTop: "18px",
               borderRadius: "0",
             },

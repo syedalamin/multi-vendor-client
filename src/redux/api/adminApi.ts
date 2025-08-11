@@ -1,8 +1,8 @@
 import { baseApi } from "./baseApi";
 
 const adminApi = baseApi.injectEndpoints({
-  endpoints: (build) => ({
-    getAllAdmins: build.query({
+  endpoints: (builder) => ({
+    getAllAdmins: builder.query({
       query: () => ({
         url: "/admin",
         method: "GET",

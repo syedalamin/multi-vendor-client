@@ -1,8 +1,9 @@
 "use client";
 
 import MenuModal from "@/_components/Shared/Modal/MenuModal";
+import AuthButton from "@/_components/UI/AuthButton";
 import {
-  AccountCircleOutlinedIcon,
+
   AddShoppingCartOutlinedIcon,
   MenuOpenOutlinedIcon,
   SearchOutlinedIcon,
@@ -208,7 +209,8 @@ const Navbar = () => {
 
               <AddShoppingCartOutlinedIcon />
 
-              <AccountCircleOutlinedIcon />
+              {/* <AccountCircleOutlinedIcon /> */}
+              <AuthButton/>
             </Stack>
           </Grid>
         </Grid>

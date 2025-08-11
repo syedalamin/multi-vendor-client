@@ -12,6 +12,7 @@ const instance = axios.create();
 instance.defaults.headers.post["Content-Type"] = "application/json";
 instance.defaults.headers.common["Accept"] = "application/json";
 instance.defaults.timeout = 60000;
+instance.defaults.withCredentials = true;
 
 // Add a request interceptor
 instance.interceptors.request.use(
@@ -37,7 +38,7 @@ instance.interceptors.response.use(
   function (response): AxiosResponse<ResponseSuccessType> {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
-    console.log(response, "hi")
+
     return {
       ...response,
       data: {
@@ -73,12 +74,3 @@ instance.interceptors.response.use(
 );
 
 export { instance };
-
-// Error response mapping
-// const responseObject = {
-//   statusCode: error?.response?.data?.statusCode || 500,
-//   message: error?.response?.data?.message || "Something went wrong",
-//   errorMessages: error?.response?.data?.message,
-// };
-
-// return Promise.reject(responseObject);

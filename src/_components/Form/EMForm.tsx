@@ -20,7 +20,7 @@ const EMForm = ({ children, onSubmit }: TFormProps) => {
   const submit: SubmitHandler<FieldValues> = (data) => {
     onSubmit(data);
 
-    reset();
+    // reset();
   };
 
   return (

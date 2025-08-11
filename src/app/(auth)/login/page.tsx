@@ -1,21 +1,35 @@
-"use client"
+"use client";
 import EMForm from "@/_components/Form/EMForm";
 import EMInput from "@/_components/Form/EMInput";
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { useLoginUserMutation } from "@/redux/api/authApi";
+import { storeUserInfo } from "@/services/auth.services";
+import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
 import { FieldValues } from "react-hook-form";
+import { toast } from "sonner";
 
 const LoginPage = () => {
+  const router = useRouter();
+  const [error, setError] = useState("");
+  const [loginUser] = useLoginUserMutation();
   const handleLogin = async (values: FieldValues) => {
-    console.log(values);
+    try {
+      const res = await loginUser(values).unwrap();
+
+      if (res?.data?.accessToken) {
+        // console.log(res?.data?.accessToken)
+        storeUserInfo({ accessToken: res?.data?.accessToken });
+
+        toast.success("User Login Successfully");
+        router.push("/");
+      } else {
+        setError(res?.message);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -36,6 +50,21 @@ const LoginPage = () => {
               </Typography>
             </Box>
           </Stack>
+          {error && (
+            <Box>
+              <Typography
+                sx={{
+                  backgroundColor: "red",
+                  padding: "1px",
+                  borderRadius: "2px",
+                  color: "white",
+                  margin: "2px",
+                }}
+              >
+                {error}
+              </Typography>
+            </Box>
+          )}
           <Box>
             <EMForm onSubmit={handleLogin}>
               <Grid container spacing={2} my={4}>

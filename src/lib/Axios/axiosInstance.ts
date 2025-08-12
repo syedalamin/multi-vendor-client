@@ -38,7 +38,7 @@ instance.interceptors.response.use(
     return {
       ...response,
       data: {
-        data: response?.data?.data,
+        data: response?.data,
         meta: response?.data?.meta,
       },
     };

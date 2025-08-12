@@ -18,9 +18,9 @@ const LoginPage = () => {
     try {
       const res = await loginUser(values).unwrap();
 
-      if (res?.data?.accessToken) {
+      if (res?.data?.data?.accessToken) {
         // console.log(res?.data?.accessToken)
-        storeUserInfo({ accessToken: res?.data?.accessToken });
+        storeUserInfo({ accessToken: res?.data?.data?.accessToken });
 
         toast.success("User Login Successfully");
         router.push("/");

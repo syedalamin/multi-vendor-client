@@ -36,6 +36,8 @@ const RegistrationPage = () => {
     try {
       const res = await registerCustomer(data).unwrap();
 
+   
+
       if (res?.data?.id) {
         toast.success("user created successfully");
 

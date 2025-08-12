@@ -3,7 +3,6 @@
 import MenuModal from "@/_components/Shared/Modal/MenuModal";
 import AuthButton from "@/_components/UI/AuthButton";
 import {
-
   AddShoppingCartOutlinedIcon,
   MenuOpenOutlinedIcon,
   SearchOutlinedIcon,
@@ -37,25 +36,25 @@ const Navbar = () => {
     setOpen(newOpen);
   };
 
-  const NaveLinks = (
+  const NavItems = [
+    { label: "Home", hre: "/" },
+    { label: "Category", hre: "/category" },
+    { label: "Product", hre: "/product" },
+    { label: "Blog", hre: "/blog" },
+  ];
+
+  const NavLinks = (
     <>
-      <Typography component={Link} href="/consultation">
-        Home
-      </Typography>
-      <Typography component={Link} href="/health">
-        Category
-      </Typography>
-      <Typography component={Link} href="/medicine">
-        Product
-      </Typography>
-      <Typography component={Link} href="/diagnostics">
-        Blog
-      </Typography>
+      {NavItems.map(({ label, hre }) => (
+        <Typography key={hre} component={Link} href={hre}>
+          {label}
+        </Typography>
+      ))}
     </>
   );
   const MainLogo = <>Multi Vendor</>;
   return (
-    <Stack bgcolor={"white"} color={"black"}>
+    <Stack bgcolor={"white"} color={"black"} boxShadow={1}>
       <Container>
         <Grid py={2} container spacing={2} alignItems={"center"}>
           {/* Desktop Nav Bar*/}
@@ -69,7 +68,7 @@ const Navbar = () => {
             }}
           >
             <Stack direction="row" justifyContent="space-around">
-              {NaveLinks}
+              {NavLinks}
             </Stack>
           </Grid>
           {/* Mobile Nav Bar */}
@@ -84,11 +83,8 @@ const Navbar = () => {
           >
             <Button
               sx={{
-                backgroundColor: "transparent",
+                backgroundColor: "white",
                 color: "black",
-                "&:hover": {
-                  backgroundColor: "transparent",
-                },
                 padding: 0,
                 margin: 0,
                 minWidth: 0,
@@ -122,15 +118,18 @@ const Navbar = () => {
                   </Typography>
                   <Button
                     onClick={toggleDrawer(false)}
+                    disableRipple
                     sx={{
-                      backgroundColor: "transparent",
+                      backgroundColor: "white",
                       color: "black",
                       "&:hover": {
-                        backgroundColor: "transparent",
+                        backgroundColor: "white",
+                        boxShadow: 0,
                       },
                       padding: 0,
                       margin: 0,
                       minWidth: 0,
+                      boxShadow: 0,
                     }}
                   >
                     <CloseOutlinedIcon />
@@ -138,7 +137,7 @@ const Navbar = () => {
                 </Stack>
 
                 <Stack px={1} direction={"column"} gap={1}>
-                  {NaveLinks}
+                  {NavLinks}
                 </Stack>
               </Stack>
             </Drawer>
@@ -177,21 +176,28 @@ const Navbar = () => {
             >
               <Button
                 onClick={handleClick}
+                disableRipple
                 sx={{
-                  backgroundColor: "transparent",
+                  backgroundColor: "white",
                   color: "black",
                   "&:hover": {
-                    backgroundColor: "transparent",
+                    backgroundColor: "white",
+                    boxShadow: 0,
                   },
                   padding: 0,
                   margin: 0,
                   minWidth: 0,
+                  boxShadow: 0,
                 }}
               >
                 <SearchOutlinedIcon />
               </Button>
 
-              <MenuModal anchorEl={anchorEl} setAnchorEl={setAnchorEl}>
+              <MenuModal
+                anchorEl={anchorEl}
+                setAnchorEl={setAnchorEl}
+                widths="24rem"
+              >
                 <Paper
                   component="form"
                   sx={{
@@ -209,8 +215,7 @@ const Navbar = () => {
 
               <AddShoppingCartOutlinedIcon />
 
-              {/* <AccountCircleOutlinedIcon /> */}
-              <AuthButton/>
+              <AuthButton />
             </Stack>
           </Grid>
         </Grid>

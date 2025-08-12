@@ -6,12 +6,14 @@ type MenuModalProps = {
   anchorEl: HTMLElement | null;
   setAnchorEl: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
   children: React.ReactNode;
+  widths: string;
 };
 
 export default function MenuModal({
   anchorEl,
   setAnchorEl,
   children,
+  widths,
 }: MenuModalProps) {
   const open = Boolean(anchorEl);
   const theme = useTheme();
@@ -53,7 +55,7 @@ export default function MenuModal({
                 borderRadius: "0",
               }),
             
-              width: "24rem",
+              width: widths,
               marginTop: "18px",
               borderRadius: "0",
             },

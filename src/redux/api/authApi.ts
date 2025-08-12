@@ -10,7 +10,6 @@ const authApi = baseApi.injectEndpoints({
         data: data,
       }),
     }),
-    
   }),
 });
 

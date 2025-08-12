@@ -1,10 +1,6 @@
 import { auth_key } from "@/constant/auth_key";
-import { getNewAccessToken } from "@/services/auth.services";
 import { ResponseSuccessType } from "@/types/common";
-import {
-  getFromLocalStorage,
-  setToLocalStorage,
-} from "@/utils/LocalStorage/localStorage";
+import { getFromLocalStorage } from "@/utils/LocalStorage/localStorage";
 import axios, { AxiosResponse } from "axios";
 
 const instance = axios.create();
@@ -49,28 +45,33 @@ instance.interceptors.response.use(
   },
 
   async function onRejected(error) {
-    const config = error?.config;
-
-    // Token refresh logic
-    if (error?.response?.status === 500 && !config.sent) {
-      config.sent = true;
-      const res = await getNewAccessToken();
-      const accessToken = res?.data?.accessToken;
-
-      if (accessToken) {
-        config.headers["Authorization"] = accessToken;
-        setToLocalStorage(auth_key, accessToken);
-        return instance(config);
-      }
-    } else {
-      const responseObject = {
-        statusCode: error?.response?.data?.statusCode || 500,
-        message: error?.response?.data?.message || "Something went wrong",
-        errorMessages: error?.response?.data?.message,
-      };
-      return responseObject;
-    }
+    return Promise.reject({
+      statusCode: error?.response?.data?.statusCode || 500,
+      message: error?.response?.data?.message || "Something went wrong",
+      errorMessages: error?.response?.data?.message,
+    });
   }
 );
 
 export { instance };
+
+// const config = error?.config;
+
+//     if (error?.response?.status === 500 && !config.sent) {
+//       config.sent = true;
+//       const res = await getNewAccessToken();
+//       const accessToken = res?.data?.accessToken;
+
+//       if (accessToken) {
+//         config.headers["Authorization"] = accessToken;
+//         setToLocalStorage(auth_key, accessToken);
+//         return instance(config);
+//       }
+//     } else {
+//       const responseObject = {
+//         statusCode: error?.response?.data?.statusCode || 500,
+//         message: error?.response?.data?.message || "Something went wrong",
+//         errorMessages: error?.response?.data?.message,
+//       };
+//       return responseObject;
+//     }

@@ -1,19 +1,22 @@
-import ImgTextCard from "@/_components/UI/Card/ImgTextCard";
+import ImgProductCard from "@/_components/UI/Card/ImgProductCard";
 import { apiFetcher } from "@/lib/NextFetch/fetcher";
-import { Category } from "@/types/common";
+import { Product } from "@/types/common";
+
+
+
 import { Grid, Stack, Typography } from "@mui/material";
 
 import React from "react";
 
-const PopularCategory = async () => {
-  const category = await apiFetcher("/category");
+const PopularProduct = async () => {
+  const product = await apiFetcher("/product");
 
-  
+  // console.log(product)
 
-  let popularCategory;
+  let popularProduct;
 
-  if (category.success) {
-    popularCategory = (
+  if (product.success) {
+    popularProduct = (
       <>
         <Stack>
           <Typography
@@ -37,7 +40,7 @@ const PopularCategory = async () => {
               },
             }}
           >
-            Popular Category
+            Popular Product
           </Typography>
         </Stack>
         <Grid
@@ -46,10 +49,10 @@ const PopularCategory = async () => {
           alignItems={"center"}
           justifyContent={"center"}
         >
-          {category.data.slice(0,12).map((item: Category) => (
+          {product.data.slice(0,12).map((item: Product) => (
             <>
-              <Grid size={{ xs: 6, sm: 3, md: 2 }}>
-                <ImgTextCard item={item} key={item.id} />
+              <Grid size={{ xs: 6, sm: 4, md: 12/4, lg: 12/5 }} >
+                <ImgProductCard item={item} key={item.id} />
               </Grid>
             </>
           ))}
@@ -57,14 +60,14 @@ const PopularCategory = async () => {
       </>
     );
   } else {
-    popularCategory = (
+    popularProduct = (
       <>
         <Typography>NO Data</Typography>
       </>
     );
   }
 
-  return <>{popularCategory}</>;
+  return <>{popularProduct}</>;
 };
 
-export default PopularCategory;
+export default PopularProduct;

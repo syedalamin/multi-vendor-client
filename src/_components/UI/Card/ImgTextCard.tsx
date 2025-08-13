@@ -7,7 +7,7 @@ import { Category } from "@/types/common";
 import { CardMedia, Stack } from "@mui/material";
 
 export default function ImgTextCard({ item }: { item: Category }) {
-  console.log(item);
+
   return (
     <Card>
       <CardActionArea>

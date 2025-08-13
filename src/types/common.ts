@@ -40,3 +40,33 @@ export interface Category {
   isDeleted: boolean;
   subCategory: Category[];
 }
+
+export enum ProductStatus {
+  ACTIVE = "ACTIVE",
+  INACTIVE = "INACTIVE",
+  OUT_OF_STOCK = "OUT_OF_STOCK",
+  DISCONTINUED = "DISCONTINUED",
+}
+
+export type Product = {
+  id: string;
+  name: string;
+  sku: string;
+  description: string;
+  productImages: string[];
+  slug: string;
+  price: number;
+  stock: number;
+  discount: number;
+  status: ProductStatus;
+  rating: number;
+  averageRating: number;
+  sellerId: string;
+  subCategoryId: string;
+  createdAt: Date;
+  updatedAt: Date;
+  subCategory: {
+    name: string;
+    slug: string;
+  };
+};

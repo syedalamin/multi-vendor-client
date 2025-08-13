@@ -21,7 +21,7 @@ export async function apiFetcher(
       "Content-Type": "application/json",
       ...(token && { Authorization: `${token}` }),
     },
-    cache: "force-cache",
+    cache: "no-store",
     next: { tags, revalidate },
     signal: controller.signal,
   });
@@ -34,10 +34,11 @@ export async function apiFetcher(
 
   const response = await res.json();
 
+  // console.log(response)
   return {
     success: response?.success,
     message: response?.message,
-    meta: response?.data?.meta,
-    data: response?.data?.data,
+    meta: response?.meta,
+    data: response?.data,
   };
 }

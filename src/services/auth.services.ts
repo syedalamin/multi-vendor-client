@@ -7,10 +7,8 @@ import {
   setToLocalStorage,
 } from "@/utils/LocalStorage/localStorage";
 
-
-
-
 export const storeUserInfo = ({ accessToken }: { accessToken: string }) => {
+  document.cookie = `${auth_key}=${accessToken}; path=/;`;
   return setToLocalStorage(auth_key, accessToken);
 };
 
@@ -18,7 +16,7 @@ export const getUserInfo = () => {
   const authToken = getFromLocalStorage(auth_key);
 
   if (authToken) {
-    const decodedData  = decodedToken(authToken);
+    const decodedData = decodedToken(authToken);
 
     return {
       ...decodedData,
@@ -27,10 +25,11 @@ export const getUserInfo = () => {
   }
 };
 
-export const removeUser = () =>{
+export const removeUser = () => {
+  document.cookie = `${auth_key}=; path=/;`;
   const removeFromLocalStorage = removeUserFromLocalStorage(auth_key);
-  return removeFromLocalStorage
-}
+  return removeFromLocalStorage;
+};
 
 export const getNewAccessToken = async () => {
   return await instance({

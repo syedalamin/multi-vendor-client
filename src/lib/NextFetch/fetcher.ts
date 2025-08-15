@@ -21,7 +21,7 @@ export async function apiFetcher(
       "Content-Type": "application/json",
       ...(token && { Authorization: `${token}` }),
     },
-    cache: "no-store",
+    // cache: "no-store",
     next: { tags, revalidate },
     signal: controller.signal,
   });
@@ -42,3 +42,38 @@ export async function apiFetcher(
     data: response?.data,
   };
 }
+export async function apiSingleFetcher(
+  endpoint: string,
+  { tags, revalidate }: { tags?: string[]; revalidate?: number } = {}
+): Promise<GetResponse> {
+  const baseUrl = "http://localhost:5000/api/v1";
+  const cookieStore = await cookies();
+  const token = cookieStore.get(auth_key)?.value;
+  //
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 5000);
+
+  const res = await fetch(`${baseUrl}${endpoint}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      ...(token && { Authorization: `${token}` }),
+    },
+    // cache: "no-store",
+    next: { tags, revalidate },
+    signal: controller.signal,
+  });
+
+  clearTimeout(timeout);
+
+  if (!res.ok) {
+    console.log("user is not login ");
+  }
+
+  const response = await res.json();
+
+  // console.log(response)
+  return response;
+}
+
+

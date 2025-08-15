@@ -2,8 +2,6 @@ import ImgProductCard from "@/_components/UI/Card/ImgProductCard";
 import { apiFetcher } from "@/lib/NextFetch/fetcher";
 import { Product } from "@/types/common";
 
-
-
 import { Grid, Stack, Typography } from "@mui/material";
 
 import React from "react";
@@ -17,7 +15,7 @@ const PopularProduct = async () => {
 
   if (product.success) {
     popularProduct = (
-      <>
+      <Stack>
         <Stack>
           <Typography
             py={2}
@@ -32,7 +30,7 @@ const PopularProduct = async () => {
               },
               fontWeight: {
                 xs: 600,
-                md: 700,  
+                md: 700,
               },
               lineHeight: {
                 xs: 1.4,
@@ -49,15 +47,13 @@ const PopularProduct = async () => {
           alignItems={"center"}
           justifyContent={"center"}
         >
-          {product.data.slice(0,12).map((item: Product) => (
-            <>
-              <Grid size={{ xs: 6, sm: 4, md: 12/4, lg: 12/5 }} >
-                <ImgProductCard item={item} key={item.id} />
-              </Grid>
-            </>
+          {product.data.slice(0, 12).map((item: Product) => (
+            <Grid key={item.id} size={{ xs: 6, sm: 4, md: 12 / 4, lg: 12 / 5 }}>
+              <ImgProductCard item={item} />
+            </Grid>
           ))}
         </Grid>
-      </>
+      </Stack>
     );
   } else {
     popularProduct = (

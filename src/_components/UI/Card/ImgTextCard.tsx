@@ -5,11 +5,13 @@ import CardActionArea from "@mui/material/CardActionArea";
 import { Category } from "@/types/common";
 
 import { CardMedia, Stack } from "@mui/material";
+import Link from "next/link";
 
 export default function ImgTextCard({ item }: { item: Category }) {
 
   return (
     <Card>
+     <Link href={`/category/${item?.slug}`}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -39,6 +41,7 @@ export default function ImgTextCard({ item }: { item: Category }) {
           </Typography>
         </Stack>
       </CardActionArea>
+     </Link>
     </Card>
   );
 }

@@ -14,7 +14,7 @@ const PopularCategory = async () => {
 
   if (category.success) {
     popularCategory = (
-      <>
+      <Stack>
         <Stack>
           <Typography
             py={2}
@@ -47,24 +47,24 @@ const PopularCategory = async () => {
           justifyContent={"center"}
         >
           {category.data.slice(0,12).map((item: Category) => (
-            <>
-              <Grid size={{ xs: 6, sm: 3, md: 2 }}>
-                <ImgTextCard item={item} key={item.id} />
+         
+              <Grid key={item.id}  size={{ xs: 6, sm: 3, md: 2 }}>
+                <ImgTextCard item={item} />
               </Grid>
-            </>
+           
           ))}
         </Grid>
-      </>
+      </Stack>
     );
   } else {
     popularCategory = (
-      <>
+      <Stack>
         <Typography>NO Data</Typography>
-      </>
+      </Stack>
     );
   }
 
-  return <>{popularCategory}</>;
+  return <Stack>{popularCategory}</Stack>;
 };
 
 export default PopularCategory;

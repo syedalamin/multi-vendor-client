@@ -5,13 +5,15 @@ import { useLoginUserMutation } from "@/redux/api/authApi";
 import { storeUserInfo } from "@/services/auth.services";
 import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 
 const LoginPage = () => {
   const router = useRouter();
+    const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect") || "/";
   const [error, setError] = useState("");
   const [loginUser] = useLoginUserMutation();
   const handleLogin = async (values: FieldValues) => {
@@ -23,7 +25,7 @@ const LoginPage = () => {
         storeUserInfo({ accessToken: res?.data?.data?.accessToken });
 
         toast.success("User Login Successfully");
-        router.push("/");
+         router.push(redirect);
       } else {
         setError(res?.message);
       }

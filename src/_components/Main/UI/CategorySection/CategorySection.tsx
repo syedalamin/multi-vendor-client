@@ -71,7 +71,9 @@ export default function CategorySectionDrawer({
             boxShadow: 1,
             py: 1,
             display: "flex",
+            justifyContent: "start",
             gap: 2,
+            overflow: "hidden"
           }}
           onClick={() => handleSubClick(sub.slug)}
         >
@@ -86,6 +88,7 @@ export default function CategorySectionDrawer({
               fontSize: {
                 xs: "1rem",
               },
+         
             }}
             fontWeight={500}
           >

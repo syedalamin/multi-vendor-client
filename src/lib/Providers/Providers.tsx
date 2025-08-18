@@ -11,7 +11,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
 
     <Provider store={store}>
       <CssBaseline/>
-      <Toaster/>
+     <Toaster position="top-center" richColors />
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </Provider>
   );

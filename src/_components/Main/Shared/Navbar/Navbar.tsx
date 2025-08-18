@@ -3,7 +3,6 @@
 import MenuModal from "@/_components/Shared/Modal/MenuModal";
 import AuthButton from "@/_components/UI/AuthButton";
 import {
-  AddShoppingCartOutlinedIcon,
   MenuOpenOutlinedIcon,
   SearchOutlinedIcon,
   CloseOutlinedIcon,
@@ -22,6 +21,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import { useState } from "react";
+import Cart from "../../UI/Cart/Cart";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -213,7 +213,7 @@ const Navbar = () => {
                 </Paper>
               </MenuModal>
 
-              <AddShoppingCartOutlinedIcon />
+              <Cart/>
 
               <AuthButton />
             </Stack>

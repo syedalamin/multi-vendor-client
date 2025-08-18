@@ -1,7 +1,9 @@
 export enum tagTypes {
-  admin = "admin"
-}
+  admin = "admin",
+  cart = "cart"
+} ;
 
 export const tagTypesList = [
     tagTypes.admin,
+    tagTypes.cart
 ]

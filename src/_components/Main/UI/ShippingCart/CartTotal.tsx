@@ -1,15 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Paper, Stack, Typography } from "@mui/material";
+import Link from "next/link";
 import React from "react";
 
 const CartTotal = (totalCart: any) => {
   // console.log(totalCart);
-  console.log(totalCart?.totalCart?.data?.data);
+  // console.log(totalCart?.totalCart?.data?.data);
 
   return (
-    <Box
-      sx={{ width: "100%", display: "flex", justifyContent: "center",}}
-    >
+    <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
       <Paper
         elevation={3}
         sx={{
@@ -93,7 +92,7 @@ const CartTotal = (totalCart: any) => {
           </Box>
         </Stack>
         <Stack
-        py={2}
+          py={2}
           flex={1}
           direction="row"
           justifyContent={"center"}
@@ -102,6 +101,8 @@ const CartTotal = (totalCart: any) => {
           spacing={2}
         >
           <Typography
+            component={Link}
+            href={"/shipping"}
             sx={{
               flex: 1,
               display: "flex",
@@ -121,7 +122,7 @@ const CartTotal = (totalCart: any) => {
             onMouseEnter={(e) => (e.currentTarget.style.background = "#43a047")}
             onMouseLeave={(e) => (e.currentTarget.style.background = "#4caf50")}
           >
-            Add to Cart
+            Checkout 
           </Typography>
         </Stack>
       </Paper>

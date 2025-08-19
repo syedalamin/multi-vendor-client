@@ -35,6 +35,7 @@ const EMInput = ({
           type={type}
           variant="outlined"
           size={size}
+          value={field.value ?? ""} 
           placeholder={placeholder || label}
           fullWidth={fullWidth}
           required={required}

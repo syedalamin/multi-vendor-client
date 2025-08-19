@@ -16,7 +16,7 @@ const ShippingCart = () => {
           <ShippingTable data={data?.data}  />
         </Grid>
         <Grid size={{ xs: 12, sm: 4 }}>
-          <CartTotal totalCart={totalCart}/>
+          <CartTotal totalCart={totalCart} />
         </Grid>
       </Grid>
     </Stack>

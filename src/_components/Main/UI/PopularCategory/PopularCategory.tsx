@@ -8,8 +8,6 @@ import React from "react";
 const PopularCategory = async () => {
   const category = await apiFetcher("/category");
 
-  
-
   let popularCategory;
 
   if (category.success) {
@@ -29,12 +27,13 @@ const PopularCategory = async () => {
               },
               fontWeight: {
                 xs: 600,
-                md: 700,  
+                md: 700,
               },
               lineHeight: {
                 xs: 1.4,
                 md: 1.6,
               },
+              textAlign: "center",
             }}
           >
             Popular Category
@@ -43,15 +42,15 @@ const PopularCategory = async () => {
         <Grid
           container
           spacing={2}
-          alignItems={"center"}
+          alignItems={"stretch"}
           justifyContent={"center"}
         >
-          {category.data.slice(0,12).map((item: Category) => (
-         
-              <Grid key={item.id}  size={{ xs: 6, sm: 3, md: 2 }}>
+          {category.data.slice(0, 12).map((item: Category) => (
+            <Grid key={item.id} size={{ xs: 6, sm: 3, md: 2 }}>
+              <Stack >
                 <ImgTextCard item={item} />
-              </Grid>
-           
+              </Stack>
+            </Grid>
           ))}
         </Grid>
       </Stack>
@@ -59,7 +58,7 @@ const PopularCategory = async () => {
   } else {
     popularCategory = (
       <Stack>
-        <Typography>NO Data</Typography>
+        <Typography textAlign={"center"}>NO Data</Typography>
       </Stack>
     );
   }

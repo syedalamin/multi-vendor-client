@@ -1,36 +1,24 @@
 "use client";
 
-import MenuModal from "@/_components/Shared/Modal/MenuModal";
 import AuthButton from "@/_components/UI/AuthButton";
-import {
-  MenuOpenOutlinedIcon,
-  SearchOutlinedIcon,
-  CloseOutlinedIcon,
-} from "@/_Icons";
+import { MenuOpenOutlinedIcon, CloseOutlinedIcon } from "@/_Icons";
 import {
   Button,
   Container,
   Divider,
   Drawer,
   Grid,
-  IconButton,
-  InputBase,
-  Paper,
   Stack,
   Typography,
 } from "@mui/material";
 import Link from "next/link";
 import { useState } from "react";
 import Cart from "../../UI/Cart/Cart";
+import SearchButtonWithModal from "@/_components/Shared/Buttons/SearchButtonWithModal";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -43,18 +31,54 @@ const Navbar = () => {
     { label: "Blog", hre: "/blog" },
   ];
 
+  const pathname = usePathname();
+
   const NavLinks = (
     <>
-      {NavItems.map(({ label, hre }) => (
-        <Typography key={hre} component={Link} href={hre}>
-          {label}
-        </Typography>
-      ))}
+      {NavItems.map(({ label, hre }) => {
+        const isActive = pathname === hre;
+        return (
+          <Typography
+            key={hre}
+            component={Link}
+            href={hre}
+            sx={{
+              textDecoration: "none",
+              fontWeight: 500,
+              color: isActive ? "#2e7d32" : "black",
+              position: "relative",
+              "&:after": {
+                content: '""',
+                position: "absolute",
+                width: isActive ? "100%" : "0%",
+                height: "2px",
+                bottom: "-3px",
+                left: 0,
+                bgcolor: "#2e7d32",
+                transition: "width 0.3s ease",
+              },
+              "&:hover:after": { width: "100%" },
+              "&:hover": { color: "#2e7d32" },
+            }}
+          >
+            {label}
+          </Typography>
+        );
+      })}
     </>
   );
   const MainLogo = <>Multi Vendor</>;
   return (
-    <Stack bgcolor={"white"} color={"black"} boxShadow={1}>
+    <Stack
+      bgcolor={"white"}
+      color={"black"}
+      boxShadow={1}
+      sx={{
+        position: "sticky",
+        top: 0,
+        zIndex: 1200,
+      }}
+    >
       <Container>
         <Grid py={2} container spacing={2} alignItems={"center"}>
           {/* Desktop Nav Bar*/}
@@ -85,9 +109,14 @@ const Navbar = () => {
               sx={{
                 backgroundColor: "white",
                 color: "black",
+                "&:hover": {
+                  backgroundColor: "white",
+                  boxShadow: 0,
+                },
                 padding: 0,
                 margin: 0,
                 minWidth: 0,
+                boxShadow: 0,
               }}
               onClick={toggleDrawer(true)}
             >
@@ -164,57 +193,12 @@ const Navbar = () => {
           <Grid size={{ xs: 4 }}>
             <Stack
               direction="row"
-              justifyContent={"right"}
+              justifyContent="flex-end"
               alignItems={"center"}
-              sx={{
-                gap: {
-                  xs: 1,
-                  sm: 2,
-                  md: 4,
-                },
-              }}
+              spacing={{ xs: 1, sm: 2, md: 4 }}
             >
-              <Button
-                onClick={handleClick}
-                disableRipple
-                sx={{
-                  backgroundColor: "white",
-                  color: "black",
-                  "&:hover": {
-                    backgroundColor: "white",
-                    boxShadow: 0,
-                  },
-                  padding: 0,
-                  margin: 0,
-                  minWidth: 0,
-                  boxShadow: 0,
-                }}
-              >
-                <SearchOutlinedIcon />
-              </Button>
-
-              <MenuModal
-                anchorEl={anchorEl}
-                setAnchorEl={setAnchorEl}
-                widths="24rem"
-              >
-                <Paper
-                  component="form"
-                  sx={{
-                    px: 2,
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <InputBase sx={{ flex: 1 }} />
-                  <IconButton type="button" aria-label="search">
-                    <SearchOutlinedIcon />
-                  </IconButton>
-                </Paper>
-              </MenuModal>
-
-              <Cart/>
-
+              <SearchButtonWithModal />
+              <Cart />
               <AuthButton />
             </Stack>
           </Grid>

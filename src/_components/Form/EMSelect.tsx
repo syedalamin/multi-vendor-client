@@ -40,9 +40,34 @@ const EMSelect = ({
           <FormControl
             fullWidth={fullWidth}
             size={size}
-            sx={sx}
             error={!!error}
             required={required}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                borderRadius: 1,
+                "& fieldset": {
+                  borderColor: "#e0e0e0",
+                },
+                "&:hover fieldset": {
+                  borderColor: "#2e7d32",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "#2e7d32",
+                  borderWidth: "2px",
+                  color: "#2e7d32",
+                },
+              },
+              "& .MuiOutlinedInput-input": {
+                color: "black",
+              },
+              "& .MuiInputLabel-root": {
+                color: "#9e9e9e",
+              },
+              "& .MuiInputLabel-root.Mui-focused": {
+                color: "#2e7d32",
+              },
+              ...sx,
+            }}
           >
             <InputLabel>{label}</InputLabel>
             <Select

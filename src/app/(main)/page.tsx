@@ -1,4 +1,5 @@
 import HeroSection from "@/_components/Main/UI/HeroSection/HeroSection";
+import SpecialCart from "@/_components/Main/UI/HeroSection/SpecialCart";
 import PopularCategory from "@/_components/Main/UI/PopularCategory/PopularCategory";
 import PopularProduct from "@/_components/Main/UI/Product/PopularProduct";
 import { Container, Stack } from "@mui/material";
@@ -10,6 +11,7 @@ const HomePage = () => {
         <HeroSection />
         <PopularCategory />
         <PopularProduct />
+        <SpecialCart/>
       </Stack>
     </Container>
   );

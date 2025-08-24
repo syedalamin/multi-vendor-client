@@ -5,7 +5,7 @@ import { useDeleteCartMutation } from "@/redux/api/cartApi";
 import { CardMedia, IconButton } from "@mui/material";
 import Box from "@mui/material/Box";
 import { DataGrid, GridColDef, GridDeleteIcon } from "@mui/x-data-grid";
-import { useMemo,  } from "react";
+import { useMemo } from "react";
 import { toast } from "sonner";
 
 export default function ShippingTable({ data }: { data: any }) {
@@ -132,6 +132,10 @@ export default function ShippingTable({ data }: { data: any }) {
         disableMultipleRowSelection
         disableVirtualization
         sx={{
+          border: "1px solid #e0e0e0",
+          background: "linear-gradient(135deg, #fafafa 0%, #ffffff 100%)",
+          color: "text.secondary",
+          borderRadius: 3,
           "& .MuiDataGrid-cell": {
             display: "flex",
             justifyContent: "center",

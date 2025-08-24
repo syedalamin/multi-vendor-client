@@ -36,6 +36,7 @@ const PopularProduct = async () => {
                 xs: 1.4,
                 md: 1.6,
               },
+              textAlign: "center"
             }}
           >
             Popular Product
@@ -44,7 +45,7 @@ const PopularProduct = async () => {
         <Grid
           container
           spacing={2}
-          alignItems={"center"}
+          alignItems={"stretch"}
           justifyContent={"center"}
         >
           {product.data.slice(0, 12).map((item: Product) => (

@@ -17,7 +17,7 @@ export default function ImgTextCard({ item }: { item: Category }) {
         transition: "transform 0.3s, box-shadow 0.3s",
         "&:hover": {
           transform: "translateY(-4px)",
-          boxShadow: "0 8px 16px rgba(0,0,0,0.12)",
+          boxShadow: "0 8px 16px rgba(0,0,0,0.15)",
         },
         display: "flex",
         flexDirection: "column",

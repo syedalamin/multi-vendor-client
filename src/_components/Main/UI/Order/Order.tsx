@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 
-import { useGetTotalCartQuery } from "@/redux/api/cartApi";
 import EMForm from "@/_components/Form/EMForm";
 import EMInput from "@/_components/Form/EMInput";
 import EMSelect from "@/_components/Form/EMSelect";
+import { useGetTotalCartQuery } from "@/redux/api/cartApi";
 import { Box, Button, Grid, Paper, Stack, Typography } from "@mui/material";
 
-import { FieldValues } from "react-hook-form";
 import { useCreateShippingMutation } from "@/redux/api/shippingApi";
+import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 
 const districtThanas: Record<string, { label: string; value: string }[]> = {
@@ -34,8 +34,6 @@ const Order = () => {
   const [createShipping] = useCreateShippingMutation();
   const [selectedDistrict, setSelectedDistrict] = useState<string>("");
 
-
-
   const deliveryCharge =
     !selectedDistrict || selectedDistrict === "Dhaka" ? 80 : 130;
   const discountTotal = totalCart?.data?.data?.totalDiscountPrice ?? 0;
@@ -43,14 +41,12 @@ const Order = () => {
 
   if (isLoading) return <Typography>Loading...</Typography>;
 
-  const handleBilling = async (values: FieldValues,) => {
+  const handleBilling = async (values: FieldValues) => {
     try {
       const { data }: any = await createShipping(values).unwrap();
 
       if (data?.success) {
         toast.success("Order Successful");
-   
-   
       }
     } catch (err) {
       console.log(err);
@@ -58,101 +54,118 @@ const Order = () => {
   };
 
   return (
-    <Stack py={5}>
+    <Stack py={1}>
       <Grid container spacing={4}>
-        <Grid size={{ xs: 12, sm: 8 }}>
-          <EMForm onSubmit={handleBilling}>
-            <Grid container spacing={3} my={5}>
-              <Grid size={{ md: 6 }}>
-                <EMInput name="firstName" label="First Name" fullWidth={true} />
-              </Grid>
-              <Grid size={{ md: 6 }}>
-                <EMInput name="lastName" label="Last Name" fullWidth={true} />
-              </Grid>
-              <Grid size={{ md: 6 }}>
-                <EMInput name="country" label="Country" fullWidth={true} />
+        <Grid size={{ xs: 12, sm: 6 , md: 8 }}>
+          <Box
+            sx={{
+              p: 4,
+              width: "100%",
+              borderRadius: 3,
+              border: "1px solid #e0e0e0",
+              background: "linear-gradient(135deg, #fafafa 0%, #ffffff 100%)",
+            }}
+          >
+            <EMForm onSubmit={handleBilling}>
+              <Grid container spacing={3}>
+                <Grid size={{xs: 12, md: 6 }}>
+                  <EMInput
+                    name="firstName"
+                    label="First Name"
+                    fullWidth={true}
+                  />
+                </Grid>
+                <Grid size={{xs: 12, md: 6 }}>
+                  <EMInput name="lastName" label="Last Name" fullWidth={true} />
+                </Grid>
+                <Grid size={{xs: 12, md: 6 }}>
+                  <EMInput name="country" label="Country" fullWidth={true} />
+                </Grid>
+
+                <Grid size={{xs: 12, md: 6 }}>
+                  <EMSelect
+                    name="districts"
+                    label="Districts"
+                    fullWidth={true}
+                    options={[
+                      { label: "Dhaka", value: "Dhaka" },
+                      { label: "Barisal", value: "Barisal" },
+                      { label: "Chittagong", value: "Chittagong" },
+                    ]}
+                    onChange={(e: any) => setSelectedDistrict(e.target.value)}
+                  />
+                </Grid>
+
+                <Grid size={{xs: 12, md: 6 }}>
+                  <EMSelect
+                    name="city"
+                    label="City"
+                    fullWidth={true}
+                    options={
+                      selectedDistrict ? districtThanas[selectedDistrict] : []
+                    }
+                    sx={{
+                      ...(!selectedDistrict
+                        ? {
+                            pointerEvents: "none",
+                            opacity: 0.6,
+                            cursor: "not-allowed",
+                          }
+                        : {}),
+                    }}
+                  />
+                </Grid>
+                <Grid size={{xs: 12, md: 6 }}>
+                  <EMInput name="address" label="Address" fullWidth={true} />
+                </Grid>
+                <Grid size={{xs: 12, md: 6 }}>
+                  <EMInput
+                    name="postalCode"
+                    label="Postal Code"
+                    fullWidth={true}
+                  />
+                </Grid>
+                <Grid size={{xs: 12, md: 6 }}>
+                  <EMInput name="phone" label="Phone" fullWidth={true} />
+                </Grid>
+                <Grid size={{xs: 12, md: 6 }}>
+                  <EMInput name="notes" label="Notes" fullWidth={true} />
+                </Grid>
               </Grid>
 
-              <Grid size={{ md: 6 }}>
-                <EMSelect
-                  name="districts"
-                  label="Districts"
-                  fullWidth
-                  options={[
-                    { label: "Dhaka", value: "Dhaka" },
-                    { label: "Barisal", value: "Barisal" },
-                    { label: "Chittagong", value: "Chittagong" },
-                  ]}
-                  onChange={(e: any) => setSelectedDistrict(e.target.value)}
-                />
-              </Grid>
-
-              <Grid size={{ md: 6 }}>
-                <EMSelect
-                  name="city"
-                  label="City"
-                  fullWidth
-                  options={
-                    selectedDistrict ? districtThanas[selectedDistrict] : []
+              <Box mt={3} display="flex" justifyContent="center">
+                <Button
+                  sx={{
+                    flex: 1,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    textAlign: "center",
+                    background: "#4caf50",
+                    color: "#fff",
+                    padding: "12px 20px",
+                    borderRadius: "30px",
+                    textDecoration: "none",
+                    fontWeight: "bold",
+                    fontSize: "1rem",
+                    transition: "background 0.3s ease",
+                    cursor: "pointer",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.background = "#43a047")
                   }
-                />
-              </Grid>
-              <Grid size={{ md: 6 }}>
-                <EMInput name="address" label="Address" fullWidth={true} />
-              </Grid>
-              <Grid size={{ md: 6 }}>
-                <EMInput
-                  name="postalCode"
-                  label="Postal Code"
-                  fullWidth={true}
-                />
-              </Grid>
-              <Grid size={{ md: 6 }}>
-                <EMInput name="phone" label="Phone" fullWidth={true} />
-              </Grid>
-              <Grid size={{ md: 6 }}>
-                <EMInput name="notes" label="Notes" fullWidth={true} />
-              </Grid>
-            </Grid>
-
-            <Box mt={3} display="flex" justifyContent="center">
-              <Button
-                sx={{
-                  flex: 1,
-                  maxWidth: "250px",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  textAlign: "center",
-                  background: "linear-gradient(135deg, #4caf50, #2e7d32)",
-                  color: "#fff",
-                  padding: "14px 24px",
-                  borderRadius: "40px",
-                  textDecoration: "none",
-                  fontWeight: "bold",
-                  fontSize: "1.1rem",
-                  letterSpacing: "0.5px",
-                  boxShadow: "0px 4px 12px rgba(0,0,0,0.2)",
-                  transition: "all 0.3s ease",
-                  cursor: "pointer",
-                  "&:hover": {
-                    background: "linear-gradient(135deg, #43a047, #1b5e20)",
-                    transform: "scale(1.05)",
-                    boxShadow: "0px 6px 16px rgba(0,0,0,0.3)",
-                  },
-                  "&:active": {
-                    transform: "scale(0.98)",
-                  },
-                }}
-                fullWidth
-                type="submit"
-              >
-                Place Order
-              </Button>
-            </Box>
-          </EMForm>
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.background = "#4caf50")
+                  }
+                  type="submit"
+                >
+                  Place Order
+                </Button>
+              </Box>
+            </EMForm>
+          </Box>
         </Grid>
-        <Grid size={{ xs: 12, sm: 4 }}>
+        <Grid size={{ xs: 12, sm: 6 , md: 4 }}>
           <Box
             sx={{ width: "100%", display: "flex", justifyContent: "center" }}
           >

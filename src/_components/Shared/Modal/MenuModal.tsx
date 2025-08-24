@@ -30,6 +30,7 @@ export default function MenuModal({
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
+        disableScrollLock={true}
         anchorOrigin={{
           vertical: "bottom",
           horizontal: isMobile ? "left" : "right",

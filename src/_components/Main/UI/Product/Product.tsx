@@ -35,7 +35,7 @@ const ProductData = async ({
   
         >
           {productData.data.map((item: Product) => (
-            <Grid key={item.id} size={{ xs: 6, sm: 4, md: 12 / 4 }}>
+            <Grid key={item.id} size={{ xs: 6, sm: 4, md: 12 / 4 }} >
               <ImgProductCard item={item} />
             </Grid>
           ))}

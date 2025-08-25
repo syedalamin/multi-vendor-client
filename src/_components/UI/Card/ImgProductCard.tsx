@@ -105,7 +105,7 @@ export default function ImgProductCard({ item }: { item: Product }) {
               </Box>
               <Rating
                 name="half-rating-read"
-                defaultValue={item.rating}
+                defaultValue={item.averageRating}
                 precision={0.5}
                 readOnly
                 size="small"

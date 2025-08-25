@@ -4,12 +4,12 @@ import { Product } from "@/types/common";
 
 import { Grid, Stack, Typography } from "@mui/material";
 
-import React from "react";
+
 
 const PopularProduct = async () => {
   const product = await apiFetcher("/product");
 
-  // console.log(product)
+
 
   let popularProduct;
 

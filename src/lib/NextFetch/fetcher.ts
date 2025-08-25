@@ -21,7 +21,7 @@ export async function apiFetcher(
       "Content-Type": "application/json",
       ...(token && { Authorization: `${token}` }),
     },
-    // cache: "no-store",
+    cache: "no-store",
     next: { tags, revalidate },
     signal: controller.signal,
   });

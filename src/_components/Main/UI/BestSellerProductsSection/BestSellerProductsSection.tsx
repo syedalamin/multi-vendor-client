@@ -6,7 +6,7 @@ import { apiFetcher } from "@/lib/NextFetch/fetcher";
 import BestSeller from "./BestSeller";
 import TopRated from "./TopRated";
 
-const BestSellerProductsSection = async() => {
+const BestSellerProductsSection = async () => {
   const productData = await apiFetcher(`/product`);
   return (
     <Stack>
@@ -36,7 +36,7 @@ const BestSellerProductsSection = async() => {
           Featured Products
         </Typography>
       </Stack>
-      <BestSellerProducts  productData={productData}/>
+      <BestSellerProducts productData={productData} />
       <Grid container spacing={4}>
         <Grid size={{ xs: 12, sm: 6, md: 4 }}>
           <Typography
@@ -47,9 +47,9 @@ const BestSellerProductsSection = async() => {
               fontSize: {
                 xs: "1.3rem",
               },
-
               textAlign: "left",
             }}
+            fontWeight={600}
           >
             Hot Deals
           </Typography>
@@ -64,13 +64,13 @@ const BestSellerProductsSection = async() => {
               fontSize: {
                 xs: "1.3rem",
               },
-
               textAlign: "left",
             }}
+            fontWeight={600}
           >
             Best Seller
           </Typography>
-         <BestSeller productData={productData} />
+          <BestSeller productData={productData} />
         </Grid>
         <Grid size={{ xs: 12, sm: 6, md: 4 }}>
           <Typography
@@ -81,13 +81,13 @@ const BestSellerProductsSection = async() => {
               fontSize: {
                 xs: "1.3rem",
               },
-
               textAlign: "left",
             }}
+            fontWeight={600}
           >
             Top Rated
           </Typography>
-         <TopRated productData={productData} />
+          <TopRated productData={productData} />
         </Grid>
       </Grid>
     </Stack>

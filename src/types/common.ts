@@ -72,3 +72,8 @@ export type Product = {
     slug: string;
   };
 };
+
+
+export type ProductPageProps = {
+  searchParams: { page?: number; limit?: number };
+};

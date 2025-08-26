@@ -56,7 +56,7 @@ const Order = () => {
   return (
     <Stack py={1}>
       <Grid container spacing={4}>
-        <Grid size={{ xs: 12, sm: 6 , md: 8 }}>
+        <Grid size={{ xs: 12, sm: 6, md: 8 }}>
           <Box
             sx={{
               p: 4,
@@ -68,21 +68,21 @@ const Order = () => {
           >
             <EMForm onSubmit={handleBilling}>
               <Grid container spacing={3}>
-                <Grid size={{xs: 12, md: 6 }}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <EMInput
                     name="firstName"
                     label="First Name"
                     fullWidth={true}
                   />
                 </Grid>
-                <Grid size={{xs: 12, md: 6 }}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <EMInput name="lastName" label="Last Name" fullWidth={true} />
                 </Grid>
-                <Grid size={{xs: 12, md: 6 }}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <EMInput name="country" label="Country" fullWidth={true} />
                 </Grid>
 
-                <Grid size={{xs: 12, md: 6 }}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <EMSelect
                     name="districts"
                     label="Districts"
@@ -96,7 +96,7 @@ const Order = () => {
                   />
                 </Grid>
 
-                <Grid size={{xs: 12, md: 6 }}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <EMSelect
                     name="city"
                     label="City"
@@ -115,20 +115,20 @@ const Order = () => {
                     }}
                   />
                 </Grid>
-                <Grid size={{xs: 12, md: 6 }}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <EMInput name="address" label="Address" fullWidth={true} />
                 </Grid>
-                <Grid size={{xs: 12, md: 6 }}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <EMInput
                     name="postalCode"
                     label="Postal Code"
                     fullWidth={true}
                   />
                 </Grid>
-                <Grid size={{xs: 12, md: 6 }}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <EMInput name="phone" label="Phone" fullWidth={true} />
                 </Grid>
-                <Grid size={{xs: 12, md: 6 }}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <EMInput name="notes" label="Notes" fullWidth={true} />
                 </Grid>
               </Grid>
@@ -165,7 +165,7 @@ const Order = () => {
             </EMForm>
           </Box>
         </Grid>
-        <Grid size={{ xs: 12, sm: 6 , md: 4 }}>
+        <Grid size={{ xs: 12, sm: 6, md: 4 }}>
           <Box
             sx={{ width: "100%", display: "flex", justifyContent: "center" }}
           >
@@ -186,7 +186,7 @@ const Order = () => {
                   mb: 3,
                   textAlign: "center",
                   fontWeight: "bold",
-                  color: "primary.main",
+                  color: "#2e7d32",
                   letterSpacing: 0.5,
                 }}
               >

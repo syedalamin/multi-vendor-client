@@ -51,9 +51,9 @@ const Navbar = () => {
                 content: '""',
                 position: "absolute",
                 width: isActive ? "100%" : "0%",
-                height: "2px",
                 bottom: "-3px",
                 left: 0,
+                height: "2px",
                 bgcolor: "#2e7d32",
                 transition: "width 0.3s ease",
               },
@@ -72,11 +72,12 @@ const Navbar = () => {
     <Stack
       bgcolor={"white"}
       color={"black"}
-      boxShadow={1}
       sx={{
         position: "sticky",
         top: 0,
         zIndex: 1200,
+        borderBottom: "2px solid #2e7d32",
+        transition: "box-shadow 0.4s ease, border-bottom-color 0.4s ease",
       }}
     >
       <Container>

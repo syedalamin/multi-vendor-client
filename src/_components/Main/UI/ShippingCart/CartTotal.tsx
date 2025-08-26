@@ -23,7 +23,7 @@ const CartTotal = (totalCart: any) => {
             mb: 3,
             textAlign: "center",
             fontWeight: "bold",
-            color: "primary.main",
+            color: "#2e7d32",
             letterSpacing: 0.5,
           }}
         >

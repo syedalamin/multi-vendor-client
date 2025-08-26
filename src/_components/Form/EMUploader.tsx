@@ -24,12 +24,21 @@ const EMUploader = ({ name, label, sx }: TProps) => {
             overflow: "hidden",
             textOverflow: "ellipsis",
             whiteSpace: "nowrap",
+            background: "#43a047",
+            color: "#fff",
+            fontWeight: 600,
+            textTransform: "none",
+            borderRadius: "12px",
+            py: 1.2,
+            px: 2,
+            minHeight: 48,
+          
           }}
           component="label"
           role={undefined}
           variant="contained"
           tabIndex={-1}
-          startIcon={<CloudUploadIcon />}
+          startIcon={<CloudUploadIcon sx={{ fontSize: 22 }} />}
         >
           {value ? value.name : label || "Upload file"}
           <Input

@@ -14,7 +14,7 @@ const Cart = () => {
   }
 
   return (
-    <Badge color="secondary" badgeContent={badgeCount}>
+    <Badge color="success" badgeContent={badgeCount}>
       <Typography
        component={Link}
        href={"/cart"}

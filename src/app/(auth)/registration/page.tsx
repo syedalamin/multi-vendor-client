@@ -36,23 +36,20 @@ const RegistrationPage = () => {
     try {
       const res = await registerCustomer(data).unwrap();
 
-   
-
-      if (res?.data?.id) {
-        toast.success("user created successfully");
+      if (res?.data?.data?.id) {
+        toast.success(res?.data?.message);
 
         const userRes = await loginUser({
           password,
           email,
         }).unwrap();
-  
-        if (userRes?.data?.accessToken) {
-          // console.log(res?.data?.accessToken)
-          storeUserInfo({ accessToken: userRes?.data?.accessToken });
-          toast.success("User Login Successfully");
+        console.log(userRes);
+        if (userRes?.data?.data?.accessToken) {
+          storeUserInfo({ accessToken: userRes?.data?.data?.accessToken });
+          toast.success(userRes?.data?.message);
           router.push("/");
         } else {
-          console.log(res?.message);
+          console.log(userRes?.data?.message);
         }
       }
     } catch (err) {
@@ -63,16 +60,23 @@ const RegistrationPage = () => {
     <Container>
       <Stack height={"100vh"} justifyContent={"center"} alignItems={"center"}>
         <Box
-          boxShadow={1}
-          borderRadius={1}
           maxWidth={600}
           py={5}
           px={3}
-          width={"100%"}
+          sx={{
+            width: "100%",
+            borderRadius: 3,
+            border: "1px solid #e0e0e0",
+            background: "linear-gradient(135deg, #fafafa 0%, #ffffff 100%)",
+          }}
         >
           <Stack justifyContent={"center"} alignItems={"center"}>
             <Box>
-              <Typography variant="h6" fontWeight={600}>
+              <Typography
+                variant="h4"
+                fontWeight={600}
+                sx={{ color: "#2e7d32" }}
+              >
                 Registration
               </Typography>
             </Box>
@@ -119,20 +123,35 @@ const RegistrationPage = () => {
                 </Grid>
               </Grid>
               <Box>
-                <Typography component={"p"} textAlign={"end"}>
-                  <Link href={"/registration"}>Forget Password</Link>
+                <Typography textAlign={"right"} fontSize={"0.9rem"} pb={2}>
+                  <Link href={"/forget-password"} style={{ color: "#4caf50" }}>
+                    Forgot Password?
+                  </Link>
                 </Typography>
                 <Button
-                  sx={{
-                    margin: "20px 0px",
-                  }}
-                  fullWidth
                   type="submit"
+                  fullWidth
+                  sx={{
+                    backgroundColor: "#4caf50",
+                    color: "#fff",
+                    py: 1,
+                    borderRadius: "30px",
+                    fontWeight: 600,
+                    fontSize: "1rem",
+                    textTransform: "none",
+                    transition: "all 0.3s ease",
+                    "&:hover": {
+                      backgroundColor: "#43a047",
+                    },
+                  }}
                 >
                   Registration
                 </Button>
-                <Typography component={"p"} textAlign={"center"}>
-                  Do You Have An Account? <Link href={"/login"}>Login</Link>
+                <Typography textAlign={"center"} mt={3} fontSize={"0.95rem"}>
+                  Do You Have An Account?{" "}
+                  <Link href={"/login"} style={{ color: "#4caf50" }}>
+                    Login
+                  </Link>
                 </Typography>
               </Box>
             </EMForm>

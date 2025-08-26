@@ -7,12 +7,14 @@ interface PaginationClientProps {
   page: number;
   totalPages: number;
   limit: number;
+  url: string
 }
 
 export default function PaginationClient({
   page,
   totalPages,
   limit,
+  url
 }: PaginationClientProps) {
   return (
     <Stack py={4} alignItems="center">
@@ -41,7 +43,7 @@ export default function PaginationClient({
         renderItem={(item) => (
           <PaginationItem
             component={Link}
-            href={`/product?page=${item.page}&limit=${limit}`}
+            href={`/${url}?page=${item.page}&limit=${limit}`}
             {...item}
           />
         )}

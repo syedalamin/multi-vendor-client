@@ -1,5 +1,4 @@
 
-
 "use client";
 
 import { Product } from "@/types/common";
@@ -9,7 +8,6 @@ import React, { useState } from "react";
 import AddToCart from "@/lib/Button/AddToCart";
 
 const SingleProduct = ({ singleProduct }: { singleProduct: Product }) => {
-
 
   const {
     name,
@@ -27,7 +25,7 @@ const SingleProduct = ({ singleProduct }: { singleProduct: Product }) => {
   // main image state
   const [mainImage, setMainImage] = useState(productImages[0]);
 
-  // Random 4 images excluding first one
+
   const sideImages = [...productImages].slice(0, 4);
   const formattedPrice = Number(price).toFixed(2);
 
@@ -219,6 +217,7 @@ const SingleProduct = ({ singleProduct }: { singleProduct: Product }) => {
           </Stack>
         </Grid>
       </Grid>
+
     </Stack>
   );
 };

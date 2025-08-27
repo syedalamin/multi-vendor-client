@@ -1,7 +1,12 @@
 import ShippingCart from "@/_components/Main/UI/ShippingCart/ShippingCart";
 import { Container} from "@mui/material";
 
-
+import type { Metadata } from 'next'
+ 
+export const metadata: Metadata = {
+  title: 'Cart',
+  description: '...',
+}
 const CartPage = () => {
     
   return (

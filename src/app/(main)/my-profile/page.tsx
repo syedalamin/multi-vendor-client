@@ -1,15 +1,16 @@
-import { Stack } from '@mui/material';
-import { Metadata } from 'next';
-import React from 'react';
+import MyProfile from "@/_components/Main/UI/MyProfile/MyProfile";
+import { Container } from "@mui/material";
+import { Metadata } from "next";
+import React from "react";
 export const metadata: Metadata = {
-  title: 'My Profile',
-  description: '...',
-}
+  title: "My Profile",
+  description: "...",
+};
 const MyProfilePage = () => {
   return (
-    <Stack>
-        Profile page
-    </Stack>
+    <Container>
+      <MyProfile />
+    </Container>
   );
 };
 

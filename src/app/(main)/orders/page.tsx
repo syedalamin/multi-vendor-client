@@ -1,4 +1,5 @@
-import { Stack } from "@mui/material";
+import MyOrder from "@/_components/Main/UI/Order/MyOrder";
+import { Container } from "@mui/material";
 import { Metadata } from "next";
 import React from "react";
 export const metadata: Metadata = {
@@ -6,7 +7,9 @@ export const metadata: Metadata = {
   description: "...",
 };
 const MyOrdersPage = () => {
-  return <Stack>my orders</Stack>;
+  return <Container>
+    <MyOrder/>
+  </Container>;
 };
 
 export default MyOrdersPage;

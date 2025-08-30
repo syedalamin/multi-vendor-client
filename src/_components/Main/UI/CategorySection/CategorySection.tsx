@@ -5,14 +5,16 @@ import {
   Box,
   Drawer,
   Typography,
-  IconButton,
+
   CardActionArea,
   CardMedia,
+  Button,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+
 import SubCategoryData from "./SubCategoryData";
 import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
+import { ArrowRightAltOutlined } from "@mui/icons-material";
 
 const drawerWidth = 220;
 
@@ -73,7 +75,7 @@ export default function CategorySectionDrawer({
             display: "flex",
             justifyContent: "start",
             gap: 2,
-            overflow: "hidden"
+            overflow: "hidden",
           }}
           onClick={() => handleSubClick(sub.slug)}
         >
@@ -88,7 +90,6 @@ export default function CategorySectionDrawer({
               fontSize: {
                 xs: "1rem",
               },
-         
             }}
             fontWeight={500}
           >
@@ -103,14 +104,39 @@ export default function CategorySectionDrawer({
     <Box sx={{ display: { sm: "flex" } }}>
       {/* Navbar */}
 
-      <IconButton
+      <Button
+        type="button"
+        size="small"
+        onClick={handleDrawerToggle}
+        startIcon={<ArrowRightAltOutlined />}
+        variant="contained"
+        sx={{
+          mr: 2,
+          display: { sm: "none" },
+          background: "linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)",
+          color: "white",
+          fontWeight: 600,
+          borderRadius: "2px",
+          textTransform: "none",
+          px: 5,
+          py: 1,
+          boxShadow: "0px 4px 12px rgba(0,0,0,0.15)",
+          "&:hover": {
+            background: "linear-gradient(135deg, #2a5298 0%, #1e3c72 100%)",
+            boxShadow: "0px 6px 16px rgba(0,0,0,0.2)",
+          },
+        }}
+      >
+       All Sub Category 
+      </Button>
+      {/* <IconButton
         color="inherit"
         edge="start"
-        onClick={handleDrawerToggle}
+       
         sx={{ mr: 2, display: { sm: "none" } }}
       >
         <MenuIcon />
-      </IconButton>
+      </IconButton> */}
 
       {/* Sidebar */}
       <Box
@@ -149,6 +175,7 @@ export default function CategorySectionDrawer({
               boxSizing: "border-box",
               height: "100vh",
               position: "relative",
+              zIndex: 1000,
             },
           }}
           open

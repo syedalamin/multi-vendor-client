@@ -21,7 +21,9 @@ export async function generateMetadata({ params }: CategoryParams) {
 const CategorySlugPage = async ({ params }: CategoryParams) => {
   const { category } = await params;
 
+ 
   const singleSubCategory = await apiSingleFetcher(`/category/${category}`);
+
 
   return (
     <Stack>

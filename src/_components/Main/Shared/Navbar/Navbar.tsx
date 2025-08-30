@@ -173,7 +173,7 @@ const Navbar = () => {
             </Drawer>
           </Grid>
           {/* Logo  */}
-          <Grid size={{ xs: 4 }}>
+          <Grid size={{ xs: 4 , }}>
             <Stack direction="row" justifyContent={"center"}>
               <Typography
                 variant="h5"
@@ -182,6 +182,10 @@ const Navbar = () => {
                   fontSize: {
                     xs: "1rem",
                     sm: "1.25rem",
+                  },
+                  display:{
+                    xs: "none",
+                    sm: "block"
                   },
                   fontWeight: 500,
                 }}
@@ -196,7 +200,7 @@ const Navbar = () => {
               direction="row"
               justifyContent="flex-end"
               alignItems={"center"}
-              spacing={{ xs: 1, sm: 2, md: 4 }}
+              spacing={{ xs: 3, sm: 2, md: 4 }}
             >
               <SearchButtonWithModal />
               <Cart />

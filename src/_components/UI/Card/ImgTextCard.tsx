@@ -34,8 +34,8 @@ export default function ImgTextCard({ item }: { item: Category }) {
             image={item.image}
             alt={item.name}
             sx={{
-              height: "100%",
               width: "100%",
+              height: { xs: "160px", sm: "140px" },
               objectFit: "cover",
             }}
           />
@@ -54,7 +54,7 @@ export default function ImgTextCard({ item }: { item: Category }) {
                   md: "16px",
                 },
                 color: "#333",
-                textAlign: "center"
+                textAlign: "center",
               }}
               fontWeight={700}
             >

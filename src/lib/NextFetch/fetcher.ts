@@ -8,7 +8,7 @@ export async function apiFetcher(
   endpoint: string,
   { tags, revalidate }: { tags?: string[]; revalidate?: number } = {}
 ): Promise<GetResponse> {
-  const baseUrl = "http://localhost:5000/api/v1";
+  const baseUrl = process.env.BASE_URL;
   const cookieStore = await cookies();
   const token = cookieStore.get(auth_key)?.value;
   //
@@ -46,7 +46,7 @@ export async function apiSingleFetcher(
   endpoint: string,
   { tags, revalidate }: { tags?: string[]; revalidate?: number } = {}
 ): Promise<GetResponse> {
-  const baseUrl = "http://localhost:5000/api/v1";
+  const baseUrl = process.env.BASE_URL;
   const cookieStore = await cookies();
   const token = cookieStore.get(auth_key)?.value;
   //

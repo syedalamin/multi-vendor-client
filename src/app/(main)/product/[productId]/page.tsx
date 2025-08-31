@@ -7,7 +7,7 @@ import { Container } from "@mui/material";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ productId: string }>;
+  params: { productId: string };
 }) {
   const { productId } = await params;
 
@@ -39,7 +39,7 @@ export async function generateMetadata({
 const SingleProductPage = async ({
   params,
 }: {
-  params: Promise<{ productId: string }>;
+  params: { productId: string };
 }) => {
   const { productId } = await params;
   const singleProduct = await apiSingleFetcher(`/product/${productId}`);

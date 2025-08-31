@@ -16,7 +16,6 @@ const ProductPage = async ({ searchParams }: ProductPageProps) => {
   const limit = (await Number(params?.limit)) || 12;
   return (
     <Container>
-      {/* <SearchResult searchTerm="green"/> */}
       <ProductData page={page} limit={limit} />
     </Container>
   );

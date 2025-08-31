@@ -1,19 +1,18 @@
 "use client";
 import { Stack } from "@mui/material";
 import { useSearchParams } from "next/navigation";
-import React from "react";
-import AllProductData from "./AllProduct";
+import AllCategory from "./AllCategory";
 
-
-const Product = () => {
+const Category = () => {
   const searchParams = useSearchParams();
 
   const page = Number(searchParams.get("page")) || 1;
   const limit = Number(searchParams.get("limit")) || 12;
 
+
   return <Stack>
-    <AllProductData page={page} limit={limit}/>
+    <AllCategory page={page} limit={limit} />
   </Stack>;
 };
 
-export default Product;
+export default Category;

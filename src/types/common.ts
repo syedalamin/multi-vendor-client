@@ -74,6 +74,12 @@ export type Product = {
 };
 
 
+
+
 export type ProductPageProps = {
-  searchParams: { page?: number; limit?: number };
+  searchParams?: {
+    page?: string;
+    limit?: string;
+  };
 };
+

@@ -1,25 +1,30 @@
-import ImgTextCard from "@/_components/UI/Card/ImgTextCard";
-import { apiFetcher } from "@/lib/NextFetch/fetcher";
-import { Category } from "@/types/common";
-import { Grid, Stack, Typography } from "@mui/material";
 
+import ImgTextCard from "@/_components/UI/Card/ImgTextCard";
+import { Grid, Stack, Typography,} from "@mui/material";
 import React from "react";
 import PaginationClient from "../Product/PaginationToClient";
+import { useGetAllCategoryQuery } from "@/redux/api/categoryApi";
+import { Category } from "@/types/common";
 
-const AllCategory = async ({
+const AllCategory =  ({
   page,
   limit,
 }: {
   page: number;
   limit: number;
 }) => {
-  const categoryData = await apiFetcher(`/category?limit=${limit}&page=${page}`);
+
+  const {data: categoryData} = useGetAllCategoryQuery({page, limit})
+
+
+
   const total = categoryData?.meta?.total || 0;
   const totalPages = Math.ceil(total / limit);
 
   let category;
 
-  if (categoryData.success) {
+
+  if (categoryData?.success) {
     category = (
       <Stack>
         <Stack>
@@ -79,6 +84,8 @@ const AllCategory = async ({
   }
 
   return <Stack>{category}</Stack>;
+
+
 };
 
 export default AllCategory;

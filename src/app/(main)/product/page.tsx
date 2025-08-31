@@ -1,7 +1,4 @@
-import ProductData from "@/_components/Main/UI/Product/Product";
-
-import { ProductPageProps } from "@/types/common";
-
+import Product from "@/_components/Main/UI/Product/Product";
 import { Container } from "@mui/material";
 import type { Metadata } from "next";
 
@@ -10,13 +7,10 @@ export const metadata: Metadata = {
   description: "...",
 };
 
-const ProductPage = async ({ searchParams }: ProductPageProps) => {
-  const params = await searchParams;
-  const page = (await Number(params?.page)) || 1;
-  const limit = (await Number(params?.limit)) || 12;
+const ProductPage = () => {
   return (
     <Container>
-      <ProductData page={page} limit={limit} />
+      <Product />
     </Container>
   );
 };

@@ -1,29 +1,22 @@
-import { Stack } from "@mui/material";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
-import CategoryParams from "@/_components/UI/Category/CategoryParams";
-import CategorySectionDrawer from "@/_components/Main/UI/CategorySection/CategorySection";
-import { apiSingleFetcher } from "@/lib/NextFetch/fetcher";
-interface CategoryParams {
-  params: { category: string };
-}
-
-export async function generateMetadata({ params }: CategoryParams) {
+export async function generateMetadata({ params }: { params: any }) {
   const { category } = await params;
 
   const singleSubCategory = await apiSingleFetcher(`/category/${category}`);
-
-  // console.log(singleSubCategory.data.name)
   return {
     title: singleSubCategory.data.name,
-  }
+  };
 }
 
-const CategorySlugPage = async ({ params }: CategoryParams) => {
+import CategorySectionDrawer from "@/_components/Main/UI/CategorySection/CategorySection";
+import CategoryParams from "@/_components/UI/Category/CategoryParams";
+import { apiSingleFetcher } from "@/lib/NextFetch/fetcher";
+import { Stack } from "@mui/material";
+
+const CategorySlugPage = async ({ params }: { params: any }) => {
   const { category } = await params;
-
- 
   const singleSubCategory = await apiSingleFetcher(`/category/${category}`);
-
 
   return (
     <Stack>

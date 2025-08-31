@@ -13,7 +13,7 @@ export async function apiFetcher(
   const token = cookieStore.get(auth_key)?.value;
   //
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 5000);
+  const timeout = setTimeout(() => controller.abort(), 50000);
 
   const res = await fetch(`${baseUrl}${endpoint}`, {
     method: "GET",
@@ -51,7 +51,7 @@ export async function apiSingleFetcher(
   const token = cookieStore.get(auth_key)?.value;
   //
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 5000);
+  const timeout = setTimeout(() => controller.abort(), 50000);
 
   const res = await fetch(`${baseUrl}${endpoint}`, {
     method: "GET",

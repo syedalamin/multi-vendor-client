@@ -22,7 +22,7 @@ const SearchButtonWithModal = () => {
     setAnchorEl(event.currentTarget);
   };
 
-  const { data } = useGetProductsQuery(inputValue, {
+  const { data } = useGetProductsQuery({searchTerm: inputValue}, {
     skip: inputValue === "",
     refetchOnFocus: true,
     refetchOnMountOrArgChange: true,

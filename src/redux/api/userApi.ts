@@ -10,7 +10,18 @@ const userApi = baseApi.injectEndpoints({
         data: data,
       }),
     }),
+    createAdmin: builder.mutation({
+      query: (data) => ({
+        url: "/user/create-admin",
+        method: "POST",
+        contentType: "application/json",
+        data: data,
+      }),
+      transformResponse: (response) => {
+        return response.data;
+      },
+    }),
   }),
 });
 
-export const { useRegisterCustomerMutation } = userApi;
+export const { useRegisterCustomerMutation, useCreateAdminMutation } = userApi;

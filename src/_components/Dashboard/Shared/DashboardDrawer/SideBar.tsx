@@ -8,6 +8,7 @@ import drawerItems from "@/utils/DashboardItems/drawerItems";
 import { useEffect, useState } from "react";
 import { getUserInfo } from "@/services/auth.services";
 import { USER_ROLE } from "@/types/common";
+import { Stack } from "@mui/material";
 
 const SideBar = () => {
   const [userRole, setUserRole] = useState("");
@@ -17,7 +18,7 @@ const SideBar = () => {
     setUserRole(role as string);
   }, []);
   return (
-    <>
+    <Stack>
       <Toolbar />
       <Divider />
       <List>
@@ -26,7 +27,7 @@ const SideBar = () => {
         ))}
       </List>
       <Divider />
-    </>
+    </Stack>
   );
 };
 

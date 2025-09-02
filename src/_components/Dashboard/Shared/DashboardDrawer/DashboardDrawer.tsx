@@ -13,6 +13,8 @@ import SideBar from "./SideBar";
 
 const drawerWidth = 240;
 
+
+
 export default function DashboardDrawer({
   children,
 }: {
@@ -35,8 +37,7 @@ export default function DashboardDrawer({
       setMobileOpen(!mobileOpen);
     }
   };
-
-
+  const MainLogo = <>Multi Vendor</>;
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -45,6 +46,9 @@ export default function DashboardDrawer({
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
+  
+          background: "white",
+          color: "black",
         }}
       >
         <Toolbar>
@@ -58,7 +62,7 @@ export default function DashboardDrawer({
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Responsive drawer
+           {MainLogo} 
           </Typography>
         </Toolbar>
       </AppBar>
@@ -86,7 +90,7 @@ export default function DashboardDrawer({
             },
           }}
         >
-          <SideBar/>
+          <SideBar />
         </Drawer>
         <Drawer
           variant="permanent"
@@ -99,7 +103,7 @@ export default function DashboardDrawer({
           }}
           open
         >
-          <SideBar/>
+          <SideBar />
         </Drawer>
       </Box>
       <Box
@@ -107,10 +111,10 @@ export default function DashboardDrawer({
         sx={{
           flexGrow: 1,
           p: 3,
+          mt: 7,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
-      
         {children}
       </Box>
     </Box>

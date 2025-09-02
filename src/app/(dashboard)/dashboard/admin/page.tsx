@@ -1,19 +1,17 @@
 "use client";
 
 import { useGetAllAdminsQuery } from "@/redux/api/adminApi";
+import { Stack } from "@mui/material";
 import React from "react";
 
 const AdminPage = () => {
-
-  const {data} = useGetAllAdminsQuery({})
+  const { data } = useGetAllAdminsQuery({});
 
   console.log(data);
   return (
-    <div className="mt-20 text-black">
-      
-
+    <Stack>
       <h2>Admin Page</h2>
-    </div>
+    </Stack>
   );
 };
 

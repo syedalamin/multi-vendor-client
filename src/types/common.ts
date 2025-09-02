@@ -23,8 +23,7 @@ export type USER_ROLE = keyof typeof user_role;
 
 export interface DrawerItem {
   title: string;
-  path: string;
-  parentPath?: string;
+  path?: string;
   icon?: OverridableComponent<SvgIconTypeMap<object, "svg">> & {
     muiName: string;
   };

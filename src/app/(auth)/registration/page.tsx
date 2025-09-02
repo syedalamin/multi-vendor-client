@@ -35,7 +35,7 @@ const RegistrationPage = () => {
 
     try {
       const res = await registerCustomer(data).unwrap();
-
+      
       if (res?.data?.data?.id) {
         toast.success(res?.data?.message);
 
@@ -84,17 +84,17 @@ const RegistrationPage = () => {
           <Box>
             <EMForm onSubmit={handleRegistration}>
               <Grid wrap="wrap" container spacing={2} my={4}>
-                <Grid size={{ md: 6 }}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <EMInput
                     name="firstName"
                     label="First Name"
                     fullWidth={true}
                   />
                 </Grid>
-                <Grid size={{ md: 6 }}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <EMInput name="lastName" label="Last Name" fullWidth={true} />
                 </Grid>
-                <Grid size={{ md: 6 }}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <EMInput
                     name="email"
                     label="Email"
@@ -102,7 +102,7 @@ const RegistrationPage = () => {
                     fullWidth={true}
                   />
                 </Grid>
-                <Grid size={{ md: 6 }}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <EMInput
                     name="password"
                     label="Password"
@@ -111,14 +111,14 @@ const RegistrationPage = () => {
                     fullWidth={true}
                   />
                 </Grid>
-                <Grid size={{ md: 6 }}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <EMInput
                     name="contactNumber"
                     label="Contact Number"
                     fullWidth={true}
                   />
                 </Grid>
-                <Grid size={{ md: 6 }}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <EMUploader name="file" label="Upload" />
                 </Grid>
               </Grid>

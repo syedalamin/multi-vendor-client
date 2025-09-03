@@ -5,7 +5,7 @@ import axios, { AxiosResponse } from "axios";
 
 const instance = axios.create();
 
-instance.defaults.headers.post["Content-Type"] = "application/json";
+// instance.defaults.headers.post["Content-Type"] = "application/json";
 instance.defaults.headers.common["Accept"] = "application/json";
 instance.defaults.timeout = 60000;
 instance.defaults.withCredentials = true;

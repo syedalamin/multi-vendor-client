@@ -1,3 +1,4 @@
+import { tagTypes } from "../tag-types";
 import { baseApi } from "./baseApi";
 
 const userApi = baseApi.injectEndpoints({
@@ -6,7 +7,7 @@ const userApi = baseApi.injectEndpoints({
       query: (data) => ({
         url: "/user/create-customer",
         method: "POST",
-        contentType: "application/json",
+        // contentType: "application/json",
         data: data,
       }),
     }),
@@ -14,14 +15,27 @@ const userApi = baseApi.injectEndpoints({
       query: (data) => ({
         url: "/user/create-admin",
         method: "POST",
-        contentType: "application/json",
+   
         data: data,
       }),
       transformResponse: (response) => {
         return response.data;
       },
+      invalidatesTags: [tagTypes.admin],
+    }),
+    createVendor: builder.mutation({
+      query: (data) => ({
+        url: "/user/create-vendor",
+        method: "POST",
+   
+        data: data,
+      }),
+      transformResponse: (response) => {
+        return response.data;
+      },
+      invalidatesTags: [tagTypes.vendor],
     }),
   }),
 });
 
-export const { useRegisterCustomerMutation, useCreateAdminMutation } = userApi;
+export const { useRegisterCustomerMutation, useCreateAdminMutation , useCreateVendorMutation} = userApi;

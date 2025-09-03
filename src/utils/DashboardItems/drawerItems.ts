@@ -6,6 +6,7 @@ import {
   ManageAccountsIcon,
   PersonAddAlt1Icon,
   AddBusinessIcon,
+  CategoryIcon,
 } from "@/_Icons";
 const drawerItems = (role: USER_ROLE): DrawerItem[] => {
   const roleMenus: DrawerItem[] = [];
@@ -23,14 +24,30 @@ const drawerItems = (role: USER_ROLE): DrawerItem[] => {
           icon: ManageAccountsIcon,
           child: [
             {
-              title: "Create Admin",
+              title: "Admin",
               path: `/dashboard/${role}/create-admin`,
               icon: PersonAddAlt1Icon,
             },
             {
-              title: "Create Vendor",
-              path: `/dashboard/${role}/create-vendor`,
+              title: "Vendor",
+              path: `/dashboard/${role}/vendor`,
               icon: AddBusinessIcon,
+            },
+          ],
+        },
+        {
+          title: "Manage Category",
+          icon: CategoryIcon,
+          child: [
+            {
+              title: "Category",
+              path: `/dashboard/${role}/category`,
+              icon: CategoryIcon,
+            },
+            {
+              title: "Sub Category",
+              path: `/dashboard/${role}/sub-category`,
+              icon: CategoryIcon,
             },
           ],
         }

@@ -38,7 +38,7 @@ const RegistrationPage = () => {
       
       if (res?.data?.data?.id) {
         toast.success(res?.data?.message);
-
+        console.log(res?.data?.data)
         const userRes = await loginUser({
           password,
           email,

@@ -11,6 +11,10 @@ import StorefrontIcon from "@mui/icons-material/Storefront";
 import AddBusinessIcon from "@mui/icons-material/AddBusiness";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import CategoryIcon from '@mui/icons-material/Category';
+
+
 export {
   AddShoppingCartOutlinedIcon,
   SearchOutlinedIcon,
@@ -24,5 +28,7 @@ export {
   StorefrontIcon,
   AddBusinessIcon,
   AddIcon,
-  RemoveIcon
+  RemoveIcon,
+  AccountBoxIcon,
+  CategoryIcon
 };

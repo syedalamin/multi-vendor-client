@@ -1,56 +1,37 @@
 "use client";
 import EMForm from "@/_components/Form/EMForm";
 import EMInput from "@/_components/Form/EMInput";
-import EMSelect from "@/_components/Form/EMSelect";
 import EMUploader from "@/_components/Form/EMUploader";
 import FullScreenModal from "@/_components/Shared/Modal/FullScreenModal";
 import { AddIcon, RemoveIcon } from "@/_Icons";
-import { useGetAllAdminsQuery } from "@/redux/api/adminApi";
-import { useCreateAdminMutation } from "@/redux/api/userApi";
+import { useCreateCategoryMutation, useGetAllCategoryQuery } from "@/redux/api/categoryApi";
 import { modifyPayload } from "@/utils/ModifyFormData/modifyFormData";
+
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
-import AdminAllProfile from "./AdminAllProfile";
+import AllCategory from "./AllCategory";
 
-const CreateAdmin = () => {
+const Category = () => {
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => setOpen(true);
-  const [createAdmin] = useCreateAdminMutation();
-  const { data } = useGetAllAdminsQuery({});
+
+  const { data: categoryData } = useGetAllCategoryQuery({});
+  const [createCategory] = useCreateCategoryMutation()
 
   const handleRegistration = async (values: FieldValues) => {
-    const {
-      firstName,
-      lastName,
-      email,
-      contactNumber,
-      password,
-      file,
-      gender,
-      address,
-    } = values;
+    const { name, file } = values;
 
     const payload = {
-      password,
-      admin: {
-        firstName,
-        lastName,
-        email,
-        contactNumber,
-        address,
-        gender,
-      },
-    };
-
-
- 
+      name
+    }
     const data = modifyPayload(payload, file);
 
-    try {
-      const res = await createAdmin(data).unwrap();
 
+    try {
+      const res = await createCategory(data).unwrap();
+ 
       if (res.success) {
         toast.success(res.message);
         setOpen(false);
@@ -76,7 +57,7 @@ const CreateAdmin = () => {
       >
         <Box>
           <Typography component={"h2"} variant="h5" fontWeight={600}>
-            Create Admin
+            Create Category
           </Typography>
         </Box>
         <Box>
@@ -108,49 +89,9 @@ const CreateAdmin = () => {
           <EMForm onSubmit={handleRegistration}>
             <Grid wrap="wrap" container spacing={2} my={4}>
               <Grid size={{ xs: 12, md: 6 }}>
-                <EMInput name="firstName" label="First Name" fullWidth={true} />
+                <EMInput name="name" label="Category Name" fullWidth={true} />
               </Grid>
-              <Grid size={{ xs: 12, md: 6 }}>
-                <EMInput name="lastName" label="Last Name" fullWidth={true} />
-              </Grid>
-              <Grid size={{ xs: 12, md: 6 }}>
-                <EMInput
-                  name="email"
-                  label="Email"
-                  type="email"
-                  fullWidth={true}
-                />
-              </Grid>
-              <Grid size={{ xs: 12, md: 6 }}>
-                <EMInput
-                  name="password"
-                  label="Password"
-                  // type="password"
-                  type="text"
-                  fullWidth={true}
-                />
-              </Grid>
-              <Grid size={{ xs: 12, md: 6 }}>
-                <EMInput
-                  name="contactNumber"
-                  label="Contact Number"
-                  fullWidth={true}
-                />
-              </Grid>
-              <Grid size={{ xs: 12, md: 6 }}>
-                <EMInput name="address" label="Address" fullWidth={true} />
-              </Grid>
-              <Grid size={{ xs: 12, md: 6 }}>
-                <EMSelect
-                  name="gender"
-                  label="Gender"
-                  fullWidth={true}
-                  options={[
-                    { label: "MALE", value: "MALE" },
-                    { label: "FEMALE", value: "FEMALE" },
-                  ]}
-                />
-              </Grid>
+
               <Grid size={{ xs: 12, md: 6 }}>
                 <EMUploader name="file" label="Upload" />
               </Grid>
@@ -179,11 +120,9 @@ const CreateAdmin = () => {
           </EMForm>
         </Box>
       </FullScreenModal>
-      <Stack>
-        <AdminAllProfile data={data?.admin?.data} />
-      </Stack>
+      <Stack><AllCategory data={categoryData?.data}/></Stack>
     </Stack>
   );
 };
 
-export default CreateAdmin;
+export default Category;

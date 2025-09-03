@@ -1,56 +1,56 @@
 "use client";
 import EMForm from "@/_components/Form/EMForm";
 import EMInput from "@/_components/Form/EMInput";
-import EMSelect from "@/_components/Form/EMSelect";
 import EMUploader from "@/_components/Form/EMUploader";
 import FullScreenModal from "@/_components/Shared/Modal/FullScreenModal";
 import { AddIcon, RemoveIcon } from "@/_Icons";
-import { useGetAllAdminsQuery } from "@/redux/api/adminApi";
-import { useCreateAdminMutation } from "@/redux/api/userApi";
-import { modifyPayload } from "@/utils/ModifyFormData/modifyFormData";
+import { modifyPayloads } from "@/utils/ModifyFormData/modifyFormData";
+import { useCreateVendorMutation } from "@/redux/api/userApi";
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
-import AdminAllProfile from "./AdminAllProfile";
+import AllVendorProfile from "./AllVendorProfile";
+import { useGetAllVendorsQuery } from "@/redux/api/vendorApi";
 
-const CreateAdmin = () => {
+
+
+const Vendor = () => {
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => setOpen(true);
-  const [createAdmin] = useCreateAdminMutation();
-  const { data } = useGetAllAdminsQuery({});
+  const [createVendor] = useCreateVendorMutation();
+  const {data} = useGetAllVendorsQuery({});
+
+
 
   const handleRegistration = async (values: FieldValues) => {
     const {
-      firstName,
-      lastName,
+      shopName,
+      description,
       email,
       contactNumber,
       password,
-      file,
-      gender,
+      banner,
+      logo,
       address,
     } = values;
 
     const payload = {
       password,
-      admin: {
-        firstName,
-        lastName,
+      vendor: {
+        shopName,
+        description,
         email,
         contactNumber,
         address,
-        gender,
       },
     };
 
-
- 
-    const data = modifyPayload(payload, file);
+    const data = modifyPayloads(payload, { logo, banner });
 
     try {
-      const res = await createAdmin(data).unwrap();
-
+      const res = await createVendor(data).unwrap();
+      console.log(res);
       if (res.success) {
         toast.success(res.message);
         setOpen(false);
@@ -76,7 +76,7 @@ const CreateAdmin = () => {
       >
         <Box>
           <Typography component={"h2"} variant="h5" fontWeight={600}>
-            Create Admin
+            Create Vendor
           </Typography>
         </Box>
         <Box>
@@ -108,10 +108,14 @@ const CreateAdmin = () => {
           <EMForm onSubmit={handleRegistration}>
             <Grid wrap="wrap" container spacing={2} my={4}>
               <Grid size={{ xs: 12, md: 6 }}>
-                <EMInput name="firstName" label="First Name" fullWidth={true} />
+                <EMInput name="shopName" label="Shop Name" fullWidth={true} />
               </Grid>
               <Grid size={{ xs: 12, md: 6 }}>
-                <EMInput name="lastName" label="Last Name" fullWidth={true} />
+                <EMInput
+                  name="description"
+                  label="Description"
+                  fullWidth={true}
+                />
               </Grid>
               <Grid size={{ xs: 12, md: 6 }}>
                 <EMInput
@@ -141,18 +145,10 @@ const CreateAdmin = () => {
                 <EMInput name="address" label="Address" fullWidth={true} />
               </Grid>
               <Grid size={{ xs: 12, md: 6 }}>
-                <EMSelect
-                  name="gender"
-                  label="Gender"
-                  fullWidth={true}
-                  options={[
-                    { label: "MALE", value: "MALE" },
-                    { label: "FEMALE", value: "FEMALE" },
-                  ]}
-                />
+                <EMUploader name="logo" label="Upload Logo" />
               </Grid>
               <Grid size={{ xs: 12, md: 6 }}>
-                <EMUploader name="file" label="Upload" />
+                <EMUploader name="banner" label="Upload Banner" />
               </Grid>
             </Grid>
             <Box>
@@ -179,11 +175,9 @@ const CreateAdmin = () => {
           </EMForm>
         </Box>
       </FullScreenModal>
-      <Stack>
-        <AdminAllProfile data={data?.admin?.data} />
-      </Stack>
+      <Stack><AllVendorProfile data={data?.vendor}/></Stack>
     </Stack>
   );
 };
 
-export default CreateAdmin;
+export default Vendor;

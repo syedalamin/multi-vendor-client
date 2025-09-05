@@ -31,3 +31,22 @@ export const modifyPayloads = (
 
   return formData;
 };
+
+
+
+export const modifyProductPayload = (payload: object, file?: File | File[]) => {
+  const formData = new FormData();
+
+  formData.append("data", JSON.stringify(payload));
+
+  if (file instanceof File) {
+    formData.append("file", file);
+  } else if (Array.isArray(file)) {
+    file.forEach((f) => {
+      formData.append("file", f); 
+    });
+  }
+
+  return formData;
+};
+

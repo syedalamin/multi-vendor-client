@@ -12,8 +12,8 @@ const AdminAllProfile = ({ data }: { data: any }) => {
   const [deleteAdmin] = useDeleteAdminMutation();
   const handleDelete = async (id: string) => {
     try {
-      await deleteAdmin(id).unwrap();
-      toast.success("Cart Soft Deleted");
+     const adminDeleted = (await deleteAdmin(id).unwrap());
+      toast.success(adminDeleted?.data?.message);
     } catch (err: any) {
       console.log(err);
     }

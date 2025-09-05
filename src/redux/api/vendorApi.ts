@@ -23,14 +23,14 @@ const vendorApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.vendor],
     }),
-    // deleteAdmin: builder.mutation({
-    //   query: (id: string | undefined) => ({
-    //     url: `/admin/${id}`,
-    //     method: "DELETE",
-    //   }),
-    //   invalidatesTags: [tagTypes.admin],
-    // }),
+    deleteVendor: builder.mutation({
+      query: (id: string | undefined) => ({
+        url: `/vendor/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: [tagTypes.vendor],
+    }),
   }),
 });
 
-export const { useGetAllVendorsQuery, useVerifyStatusMutation } = vendorApi;
+export const { useGetAllVendorsQuery, useVerifyStatusMutation , useDeleteVendorMutation} = vendorApi;

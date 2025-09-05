@@ -26,6 +26,16 @@ const cartApi = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.cart],
     }),
+    getAdminAllCart: builder.query({
+      query: () => ({
+        url: "/cart/all-cart",
+        method: "GET",
+      }),
+      transformResponse: (response: { data: { data: any[] } }) => {
+        return response.data;
+      },
+      providesTags: [tagTypes.cart],
+    }),
     getTotalCart: builder.query({
       query: () => ({
         url: "/cart/cart-total",
@@ -65,5 +75,6 @@ export const {
   useGetSingleCartQuery,
   useUpdateCartMutation,
   useDeleteCartMutation,
+  useGetAdminAllCartQuery,
   useGetTotalCartQuery,
 } = cartApi;

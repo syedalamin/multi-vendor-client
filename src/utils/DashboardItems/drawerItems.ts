@@ -7,6 +7,8 @@ import {
   PersonAddAlt1Icon,
   AddBusinessIcon,
   CategoryIcon,
+  InventoryIcon,
+  StoreIcon,
 } from "@/_Icons";
 const drawerItems = (role: USER_ROLE): DrawerItem[] => {
   const roleMenus: DrawerItem[] = [];
@@ -50,6 +52,27 @@ const drawerItems = (role: USER_ROLE): DrawerItem[] => {
               icon: CategoryIcon,
             },
           ],
+        },
+        {
+          title: "Manage Product",
+          icon: StoreIcon,
+          child: [
+            {
+              title: "Product",
+              path: `/dashboard/${role}/product`,
+              icon: InventoryIcon,
+            },
+          ],
+        },
+        // {
+        //   title: "All Cart",
+        //   path: `/dashboard/${role}/cart`,
+        //   icon: AdminPanelSettingsIcon,
+        // }
+        {
+          title: "Order Product",
+          path: `/dashboard/${role}/order-product`,
+          icon: AdminPanelSettingsIcon,
         }
       );
       break;

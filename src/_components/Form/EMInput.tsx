@@ -11,6 +11,8 @@ type IInputProps = {
   sx?: SxProps;
   placeholder?: string;
   required?: boolean;
+  multiline?: boolean;
+  rows?: number;
 };
 const EMInput = ({
   name,
@@ -21,6 +23,8 @@ const EMInput = ({
   sx,
   placeholder,
   required,
+  multiline,
+  rows
 }: IInputProps) => {
   const { control } = useFormContext();
   return (
@@ -33,6 +37,7 @@ const EMInput = ({
             {...field}
             label={label}
             type={type}
+            // type=""
             variant="outlined"
             size={size}
             value={field.value ?? ""}
@@ -40,6 +45,8 @@ const EMInput = ({
             fullWidth={fullWidth}
             required={required}
             error={!!error?.message}
+            multiline={multiline}
+            rows={rows}
             sx={{
               "& .MuiOutlinedInput-root": {
                 borderRadius: 1,
@@ -56,13 +63,13 @@ const EMInput = ({
                 },
               },
               "& .MuiOutlinedInput-input": {
-                color: "black", 
+                color: "black",
               },
               "& .MuiInputLabel-root": {
-                color: "#9e9e9e", 
+                color: "#9e9e9e",
               },
               "& .MuiInputLabel-root.Mui-focused": {
-                color: "#2e7d32", 
+                color: "#2e7d32",
               },
               ...sx,
             }}

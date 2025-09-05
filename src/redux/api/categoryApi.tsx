@@ -24,15 +24,21 @@ const categoryApi = baseApi.injectEndpoints({
       transformResponse: (response) => {
         return response.data;
       },
-      providesTags: [tagTypes.category]
+      providesTags: [tagTypes.category],
     }),
-    getCategoryById: builder.query({
+
+    deleteCategory: builder.mutation({
       query: (id: string | undefined) => ({
-        url: `/product/id/${id}`,
-        method: "GET",
+        url: `/category/${id}`,
+        method: "DELETE",
       }),
+      invalidatesTags: [tagTypes.category],
     }),
   }),
 });
 
-export const { useGetAllCategoryQuery, useGetCategoryByIdQuery, useCreateCategoryMutation } = categoryApi;
+export const {
+  useGetAllCategoryQuery,
+  useDeleteCategoryMutation,
+  useCreateCategoryMutation,
+} = categoryApi;

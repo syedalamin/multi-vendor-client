@@ -12,7 +12,34 @@ const orderApi = baseApi.injectEndpoints({
         return response.data;
       },
     }),
+    getAllOrders: builder.query({
+      query: () => ({
+        url: "/order",
+        method: "GET",
+      }),
+      transformResponse: (response: { data: any }) => {
+        return response.data;
+      },
+    }),
+    updateOrderStatus: builder.query({
+      query: (id: string | undefined) => ({
+        url: `/order/status/${id}`,
+        method: "GET",
+      }),
+      transformResponse: (response: { data: any }) => {
+        return response.data;
+      },
+    }),
+    getSingleOrder: builder.query({
+      query: (id: string | undefined) => ({
+        url: `/order/${id}`,
+        method: "GET",
+      }),
+      transformResponse: (response: { data: any }) => {
+        return response.data;
+      },
+    }),
   }),
 });
 
-export const { useGetMyOrdersQuery } = orderApi;
+export const { useGetMyOrdersQuery, useGetAllOrdersQuery, useUpdateOrderStatusQuery, useGetSingleOrderQuery } = orderApi;

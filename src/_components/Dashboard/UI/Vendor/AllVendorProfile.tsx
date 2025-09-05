@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AccountBoxIcon } from "@/_Icons";
-import { useVerifyStatusMutation } from "@/redux/api/vendorApi";
-// import { useDeleteAdminMutation } from "@/redux/api/adminApi";
+import {
+  useDeleteVendorMutation,
+  useVerifyStatusMutation,
+} from "@/redux/api/vendorApi";
 
 import { Avatar, Box, Button, CardMedia, IconButton } from "@mui/material";
 import { DataGrid, GridColDef, GridDeleteIcon } from "@mui/x-data-grid";
@@ -10,13 +12,12 @@ import React from "react";
 import { toast } from "sonner";
 
 const AllVendorProfile = ({ data }: { data: any }) => {
-  // const [deleteAdmin] = useDeleteAdminMutation();
+  const [deleteVendor] = useDeleteVendorMutation();
   const [verifyStatus] = useVerifyStatusMutation();
   const handleDelete = async (id: string) => {
     try {
-      console.log(id);
-      // await deleteAdmin(id).unwrap();
-      toast.success("Store Deleted");
+      const deletedVendor = await deleteVendor(id).unwrap();
+      toast.success(deletedVendor?.data?.message);
     } catch (err: any) {
       console.log(err);
     }
@@ -24,13 +25,12 @@ const AllVendorProfile = ({ data }: { data: any }) => {
   const handleVerified = async (id: string) => {
     try {
       const verify = await verifyStatus(id).unwrap();
-      console.log(verify);
-      toast.success("Store Verified");
+      toast.success(verify?.data?.message);
     } catch (err: any) {
       console.log(err);
     }
   };
-  console.log(data);
+
   const columns: GridColDef[] = [
     {
       field: "logo",

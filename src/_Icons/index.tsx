@@ -9,12 +9,13 @@ import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import AddBusinessIcon from "@mui/icons-material/AddBusiness";
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import CategoryIcon from '@mui/icons-material/Category';
-
-
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import CategoryIcon from "@mui/icons-material/Category";
+import InventoryIcon from "@mui/icons-material/Inventory";
+import StoreIcon from "@mui/icons-material/Store";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 export {
   AddShoppingCartOutlinedIcon,
   SearchOutlinedIcon,
@@ -30,5 +31,8 @@ export {
   AddIcon,
   RemoveIcon,
   AccountBoxIcon,
-  CategoryIcon
+  CategoryIcon,
+  InventoryIcon,
+  StoreIcon,
+  VisibilityOutlinedIcon,
 };

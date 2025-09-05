@@ -84,7 +84,7 @@ const Category = () => {
           </Button>
         </Box>
       </Stack>
-      <FullScreenModal open={open} setOpen={setOpen} title="Create Admin">
+      <FullScreenModal open={open} setOpen={setOpen} title="Create Category">
         <Box>
           <EMForm onSubmit={handleRegistration}>
             <Grid wrap="wrap" container spacing={2} my={4}>

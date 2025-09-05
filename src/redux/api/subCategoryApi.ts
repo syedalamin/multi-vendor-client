@@ -22,10 +22,18 @@ const subCategoryApi = baseApi.injectEndpoints({
       transformResponse: (response) => {
         return response.data;
       },
-      providesTags: [tagTypes.subCategory]
+      providesTags: [tagTypes.subCategory],
     }),
-   
+
+    deleteSubCategory: builder.mutation({
+      query: (id: string | undefined) => ({
+        url: `/sub-category/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: [tagTypes.subCategory],
+    }),
   }),
 });
 
-export const { useCreateSubCategoryMutation, useGetAllSubCategoryQuery } = subCategoryApi;
+export const { useCreateSubCategoryMutation, useGetAllSubCategoryQuery , useDeleteSubCategoryMutation} =
+  subCategoryApi;

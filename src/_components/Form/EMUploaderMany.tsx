@@ -29,7 +29,7 @@ const EMUploaderMany = ({ name, label, sx }: TProps) => {
             color: "#fff",
             fontWeight: 600,
             textTransform: "none",
-            borderRadius: "12px",
+            borderRadius: "4px",
             py: 1.2,
             px: 2,
             minHeight: 48,

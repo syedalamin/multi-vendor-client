@@ -2,46 +2,48 @@
 "use client";
 import EMForm from "@/_components/Form/EMForm";
 import EMInput from "@/_components/Form/EMInput";
-import EMUploader from "@/_components/Form/EMUploader";
 import FullScreenModal from "@/_components/Shared/Modal/FullScreenModal";
 import { AddIcon, RemoveIcon } from "@/_Icons";
-import { modifyPayload } from "@/utils/ModifyFormData/modifyFormData";
-
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { FieldValues } from "react-hook-form";
-import { toast } from "sonner";
-import AllSubCategory from "./AllSubCategory";
-import {
-  useCreateSubCategoryMutation,
-  useGetAllSubCategoryQuery,
-} from "@/redux/api/subCategoryApi";
-import EMSelect from "@/_components/Form/EMSelect";
-import { useGetAllCategoryQuery } from "@/redux/api/categoryApi";
 
-const SubCategory = () => {
+import EMSelect from "@/_components/Form/EMSelect";
+import { useGetAllSubCategoryQuery } from "@/redux/api/subCategoryApi";
+import EMUploaderMany from "@/_components/Form/EMUploaderMany";
+import {
+  useCreateProductMutation,
+  useGetProductsQuery,
+} from "@/redux/api/productApi";
+import { modifyProductPayload } from "@/utils/ModifyFormData/modifyFormData";
+import { toast } from "sonner";
+import AllProduct from "./AllProduct";
+
+const Product = () => {
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => setOpen(true);
-
-  const { data: categoryData } = useGetAllCategoryQuery({});
+  const [createProduct] = useCreateProductMutation();
+  const { data: productData } = useGetProductsQuery({});
   const { data: subCategoryData } = useGetAllSubCategoryQuery({});
 
-  const [createSubCategory] = useCreateSubCategoryMutation();
-
-
   const handleRegistration = async (values: FieldValues) => {
-    const { name, categoryId, file } = values;
+    const { name, discount, subCategoryId, description, price, stock, file } =
+      values;
 
     const payload = {
       name,
-      categoryId,
+      subCategoryId,
+      price: Number(price),
+      discount: Number(discount),
+      stock: Number(stock),
+      description,
     };
 
-    const data = modifyPayload(payload, file);
+
+    const data = modifyProductPayload(payload, file);
 
     try {
-      const res = await createSubCategory(data).unwrap();
-      console.log(res)
+      const res = await createProduct(data).unwrap();
       if (res?.success) {
         toast.success(res?.message);
         setOpen(false);
@@ -67,7 +69,7 @@ const SubCategory = () => {
       >
         <Box>
           <Typography component={"h2"} variant="h5" fontWeight={600}>
-            Create Sub Category  
+            Create Category
           </Typography>
         </Box>
         <Box>
@@ -94,29 +96,72 @@ const SubCategory = () => {
           </Button>
         </Box>
       </Stack>
-      <FullScreenModal open={open} setOpen={setOpen} title="Create Sub Category">
+      <FullScreenModal open={open} setOpen={setOpen} title="Create Product">
         <Box>
           <EMForm onSubmit={handleRegistration}>
             <Grid wrap="wrap" container spacing={2} my={4}>
               <Grid size={{ xs: 12, md: 6 }}>
-                <EMInput name="name" label="Category Name" fullWidth={true} />
-              </Grid>
-              <Grid size={{ xs: 12, md: 6 }}>
-                <EMSelect
-                  name="categoryId"
-                  label="Category Id"
-                  fullWidth={true}
-                  options={
-                    categoryData?.data?.map((item: any) => ({
-                      label: item.name, 
-                      value: item.id, 
-                    })) || []
-                  }
-                />
+                <EMInput name="name" label="Product Name" fullWidth={true} />
               </Grid>
 
               <Grid size={{ xs: 12, md: 6 }}>
-                <EMUploader name="file" label="Upload" />
+                <EMInput
+                  name="price"
+                  label="Price"
+                  fullWidth={true}
+                  type="number"
+                />
+              </Grid>
+              <Grid size={{ xs: 12, md: 6 }}>
+                <EMInput
+                  name="stock"
+                  label="Stock"
+                  fullWidth={true}
+                  type="number"
+                />
+              </Grid>
+              <Grid size={{ xs: 12, md: 6 }}>
+                <EMInput
+                  name="discount"
+                  label="Discount"
+                  fullWidth={true}
+                  type="number"
+                />
+              </Grid>
+              <Grid
+                direction={"column"}
+                container
+                spacing={2}
+                size={{ xs: 12, md: 6 }}
+              >
+                <Grid>
+                  <EMSelect
+                    name="subCategoryId"
+                    label="Category Id"
+                    fullWidth={true}
+                    options={
+                      subCategoryData?.data?.map((item: any) => ({
+                        label: item.name,
+                        value: item.id,
+                      })) || []
+                    }
+                  />
+                </Grid>
+
+                <Grid>
+                  <EMUploaderMany name="file" label="Upload" />
+                </Grid>
+              </Grid>
+
+              <Grid size={{ xs: 12, md: 6 }}>
+                <EMInput
+                  name="description"
+                  label="Description"
+                  fullWidth={true}
+                  type="text"
+                  multiline={true}
+                  rows={4}
+                />
               </Grid>
             </Grid>
             <Box>
@@ -144,10 +189,10 @@ const SubCategory = () => {
         </Box>
       </FullScreenModal>
       <Stack>
-        <AllSubCategory data={subCategoryData?.data} />
+        <AllProduct data={productData?.data} />
       </Stack>
     </Stack>
   );
 };
 
-export default SubCategory;
+export default Product;

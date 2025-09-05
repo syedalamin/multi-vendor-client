@@ -1,7 +1,19 @@
+import { tagTypes } from "../tag-types";
 import { baseApi } from "./baseApi";
 
 const productApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    createProduct: builder.mutation({
+      query: (data) => ({
+        url: "/product/create-product",
+        method: "POST",
+        data: data,
+      }),
+      transformResponse: (response) => {
+        return response.data;
+      },
+      invalidatesTags: [tagTypes.product],
+    }),
     getProducts: builder.query({
       query: ({
         page,
@@ -19,6 +31,7 @@ const productApi = baseApi.injectEndpoints({
       transformResponse: (response) => {
         return response.data;
       },
+      providesTags: [tagTypes.product],
     }),
     getProductId: builder.query({
       query: (id: string | undefined) => ({
@@ -26,11 +39,28 @@ const productApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    getProductIds: builder.mutation({
+      query: (ids: string[]) => ({
+        url: `/product/ids/`,
+        method: "POST",
+        body: { ids },
+      }),
+    }),
+    deleteProduct: builder.mutation({
+      query: (id: string | undefined) => ({
+        url: `/product/soft/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: [tagTypes.product],
+    }),
   }),
 });
 
 export const {
   useGetProductIdQuery,
   useGetProductsQuery,
+  useGetProductIdsMutation,
   useLazyGetProductsQuery,
+  useCreateProductMutation,
+  useDeleteProductMutation,
 } = productApi;

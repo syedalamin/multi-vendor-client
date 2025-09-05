@@ -1,30 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { AccountBoxIcon } from "@/_Icons";
-import { useDeleteCategoryMutation } from "@/redux/api/categoryApi";
+import { Avatar, Box, CardMedia } from "@mui/material";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
-
-import { Avatar, Box, CardMedia, IconButton } from "@mui/material";
-import { DataGrid, GridColDef, GridDeleteIcon } from "@mui/x-data-grid";
-
-import React from "react";
-import { toast } from "sonner";
-
-const AllCategory = ({ data }: { data: any }) => {
-  const [deleteCategory] = useDeleteCategoryMutation()
-  const handleDelete = async (id: string) => {
-    try {
-      
-      const categoryDeleted = await deleteCategory(id).unwrap();
-      toast.success(categoryDeleted?.data?.message);
-    } catch (err: any) {
-      console.log(err);
-    }
-  };
+const SingleOrderTable = ({ data }: { data: any }) => {
 
 
   const columns: GridColDef[] = [
     {
-      field: "image",
+      field: "product",
       headerName: "Image",
       flex: 1,
       sortable: false,
@@ -33,12 +18,12 @@ const AllCategory = ({ data }: { data: any }) => {
       disableColumnMenu: true,
       renderCell: ({ row }) => (
         <Box sx={{ position: "relative", width: "100%", height: "100%" }}>
-          {row?.image ? (
+          {row?.product ? (
             <CardMedia
               sx={{ width: 50, height: 50, borderRadius: 2 }}
               component="img"
-              alt={row.name}
-              image={row.image}
+              alt={row?.productId}
+              image={row?.product?.productImages[0]}
             />
           ) : (
             <Avatar sx={{ width: 50, height: 50 }}>
@@ -56,28 +41,40 @@ const AllCategory = ({ data }: { data: any }) => {
       filterable: false,
       hideable: false,
       disableColumnMenu: true,
+       renderCell: ({ row }) => (
+        <Box sx={{ position: "relative", width: "100%", height: "100%" }}>
+         {row?.product?.name}
+        </Box>
+      ),
     },
     {
-      field: "action",
-      headerName: "Action",
+      field: "price",
+      headerName: "Price",
       flex: 1,
       sortable: false,
       filterable: false,
       hideable: false,
-      disableColumnMenu: true,
-      renderCell: ({ row }) => {
-        return (
-          <Box>
-            <IconButton
-              onClick={() => handleDelete(row.id)}
-              aria-label="delete"
-            >
-              <GridDeleteIcon />
-            </IconButton>
-          </Box>
-        );
-      },
+      
     },
+    {
+      field: "discountPrice",
+      headerName: "Discount Price",
+      flex: 1,
+      sortable: false,
+      filterable: false,
+      hideable: false,
+      
+    },
+    {
+      field: "quantity",
+      headerName: "Quantity",
+      flex: 1,
+      sortable: false,
+      filterable: false,
+      hideable: false,
+      
+    },
+    
   ];
   return (
     <Box sx={{ height: 400, width: "100%" }}>
@@ -121,4 +118,4 @@ const AllCategory = ({ data }: { data: any }) => {
   );
 };
 
-export default AllCategory;
+export default SingleOrderTable;

@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AccountBoxIcon } from "@/_Icons";
-import { useDeleteCategoryMutation } from "@/redux/api/categoryApi";
-
+import { useDeleteProductMutation } from "@/redux/api/productApi";
 
 import { Avatar, Box, CardMedia, IconButton } from "@mui/material";
 import { DataGrid, GridColDef, GridDeleteIcon } from "@mui/x-data-grid";
@@ -9,22 +8,21 @@ import { DataGrid, GridColDef, GridDeleteIcon } from "@mui/x-data-grid";
 import React from "react";
 import { toast } from "sonner";
 
-const AllCategory = ({ data }: { data: any }) => {
-  const [deleteCategory] = useDeleteCategoryMutation()
+const AllProduct = ({ data }: { data: any }) => {
+  const [deleteProduct] = useDeleteProductMutation();
   const handleDelete = async (id: string) => {
     try {
-      
-      const categoryDeleted = await deleteCategory(id).unwrap();
-      toast.success(categoryDeleted?.data?.message);
+
+      const productDeleted = await deleteProduct(id).unwrap();
+      toast.success(productDeleted?.data?.message);
     } catch (err: any) {
       console.log(err);
     }
   };
 
-
   const columns: GridColDef[] = [
     {
-      field: "image",
+      field: "productImages",
       headerName: "Image",
       flex: 1,
       sortable: false,
@@ -33,12 +31,12 @@ const AllCategory = ({ data }: { data: any }) => {
       disableColumnMenu: true,
       renderCell: ({ row }) => (
         <Box sx={{ position: "relative", width: "100%", height: "100%" }}>
-          {row?.image ? (
+          {row?.productImages ? (
             <CardMedia
               sx={{ width: 50, height: 50, borderRadius: 2 }}
               component="img"
               alt={row.name}
-              image={row.image}
+              image={row.productImages[0]}
             />
           ) : (
             <Avatar sx={{ width: 50, height: 50 }}>
@@ -50,7 +48,50 @@ const AllCategory = ({ data }: { data: any }) => {
     },
     {
       field: "name",
-      headerName: "Name",
+      headerName: "Product Name",
+      flex: 1,
+      sortable: false,
+      filterable: false,
+      hideable: false,
+      disableColumnMenu: true,
+    },
+    {
+      field: "stock",
+      headerName: "Product Stock",
+      flex: 1,
+      sortable: false,
+      filterable: false,
+      hideable: false,
+      disableColumnMenu: true,
+    },
+    {
+      field: "price",
+      headerName: "Price",
+      flex: 1,
+      sortable: false,
+      filterable: false,
+      hideable: false,
+      disableColumnMenu: true,
+    },
+
+    {
+      field: "discount",
+      headerName: "Discount Price",
+      flex: 1,
+      sortable: false,
+      filterable: false,
+      hideable: false,
+      disableColumnMenu: true,
+      renderCell: ({ row }) => (
+        <Box>
+          {row?.price && (row.price * (1 - row.discount / 100)).toFixed(2)}
+        </Box>
+      ),
+    },
+
+    {
+      field: "status",
+      headerName: "Status",
       flex: 1,
       sortable: false,
       filterable: false,
@@ -121,4 +162,4 @@ const AllCategory = ({ data }: { data: any }) => {
   );
 };
 
-export default AllCategory;
+export default AllProduct;

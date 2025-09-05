@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AccountBoxIcon } from "@/_Icons";
-
+import { useDeleteSubCategoryMutation } from "@/redux/api/subCategoryApi";
 
 import { Avatar, Box, CardMedia, IconButton } from "@mui/material";
 import { DataGrid, GridColDef, GridDeleteIcon } from "@mui/x-data-grid";
@@ -9,12 +9,12 @@ import React from "react";
 import { toast } from "sonner";
 
 const AllSubCategory = ({ data }: { data: any }) => {
- 
+  const [deleteSubCategory] = useDeleteSubCategoryMutation();
   const handleDelete = async (id: string) => {
     try {
       console.log(id);
-      // await deleteAdmin(id).unwrap();
-      toast.success("Store Deleted");
+      const subCategoryDeleted = await deleteSubCategory(id).unwrap();
+      toast.success(subCategoryDeleted.data.message);
     } catch (err: any) {
       console.log(err);
     }

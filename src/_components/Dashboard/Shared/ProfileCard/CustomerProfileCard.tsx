@@ -13,7 +13,6 @@ import {
   Chip,
 } from "@mui/material";
 import {
-  AccountBox as AccountBoxIcon,
   Phone,
   Email,
   LocationOn,
@@ -21,7 +20,8 @@ import {
   Shield,
 } from "@mui/icons-material";
 
-export default function ProfileCard({ item }: { item: any }) {
+export default function CustomerProfileCard({ item }: { item: any }) {
+  console.log(item);
   const {
     firstName,
     lastName,
@@ -37,36 +37,37 @@ export default function ProfileCard({ item }: { item: any }) {
   return (
     <Card
       sx={{
-        textAlign: "center",
-        alignItems: "center",
         overflow: "hidden",
-        p: 3,
         borderRadius: "20px",
-        boxShadow: 4,
-        width: 700,
+        boxShadow: 5,
+        maxWidth: 420,
         mx: "auto",
+        textAlign: "center",
+        p: 3,
       }}
     >
-      {/* Avatar */}
+      {/* Profile Photo */}
       <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
         <Avatar
           src={profilePhoto || ""}
           alt={`${firstName} ${lastName}`}
           sx={{
+            width: 120,
+            height: 120,
+            border: "4px solid white",
+            boxShadow: 2,
             bgcolor: "warning.main",
-            width: 110,
-            height: 110,
             fontSize: "2rem",
           }}
-        >
-          {!profilePhoto && <AccountBoxIcon fontSize="large" />}
-        </Avatar>
+        />
       </Box>
 
       {/* Name */}
-      <Typography variant="h6" sx={{ mt: 2, fontWeight: "bold" }}>
+      <Typography variant="h6" fontWeight="bold" mt={2}>
         {firstName} {lastName}
       </Typography>
+
+      {/* Role & Status */}
       <Stack
         direction="row"
         spacing={1}
@@ -74,8 +75,14 @@ export default function ProfileCard({ item }: { item: any }) {
         alignItems="center"
         mt={1}
       >
-        {role && <Chip label={role} color="warning" size="small" />}  {status && <Chip label={status} color="success" size="small" />}
+        <Chip label={role} color="primary" size="small" />
+        <Chip
+          label={status}
+          color={status === "ACTIVE" ? "success" : "default"}
+          size="small"
+        />
       </Stack>
+
       <Divider sx={{ my: 2 }} />
 
       {/* Info Section */}
@@ -89,17 +96,21 @@ export default function ProfileCard({ item }: { item: any }) {
             <Phone color="warning" fontSize="small" />
             <Typography variant="body2">{contactNumber}</Typography>
           </Box>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <LocationOn color="warning" fontSize="small" />
-            <Typography variant="body2">{address}</Typography>
-          </Box>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Person color="warning" fontSize="small" />
-            <Typography variant="body2">{gender}</Typography>
-          </Box>
+          {address && (
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <LocationOn color="warning" fontSize="small" />
+              <Typography variant="body2">{address}</Typography>
+            </Box>
+          )}
+          {gender && (
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <Person color="warning" fontSize="small" />
+              <Typography variant="body2">{gender}</Typography>
+            </Box>
+          )}
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
             <Shield color="warning" fontSize="small" />
-            <Typography variant="body2">{role}</Typography>
+            <Typography variant="body2">Customer</Typography>
           </Box>
         </Stack>
       </CardContent>

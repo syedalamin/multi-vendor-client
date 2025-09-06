@@ -10,6 +10,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import SideBar from "./SideBar";
+import AuthButton from "@/_components/UI/AuthButton";
 
 const drawerWidth = 270;
 
@@ -51,7 +52,10 @@ export default function DashboardDrawer({
           color: "black",
         }}
       >
-        <Toolbar>
+        <Toolbar sx={{
+          display: "flex",
+          justifyContent:"space-between"
+        }}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -61,9 +65,11 @@ export default function DashboardDrawer({
           >
             <MenuIcon />
           </IconButton>
+          
           <Typography variant="h6" noWrap component="div">
            {MainLogo} 
           </Typography>
+           <AuthButton />
         </Toolbar>
       </AppBar>
       <Box

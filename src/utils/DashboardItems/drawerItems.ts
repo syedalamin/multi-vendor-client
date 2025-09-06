@@ -79,14 +79,41 @@ const drawerItems = (role: USER_ROLE): DrawerItem[] => {
     case user_role.VENDOR:
       roleMenus.push(
         {
-          title: "Dashboard",
-          path: `${role}`,
-          icon: DashboardIcon,
+          title: "Vendor Dashboard",
+          path: `/dashboard/${role}`,
+          icon: AdminPanelSettingsIcon,
         },
         {
-          title: "Manage Vendor",
-          path: `${role}`,
-          icon: DashboardIcon,
+          title: "Manage Category",
+          icon: CategoryIcon,
+          child: [
+            {
+              title: "Category",
+              path: `/dashboard/${role}/category`,
+              icon: CategoryIcon,
+            },
+            {
+              title: "Sub Category",
+              path: `/dashboard/${role}/sub-category`,
+              icon: CategoryIcon,
+            },
+          ],
+        },
+        {
+          title: "Manage Product",
+          icon: StoreIcon,
+          child: [
+            {
+              title: "Product",
+              path: `/dashboard/${role}/product`,
+              icon: InventoryIcon,
+            },
+          ],
+        },
+        {
+          title: "Order Product",
+          path: `/dashboard/${role}/order-product`,
+          icon: AdminPanelSettingsIcon,
         }
       );
       break;

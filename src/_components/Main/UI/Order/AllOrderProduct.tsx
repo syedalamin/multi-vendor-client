@@ -129,7 +129,7 @@ const AllOrderProduct = ({ data }: { data: any }) => {
             <VisibilityOutlinedIcon />
           </IconButton>
           <Link
-            href={`/dashboard/admin/order-product/${row.id}`}
+            href={`/dashboard/vendor/order-product/${row.id}`}
             style={{ position: "absolute", inset: 0, zIndex: 1 }}
           />
         </Box>

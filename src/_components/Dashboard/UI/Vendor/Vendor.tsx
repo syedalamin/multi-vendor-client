@@ -137,7 +137,7 @@ const Vendor = () => {
               <Grid size={{ xs: 12, md: 6 }}>
                 <EMInput
                   name="contactNumber"
-                  label="Contact Number"
+                  label="BKash Number"
                   fullWidth={true}
                 />
               </Grid>

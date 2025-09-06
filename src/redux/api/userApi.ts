@@ -15,7 +15,7 @@ const userApi = baseApi.injectEndpoints({
       query: (data) => ({
         url: "/user/create-admin",
         method: "POST",
-   
+
         data: data,
       }),
       transformResponse: (response) => {
@@ -27,7 +27,7 @@ const userApi = baseApi.injectEndpoints({
       query: (data) => ({
         url: "/user/create-vendor",
         method: "POST",
-   
+
         data: data,
       }),
       transformResponse: (response) => {
@@ -35,7 +35,21 @@ const userApi = baseApi.injectEndpoints({
       },
       invalidatesTags: [tagTypes.vendor],
     }),
+    getMyProfile: builder.query({
+      query: () => ({
+        url: "/user/me",
+        method: "GET",
+      }),
+      transformResponse: (response) => {
+        return response.data;
+      },
+    }),
   }),
 });
 
-export const { useRegisterCustomerMutation, useCreateAdminMutation , useCreateVendorMutation} = userApi;
+export const {
+  useRegisterCustomerMutation,
+  useCreateAdminMutation,
+  useCreateVendorMutation,
+  useGetMyProfileQuery,
+} = userApi;

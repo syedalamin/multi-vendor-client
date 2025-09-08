@@ -1,13 +1,79 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+"use state";
 
 import { VisibilityOutlinedIcon } from "@/_Icons";
-import { Box, IconButton } from "@mui/material";
+import { useUpdateOrderPaymentStatusMutation, useUpdateOrderStatusMutation } from "@/redux/api/orderApi";
+
+import { Box, Button, IconButton } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Link from "next/link";
 import React from "react";
+import { toast } from "sonner";
 
 const AllOrderProduct = ({ data }: { data: any }) => {
+  const [updateOrderStatus] = useUpdateOrderStatusMutation();
+  const [updateOrderPaymentStatus] = useUpdateOrderPaymentStatusMutation();
 
+  const statusStyles: Record<string, any> = {
+    PENDING: { backgroundColor: "#ff9800", hoverColor: "#e68900" },
+    SHIPPED: { backgroundColor: "#2196f3", hoverColor: "#1976d2" },
+    DELIVERED: { backgroundColor: "#4caf50", hoverColor: "#388e3c" },
+    CANCELLED: { backgroundColor: "#f44336", hoverColor: "#d32f2f" },
+  };
+  const paymentStatusStyles: Record<string, any> = {
+    PENDING: { backgroundColor: "#ff9800", hoverColor: "#e68900" },
+    PAID: { backgroundColor: "#4caf50", hoverColor: "#388e3c" },
+    FAILED: { backgroundColor: "#f44336", hoverColor: "#d32f2f" },
+  };
+
+  const handleUpdate = async ({
+    id,
+    status,
+  }: {
+    id: string;
+    status: string;
+  }) => {
+    try {
+      let finalStatus;
+
+      if (status == "PENDING") {
+        finalStatus = "SHIPPED";
+      } else if (status == "SHIPPED") {
+        finalStatus = "DELIVERED";
+      }
+      const updated = await updateOrderStatus({
+        id: id,
+        status: finalStatus,
+      }).unwrap();
+      toast.success(updated?.message);
+     
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
+  const handlePaymentUpdate = async ({
+    id,
+    paymentStatus,
+  }: {
+    id: string;
+    paymentStatus: string;
+  }) => {
+    try {
+      let finalStatus;
+
+      if (paymentStatus == "PENDING") {
+        finalStatus = "PAID";
+      } 
+      const updated = await updateOrderPaymentStatus({
+        id: id,
+        paymentStatus: finalStatus,
+      }).unwrap();
+      toast.success(updated?.message);
+     
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
 
   const columns: GridColDef[] = [
     {
@@ -87,6 +153,38 @@ const AllOrderProduct = ({ data }: { data: any }) => {
       filterable: false,
       hideable: false,
       disableColumnMenu: true,
+      renderCell: ({ row }) => {
+        const status = row?.status;
+        const id = row?.id;
+        const style = statusStyles[status] || {
+          backgroundColor: "#9e9e9e",
+          hoverColor: "#757575",
+        };
+        return (
+          <Box>
+            <Box>
+              <Button
+                sx={{
+                  p: "2px",
+                  color: "#fff",
+                  backgroundColor: style.backgroundColor,
+                  cursor:
+                    status === "CANCELLED" || status === "DELIVERED"
+                      ? "not-allowed"
+                      : "pointer",
+                  pointerEvents:
+                    status === "CANCELLED" || status === "DELIVERED"
+                      ? "none"
+                      : "auto",
+                }}
+                onClick={() => handleUpdate({ id, status })}
+              >
+                {row.status}
+              </Button>
+            </Box>
+          </Box>
+        );
+      },
     },
     {
       field: "paymentType",
@@ -105,7 +203,40 @@ const AllOrderProduct = ({ data }: { data: any }) => {
       filterable: false,
       hideable: false,
       disableColumnMenu: true,
+      renderCell: ({ row }) => {
+        const paymentStatus = row?.paymentStatus;
+        const id = row?.id;
+        const style = paymentStatusStyles[paymentStatus] || {
+          backgroundColor: "#9e9e9e",
+          hoverColor: "#757575",
+        };
+        return (
+          <Box>
+            <Box>
+              <Button
+                sx={{
+                  p: "2px",
+                  color: "#fff",
+                  backgroundColor: style.backgroundColor,
+                  cursor:
+                    paymentStatus === "PAID" || paymentStatus === "FAILED"
+                      ? "not-allowed"
+                      : "pointer",
+                  pointerEvents:
+                    paymentStatus === "PAID" || paymentStatus === "FAILED"
+                      ? "none"
+                      : "auto",
+                }}
+                onClick={() => handlePaymentUpdate({ id, paymentStatus })}
+              >
+                {row.paymentStatus}
+              </Button>
+            </Box>
+          </Box>
+        );
+      },
     },
+   
     {
       field: "action",
       headerName: "Details",
@@ -142,6 +273,7 @@ const AllOrderProduct = ({ data }: { data: any }) => {
       <DataGrid
         rows={data}
         columns={columns}
+        getRowId={(row) => row.id}
         getRowHeight={() => "auto"}
         hideFooter
         disableRowSelectionOnClick

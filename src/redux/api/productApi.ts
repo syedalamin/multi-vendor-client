@@ -33,6 +33,26 @@ const productApi = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.product],
     }),
+    getMyVendorProducts: builder.query({
+      query: ({
+        page,
+        limit,
+        searchTerm,
+      }: {
+        page?: number;
+        limit?: number;
+        searchTerm?: string;
+      }) => ({
+        url: "/product/my-vendor",
+        method: "GET",
+        params: { page, limit, searchTerm },
+      }),
+      transformResponse: (response) => {
+        return response.data;
+      },
+      providesTags: [tagTypes.product],
+    }),
+
     getProductId: builder.query({
       query: (id: string | undefined) => ({
         url: `/product/id/${id}`,
@@ -63,4 +83,5 @@ export const {
   useLazyGetProductsQuery,
   useCreateProductMutation,
   useDeleteProductMutation,
+  useGetMyVendorProductsQuery
 } = productApi;

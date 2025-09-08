@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { tagTypes } from "../tag-types";
 import { baseApi } from "./baseApi";
 
 const orderApi = baseApi.injectEndpoints({
@@ -11,6 +12,7 @@ const orderApi = baseApi.injectEndpoints({
       transformResponse: (response: { data: any }) => {
         return response.data;
       },
+      providesTags: [tagTypes.order],
     }),
     getMyVendorOrders: builder.query({
       query: () => ({
@@ -20,6 +22,7 @@ const orderApi = baseApi.injectEndpoints({
       transformResponse: (response: { data: any }) => {
         return response.data;
       },
+      providesTags: [tagTypes.order],
     }),
     getAllOrders: builder.query({
       query: () => ({
@@ -29,16 +32,35 @@ const orderApi = baseApi.injectEndpoints({
       transformResponse: (response: { data: any }) => {
         return response.data;
       },
+      providesTags: [tagTypes.order],
     }),
-    updateOrderStatus: builder.query({
-      query: (id: string | undefined) => ({
-        url: `/order/status/${id}`,
-        method: "GET",
-      }),
+    updateOrderStatus: builder.mutation({
+      query: ({ id, status }: { id: string; status: string | undefined }) => {
+        return {
+          url: `/order/status/${id}`,
+          method: "PATCH",
+          data: { status },
+        };
+      },
       transformResponse: (response: { data: any }) => {
         return response.data;
       },
+      invalidatesTags: [tagTypes.order],
     }),
+    updateOrderPaymentStatus: builder.mutation({
+      query: ({ id, paymentStatus }: { id: string; paymentStatus: string | undefined }) => {
+        return {
+          url: `/order/payment-status/${id}`,
+          method: "PATCH",
+          data: { paymentStatus },
+        };
+      },
+      transformResponse: (response: { data: any }) => {
+        return response.data;
+      },
+      invalidatesTags: [tagTypes.order],
+    }),
+
     getSingleOrder: builder.query({
       query: (id: string | undefined) => ({
         url: `/order/${id}`,
@@ -47,8 +69,16 @@ const orderApi = baseApi.injectEndpoints({
       transformResponse: (response: { data: any }) => {
         return response.data;
       },
+      providesTags: [tagTypes.order],
     }),
   }),
 });
 
-export const { useGetMyOrdersQuery, useGetAllOrdersQuery, useUpdateOrderStatusQuery, useGetSingleOrderQuery , useGetMyVendorOrdersQuery} = orderApi;
+export const {
+  useGetMyOrdersQuery,
+  useGetAllOrdersQuery,
+  useGetSingleOrderQuery,
+  useGetMyVendorOrdersQuery,
+  useUpdateOrderStatusMutation,
+  useUpdateOrderPaymentStatusMutation
+} = orderApi;

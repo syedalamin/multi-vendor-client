@@ -1,12 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { VisibilityOutlinedIcon } from "@/_Icons";
-import { Box, IconButton } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Link from "next/link";
 
 const MyOrderTable = ({ data }: { data: any }) => {
-  console.log(data);
+  const statusStyles: Record<string, any> = {
+    PENDING: { backgroundColor: "#ff9800", hoverColor: "#e68900" },
+    SHIPPED: { backgroundColor: "#2196f3", hoverColor: "#1976d2" },
+    DELIVERED: { backgroundColor: "#4caf50", hoverColor: "#388e3c" },
+    CANCELLED: { backgroundColor: "#f44336", hoverColor: "#d32f2f" },
+  };
   const columns: GridColDef[] = [
     {
       field: "shippingInfo",
@@ -77,7 +82,7 @@ const MyOrderTable = ({ data }: { data: any }) => {
       hideable: false,
       disableColumnMenu: true,
     },
-    {
+     {
       field: "status",
       headerName: "Delivery",
       flex: 1,
@@ -85,6 +90,27 @@ const MyOrderTable = ({ data }: { data: any }) => {
       filterable: false,
       hideable: false,
       disableColumnMenu: true,
+      renderCell: ({ row }) => {
+        const status = row.status;
+        const style = statusStyles[status] || {
+          backgroundColor: "#9e9e9e",
+          hoverColor: "#757575",
+        };
+        return (
+          <Box>
+            <Typography
+              sx={{
+                p: "2px",
+                color: "#fff",
+                backgroundColor: style.backgroundColor,
+              }}
+
+            >
+              {row.status}
+            </Typography>
+          </Box>
+        );
+      },
     },
     {
       field: "paymentType",

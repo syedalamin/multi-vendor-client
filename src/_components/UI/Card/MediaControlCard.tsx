@@ -1,7 +1,6 @@
 "use client";
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Product } from "@/types/common";
@@ -11,23 +10,19 @@ import Link from "next/link";
 export default function MediaControlCard({ item }: { item: Product }) {
   const formattedPrice = Number(item.price).toFixed(2);
   return (
-    <Card
+    <Box
       sx={{
-        borderRadius: "10px",
         overflow: "hidden",
-        boxShadow: "0 4px 8px rgba(0,0,0,0.15)",
+        border: "1px solid #2e7d32",
+
         transition: "transform 0.3s, box-shadow 0.3s",
         "&:hover": {
           transform: "translateY(-4px)",
-          boxShadow: "0 8px 16px rgba(0,0,0,0.15)",
         },
       }}
     >
       <CardActionArea>
-        <Link
-          href={`/product/${item?.slug}`}
-         
-        >
+        <Link href={`/product/${item?.slug}`}>
           <Grid container spacing={2}>
             <Grid size={4}>
               <CardMedia
@@ -42,8 +37,8 @@ export default function MediaControlCard({ item }: { item: Product }) {
                 }}
               />
             </Grid>
-            <Grid size={8} alignContent={"center"} alignItems={"center"} >
-              <Box >
+            <Grid size={8} alignContent={"center"} alignItems={"center"}>
+              <Box>
                 <Box>
                   <Typography
                     noWrap
@@ -94,6 +89,6 @@ export default function MediaControlCard({ item }: { item: Product }) {
           </Grid>
         </Link>
       </CardActionArea>
-    </Card>
+    </Box>
   );
 }

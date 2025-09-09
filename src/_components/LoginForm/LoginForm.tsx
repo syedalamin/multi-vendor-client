@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -18,17 +18,18 @@ const LoginForm = () => {
   const [error, setError] = useState("");
   const [loginUser] = useLoginUserMutation();
 
+
   const handleLogin = async (values: FieldValues) => {
     try {
       const res = await loginUser(values).unwrap();
 
       if (res?.data?.data?.accessToken) {
-     
         if (typeof window !== "undefined") {
           storeUserInfo({ accessToken: res?.data?.data?.accessToken });
         }
 
         toast.success("User Login Successfully");
+   
         router.push(redirect);
       } else {
         setError(res?.message || "Login failed");

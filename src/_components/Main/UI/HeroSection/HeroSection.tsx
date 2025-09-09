@@ -83,9 +83,9 @@ const HeroSection = () => {
               fontSize: "1rem",
               borderRadius: "30px",
               "&:hover": { backgroundColor: "#009904" },
-              
+
             }}
-            
+
           >
             Shop Now
           </Button>
@@ -110,3 +110,4 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+

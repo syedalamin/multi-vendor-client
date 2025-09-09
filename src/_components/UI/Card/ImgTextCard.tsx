@@ -1,21 +1,21 @@
 import * as React from "react";
-import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import CardActionArea from "@mui/material/CardActionArea";
 import { Category } from "@/types/common";
 
-import { CardMedia, Stack } from "@mui/material";
+import { Box, CardMedia, Stack } from "@mui/material";
 import Link from "next/link";
 
 export default function ImgTextCard({ item }: { item: Category }) {
   return (
-    <Card
+    <Box
       sx={{
-        borderRadius: "20px",
+        border: "1px solid #2e7d32",
         overflow: "hidden",
-        boxShadow: "0 4px 8px rgba(0,0,0,0.15)",
+
         transition: "transform 0.3s, box-shadow 0.3s",
         "&:hover": {
+      
           transform: "translateY(-4px)",
           boxShadow: "0 8px 16px rgba(0,0,0,0.15)",
         },
@@ -63,6 +63,6 @@ export default function ImgTextCard({ item }: { item: Category }) {
           </Stack>
         </CardActionArea>
       </Link>
-    </Card>
+    </Box>
   );
 }

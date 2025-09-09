@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import Card from "@mui/material/Card";
+
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Product } from "@/types/common";
@@ -11,18 +11,16 @@ import AddToCart from "@/lib/Button/AddToCart";
 export default function ImgProductCard({ item }: { item: Product }) {
   const formattedPrice = Number(item.price).toFixed(2);
   return (
-    <Card
+    <Box
       sx={{
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        borderRadius: "16px",
+        border: "1px solid #2e7d32",
         overflow: "hidden",
-        boxShadow: "0 4px 8px rgba(0,0,0,0.15)",
         transition: "transform 0.3s, box-shadow 0.3s",
         "&:hover": {
           transform: "translateY(-4px)",
-          boxShadow: "0 8px 16px rgba(0,0,0,0.15)",
         },
       }}
     >
@@ -130,11 +128,11 @@ export default function ImgProductCard({ item }: { item: Product }) {
             <AddToCart
               id={item?.id}
               name="Add To Cart"
-              sx={{ padding: "8px 20px" ,  fontSize: "0.8rem",}}
+              sx={{ padding: "8px 20px", fontSize: "0.8rem" }}
             />
           </Box>
         </Stack>
       </CardActionArea>
-    </Card>
+    </Box>
   );
 }

@@ -2,7 +2,7 @@
 import { getUserInfo, removeUser } from "@/services/auth.services";
 import { Button, Divider, ListItemIcon, Menu, MenuItem } from "@mui/material";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+
 import { useState } from "react";
 
 // Icons
@@ -16,7 +16,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 const AuthButton = () => {
   const userInfo = getUserInfo();
-  const router = useRouter();
+
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -31,7 +31,7 @@ const AuthButton = () => {
 
   const handleLogOut = () => {
     removeUser();
-    router.refresh();
+    window.location.href = "/";
     handleClose();
   };
 

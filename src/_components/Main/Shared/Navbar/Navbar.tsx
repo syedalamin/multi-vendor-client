@@ -1,5 +1,5 @@
 "use client";
-
+import trystyShop from "@/image/trustyShop.jpg";
 import AuthButton from "@/_components/UI/AuthButton";
 import { MenuOpenOutlinedIcon, CloseOutlinedIcon } from "@/_Icons";
 import {
@@ -16,8 +16,11 @@ import { useState } from "react";
 import Cart from "../../UI/Cart/Cart";
 import SearchButtonWithModal from "@/_components/Shared/Buttons/SearchButtonWithModal";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
+
 
 const Navbar = () => {
+ 
   const [open, setOpen] = useState(false);
 
   const toggleDrawer = (newOpen: boolean) => () => {
@@ -67,7 +70,14 @@ const Navbar = () => {
       })}
     </>
   );
-  const MainLogo = <>Multi Vendor</>;
+  const MainLogo = (
+    <Image
+      className="w-full bg-cover overflow-hidden"
+      height={30}
+      alt=""
+      src={trystyShop}
+    />
+  );
   return (
     <Stack
       bgcolor={"white"}
@@ -173,7 +183,7 @@ const Navbar = () => {
             </Drawer>
           </Grid>
           {/* Logo  */}
-          <Grid size={{ xs: 4 , }}>
+          <Grid size={{ xs: 4 }}>
             <Stack direction="row" justifyContent={"center"}>
               <Typography
                 variant="h5"
@@ -183,9 +193,9 @@ const Navbar = () => {
                     xs: "1rem",
                     sm: "1.25rem",
                   },
-                  display:{
+                  display: {
                     xs: "none",
-                    sm: "block"
+                    sm: "block",
                   },
                   fontWeight: 500,
                 }}
@@ -208,6 +218,7 @@ const Navbar = () => {
             </Stack>
           </Grid>
         </Grid>
+        
       </Container>
     </Stack>
   );

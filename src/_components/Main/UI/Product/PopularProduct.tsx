@@ -4,12 +4,8 @@ import { Product } from "@/types/common";
 
 import { Grid, Stack, Typography } from "@mui/material";
 
-
-
 const PopularProduct = async () => {
   const product = await apiFetcher("/product");
-
-
 
   let popularProduct;
 
@@ -18,7 +14,7 @@ const PopularProduct = async () => {
       <Stack>
         <Stack>
           <Typography
-            py={2}
+            pb={5}
             variant="h4"
             component="h1"
             sx={{
@@ -36,7 +32,7 @@ const PopularProduct = async () => {
                 xs: 1.4,
                 md: 1.6,
               },
-              textAlign: "center"
+              textAlign: "center",
             }}
           >
             Popular Product

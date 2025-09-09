@@ -15,7 +15,7 @@ const PopularCategory = async () => {
       <Stack>
         <Stack>
           <Typography
-            py={2}
+            pb={5}
             variant="h4"
             component="h1"
             sx={{

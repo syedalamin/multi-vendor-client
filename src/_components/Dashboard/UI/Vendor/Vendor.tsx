@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import EMForm from "@/_components/Form/EMForm";
 import EMInput from "@/_components/Form/EMInput";
@@ -12,16 +13,18 @@ import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 import AllVendorProfile from "./AllVendorProfile";
 import { useGetAllVendorsQuery } from "@/redux/api/vendorApi";
-
-
+import EMSelect from "@/_components/Form/EMSelect";
+import { useGetAllDistrictQuery } from "@/redux/api/districtApi";
 
 const Vendor = () => {
+  const [selectedDistrict, setSelectedDistrict] = useState<string | null>(null);
+
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => setOpen(true);
+  const { data: districtData } = useGetAllDistrictQuery({});
+
   const [createVendor] = useCreateVendorMutation();
-  const {data} = useGetAllVendorsQuery({});
-
-
+  const { data } = useGetAllVendorsQuery({});
 
   const handleRegistration = async (values: FieldValues) => {
     const {
@@ -33,7 +36,7 @@ const Vendor = () => {
       banner,
       logo,
       district,
-      city
+      city,
     } = values;
 
     const payload = {
@@ -44,7 +47,7 @@ const Vendor = () => {
         email,
         contactNumber,
         district,
-        city
+        city,
       },
     };
 
@@ -143,12 +146,41 @@ const Vendor = () => {
                   fullWidth={true}
                 />
               </Grid>
-              <Grid size={{ xs: 12, md: 6 }}>
+              {/* <Grid size={{ xs: 12, md: 6 }}>
                 <EMInput name="district" label="District" fullWidth={true} />
+              </Grid> */}
+              <Grid size={{ xs: 12, md: 6 }}>
+                <EMSelect
+                  name="district"
+                  label="District"
+                  fullWidth={true}
+                  options={
+                    districtData?.data?.map((item: any) => ({
+                      label: item.name,
+                      value: item.name,
+                    })) || []
+                  }
+                  onChange={(e: any) => setSelectedDistrict(e.target.value)}
+                />
               </Grid>
               <Grid size={{ xs: 12, md: 6 }}>
-                <EMInput name="city" label="City" fullWidth={true} />
+                <EMSelect
+                  name="city"
+                  label="Thana"
+                  fullWidth={true}
+                  options={
+                    districtData?.data
+                      ?.find((d: any) => d.name === selectedDistrict)
+                      ?.city?.map((c: any) => ({
+                        label: c.name,
+                        value: c.name,
+                      })) || []
+                  }
+                />
               </Grid>
+              {/* <Grid size={{ xs: 12, md: 6 }}>
+                <EMInput name="city" label="City" fullWidth={true} />
+              </Grid> */}
               <Grid size={{ xs: 12, md: 6 }}>
                 <EMUploader name="logo" label="Upload Logo" />
               </Grid>
@@ -180,7 +212,9 @@ const Vendor = () => {
           </EMForm>
         </Box>
       </FullScreenModal>
-      <Stack><AllVendorProfile data={data?.vendor}/></Stack>
+      <Stack>
+        <AllVendorProfile data={data?.vendor} />
+      </Stack>
     </Stack>
   );
 };

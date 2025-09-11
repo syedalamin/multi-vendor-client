@@ -3,16 +3,19 @@
 
 import BackButton from "@/_components/Button/BackButton";
 import OrderSingleDetails from "@/_components/Dashboard/UI/VendorProduct/OrderSingleDetails";
-import { Box} from "@mui/material";
+import {  Container } from "@mui/material";
+
 import React from "react";
 
-const SingleOrder = async ({ params }: { params: any }) => {
+const MySingleOrder = async ({ params }: { params: any }) => {
   const { orderId } = await params;
-
-  return <Box>
-    <OrderSingleDetails id={orderId}/>
-    <BackButton/>
-  </Box>;
+  
+  return (
+    <Container>
+      <OrderSingleDetails id={orderId} />
+     <BackButton/>
+    </Container>
+  );
 };
 
-export default SingleOrder;
+export default MySingleOrder;

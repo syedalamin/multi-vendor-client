@@ -1,13 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { VisibilityOutlinedIcon } from "@/_Icons";
-import { Box, IconButton } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Link from "next/link";
 import React from "react";
 
 const AllOrderProduct = ({ data }: { data: any }) => {
-
+  const statusStyles: Record<string, any> = {
+    PENDING: { backgroundColor: "#ff9800" },
+    SHIPPED: { backgroundColor: "#2196f3" },
+    DELIVERED: { backgroundColor: "#4caf50" },
+    CANCELLED: { backgroundColor: "#f44336" },
+  };
+  const paymentStatusStyles: Record<string, any> = {
+    PENDING: { backgroundColor: "#ff9800", hoverColor: "#e68900" },
+    PAID: { backgroundColor: "#4caf50", hoverColor: "#388e3c" },
+    FAILED: { backgroundColor: "#f44336", hoverColor: "#d32f2f" },
+  };
 
   const columns: GridColDef[] = [
     {
@@ -22,40 +32,40 @@ const AllOrderProduct = ({ data }: { data: any }) => {
         const info = params.value;
         if (!info) return "N/A";
 
-        const textStyle = {
-          fontSize: "18px",
-          fontWeight: 500,
-          whiteSpace: "normal",
-          wordBreak: "break-word",
+        const labels = {
+          contact: "📞",
+          district: "🏙️",
+          city: "🌆",
+          postalCode: "📮",
         };
 
         return (
-          <Box sx={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-            <Box sx={textStyle}>
-              <span style={{ fontWeight: 700, color: "#1976d2" }}>Name: </span>
-              {info.firstName} {info.lastName}
-            </Box>
-            <Box sx={textStyle}>
-              <span style={{ fontWeight: 700, color: "#1976d2" }}>
-                Contact:{" "}
-              </span>
-              {info.phone}
-            </Box>
-            <Box sx={textStyle}>
-              <span style={{ fontWeight: 700, color: "#1976d2" }}>
-                District:{" "}
-              </span>
-              {info.districts}
-            </Box>
-            <Box sx={textStyle}>
-              <span style={{ fontWeight: 700, color: "#1976d2" }}>City: </span>
-              {info.city}
-            </Box>
-            <Box sx={textStyle}>
-              <span style={{ fontWeight: 700, color: "#1976d2" }}>
-                Postal Code:{" "}
-              </span>
-              {info.postalCode}
+          <Box>
+            <Box
+              sx={{ display: "flex", flexDirection: "column", gap: 0.5 }}
+              py={4}
+            >
+              <Typography
+                sx={{ fontSize: "18px", fontWeight: 600, color: "#1976d2" }}
+              >
+                Name: {info.firstName} {info.lastName}
+              </Typography>
+
+              <Typography sx={{ fontSize: "16px", color: "#555" }}>
+                {labels.contact}Contact: {info.phone}
+              </Typography>
+
+              <Typography sx={{ fontSize: "16px", color: "#555" }}>
+                {labels.district}District: {info.districts}
+              </Typography>
+
+              <Typography sx={{ fontSize: "16px", color: "#555" }}>
+                {labels.city}City: {info.city}
+              </Typography>
+
+              <Typography sx={{ fontSize: "16px", color: "#555" }}>
+                {labels.postalCode}Post Code: {info.postalCode}
+              </Typography>
             </Box>
           </Box>
         );
@@ -87,6 +97,28 @@ const AllOrderProduct = ({ data }: { data: any }) => {
       filterable: false,
       hideable: false,
       disableColumnMenu: true,
+      renderCell: ({ row }) => {
+        const status = row.status;
+        const style = statusStyles[status] || { backgroundColor: "#9e9e9e" };
+        return (
+          <Typography
+            sx={{
+              px: 1.5,
+              py: 0.5,
+              borderRadius: "20px",
+              fontSize: "13px",
+              fontWeight: 600,
+              textAlign: "center",
+              color: "#fff",
+              backgroundColor: style.backgroundColor,
+              display: "inline-block",
+              minWidth: "90px",
+            }}
+          >
+            {row.status}
+          </Typography>
+        );
+      },
     },
     {
       field: "paymentType",
@@ -105,6 +137,32 @@ const AllOrderProduct = ({ data }: { data: any }) => {
       filterable: false,
       hideable: false,
       disableColumnMenu: true,
+      renderCell: ({ row }) => {
+        const paymentStatus = row?.paymentStatus;
+
+        const style = paymentStatusStyles[paymentStatus] || {
+          backgroundColor: "#9e9e9e",
+          hoverColor: "#757575",
+        };
+        return (
+          <Typography
+            sx={{
+              px: 1.5,
+              py: 0.5,
+              borderRadius: "20px",
+              fontSize: "13px",
+              fontWeight: 600,
+              textAlign: "center",
+              color: "#fff",
+              backgroundColor: style.backgroundColor,
+              display: "inline-block",
+              minWidth: "90px",
+            }}
+          >
+            {row.paymentStatus}
+          </Typography>
+        );
+      },
     },
     {
       field: "action",
@@ -125,7 +183,7 @@ const AllOrderProduct = ({ data }: { data: any }) => {
             alignItems: "center",
           }}
         >
-          <IconButton>
+          <IconButton sx={{ color: "#1976d2" }}>
             <VisibilityOutlinedIcon />
           </IconButton>
           <Link
@@ -150,28 +208,38 @@ const AllOrderProduct = ({ data }: { data: any }) => {
         disableMultipleRowSelection
         disableVirtualization
         sx={{
-          border: "1px solid #e0e0e0",
+       
           background: "linear-gradient(135deg, #fafafa 0%, #ffffff 100%)",
           color: "text.secondary",
-          borderRadius: 0,
+          "& .MuiDataGrid-columnHeaders": {
+            background: "linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)",
+
+       
+            fontWeight: 600,
+            letterSpacing: "0.5px",
+          },
           "& .MuiDataGrid-cell": {
             display: "flex",
             justifyContent: "flex-start",
             alignItems: "center",
-            fontSize: "16px",
-            fontWeight: 500,
-            lineHeight: 1.4,
-          },
-          "& .MuiDataGrid-columnHeader": {
-            textAlign: "left",
-            fontSize: "17px",
+            fontSize: "18px",
             fontWeight: 600,
+            lineHeight: 1.5,
+            borderBottom: "1px solid #f0f0f0",
+          },
+          "& .MuiDataGrid-row:nth-of-type(odd)": {
+            backgroundColor: "#f9f9f9",
+          },
+          "& .MuiDataGrid-row:hover": {
+            backgroundColor: "#e3f2fd !important",
+            transition: "all 0.25s ease-in-out",
+            boxShadow: "inset 0 0 8px rgba(25,118,210,0.2)",
+          },
+          "& .MuiDataGrid-columnSeparator": {
+            display: "none",
           },
           "& .MuiDataGrid-cell:focus-within": {
             outline: "none",
-          },
-          "& .MuiDataGrid-row.Mui-selected": {
-            backgroundColor: "inherit",
           },
           "& .MuiDataGrid-columnHeader:focus": {
             outline: "none",

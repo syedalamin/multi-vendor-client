@@ -1,3 +1,4 @@
+import BackButton from "@/_components/Button/BackButton";
 import MyOrder from "@/_components/Main/UI/Order/MyOrder";
 import { Container } from "@mui/material";
 import { Metadata } from "next";
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
 const MyOrdersPage = () => {
   return <Container>
     <MyOrder/>
+    <BackButton/>
   </Container>;
 };
 

@@ -6,8 +6,6 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
 const SingleOrderTable = ({ data }: { data: any }) => {
 
-  console.log(data);
-
   const columns: GridColDef[] = [
     {
       field: "product",

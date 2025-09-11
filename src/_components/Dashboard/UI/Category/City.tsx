@@ -1,58 +1,43 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import EMForm from "@/_components/Form/EMForm";
 import EMInput from "@/_components/Form/EMInput";
-import EMUploader from "@/_components/Form/EMUploader";
 import FullScreenModal from "@/_components/Shared/Modal/FullScreenModal";
 import { AddIcon, RemoveIcon } from "@/_Icons";
-import { modifyPayloads } from "@/utils/ModifyFormData/modifyFormData";
-import { useCreateVendorMutation } from "@/redux/api/userApi";
+
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
-import AllVendorProfile from "./AllVendorProfile";
-import { useGetAllVendorsQuery } from "@/redux/api/vendorApi";
 
+import {
+ 
+  useGetAllDistrictQuery,
+} from "@/redux/api/districtApi";
+import AllCity from "./AllCity";
+import { useCreateCityMutation, useGetAllCityQuery } from "@/redux/api/cityApi";
+import EMSelect from "@/_components/Form/EMSelect";
 
-
-const Vendor = () => {
+const City = () => {
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => setOpen(true);
-  const [createVendor] = useCreateVendorMutation();
-  const {data} = useGetAllVendorsQuery({});
 
+  const { data: districtData } = useGetAllDistrictQuery({});
+  const { data: cityData } = useGetAllCityQuery({});
+  const [createCity] = useCreateCityMutation();
 
-
+ 
   const handleRegistration = async (values: FieldValues) => {
-    const {
-      shopName,
-      description,
-      email,
-      contactNumber,
-      password,
-      banner,
-      logo,
-      district,
-      city
-    } = values;
+    const { city, districtId } = values;
 
     const payload = {
-      password,
-      vendor: {
-        shopName,
-        description,
-        email,
-        contactNumber,
-        district,
-        city
-      },
+      name: city,
+      districtId: districtId,
     };
 
-    const data = modifyPayloads(payload, { logo, banner });
-
     try {
-      const res = await createVendor(data).unwrap();
-      console.log(res);
+      const res = await createCity(payload).unwrap();
+     
       if (res.success) {
         toast.success(res.message);
         setOpen(false);
@@ -78,7 +63,7 @@ const Vendor = () => {
       >
         <Box>
           <Typography component={"h2"} variant="h5" fontWeight={600}>
-            Create Vendor
+            Create City
           </Typography>
         </Box>
         <Box>
@@ -105,55 +90,25 @@ const Vendor = () => {
           </Button>
         </Box>
       </Stack>
-      <FullScreenModal open={open} setOpen={setOpen} title="Create Vendor">
+      <FullScreenModal open={open} setOpen={setOpen} title="Create City">
         <Box>
           <EMForm onSubmit={handleRegistration}>
             <Grid wrap="wrap" container spacing={2} my={4}>
               <Grid size={{ xs: 12, md: 6 }}>
-                <EMInput name="shopName" label="Shop Name" fullWidth={true} />
+                <EMInput name="city" label="Thana Name" fullWidth={true} />
               </Grid>
               <Grid size={{ xs: 12, md: 6 }}>
-                <EMInput
-                  name="description"
-                  label="Description"
+                <EMSelect
+                  name="districtId"
+                  label="District"
                   fullWidth={true}
+                  options={
+                    districtData?.data?.map((item: any) => ({
+                      label: item.name,
+                      value: item.id,
+                    })) || []
+                  }
                 />
-              </Grid>
-              <Grid size={{ xs: 12, md: 6 }}>
-                <EMInput
-                  name="email"
-                  label="Email"
-                  type="email"
-                  fullWidth={true}
-                />
-              </Grid>
-              <Grid size={{ xs: 12, md: 6 }}>
-                <EMInput
-                  name="password"
-                  label="Password"
-                  // type="password"
-                  type="text"
-                  fullWidth={true}
-                />
-              </Grid>
-              <Grid size={{ xs: 12, md: 6 }}>
-                <EMInput
-                  name="contactNumber"
-                  label="BKash Number"
-                  fullWidth={true}
-                />
-              </Grid>
-              <Grid size={{ xs: 12, md: 6 }}>
-                <EMInput name="district" label="District" fullWidth={true} />
-              </Grid>
-              <Grid size={{ xs: 12, md: 6 }}>
-                <EMInput name="city" label="City" fullWidth={true} />
-              </Grid>
-              <Grid size={{ xs: 12, md: 6 }}>
-                <EMUploader name="logo" label="Upload Logo" />
-              </Grid>
-              <Grid size={{ xs: 12, md: 6 }}>
-                <EMUploader name="banner" label="Upload Banner" />
               </Grid>
             </Grid>
             <Box>
@@ -180,9 +135,11 @@ const Vendor = () => {
           </EMForm>
         </Box>
       </FullScreenModal>
-      <Stack><AllVendorProfile data={data?.vendor}/></Stack>
+      <Stack>
+        <AllCity data={cityData?.data} />
+      </Stack>
     </Stack>
   );
 };
 
-export default Vendor;
+export default City;

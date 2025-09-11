@@ -51,6 +51,16 @@ const drawerItems = (role: USER_ROLE): DrawerItem[] => {
               path: `/dashboard/${role}/sub-category`,
               icon: CategoryIcon,
             },
+            {
+              title: "District",
+              path: `/dashboard/${role}/district`,
+              icon: CategoryIcon,
+            },
+            {
+              title: "City",
+              path: `/dashboard/${role}/city`,
+              icon: CategoryIcon,
+            },
           ],
         },
         {

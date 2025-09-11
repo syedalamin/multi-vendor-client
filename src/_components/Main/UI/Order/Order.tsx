@@ -34,6 +34,8 @@ const Order = () => {
   const [createShipping] = useCreateShippingMutation();
   const [selectedDistrict, setSelectedDistrict] = useState<string>("");
 
+  console.log(totalCart)
+
   const deliveryCharge =
     !selectedDistrict || selectedDistrict === "Dhaka" ? 80 : 130;
   const discountTotal = totalCart?.data?.data?.totalDiscountPrice ?? 0;

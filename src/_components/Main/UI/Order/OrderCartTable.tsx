@@ -39,19 +39,21 @@ const OrderCartTable = () => {
             />
             <Typography
               sx={{
-                fontSize: { xs: "0.75rem", sm: "0.9rem",   },
+                fontSize: { xs: "0.75rem", sm: "0.9rem" },
                 fontWeight: 500,
               }}
             >
-              {item.productName}
+              {item.productName.length > 15
+                ? item.productName.slice(0, 15)
+                : item.productName}
             </Typography>
             <Typography
               sx={{
-                fontSize: { xs: "0.75rem", sm: "0.85rem",  },
+                fontSize: { xs: "0.75rem", sm: "0.85rem" },
                 fontWeight: 500,
               }}
             >
-             x{item.quantity}
+              x{item.quantity}
             </Typography>
           </Stack>
 
@@ -70,4 +72,3 @@ const OrderCartTable = () => {
 };
 
 export default OrderCartTable;
-

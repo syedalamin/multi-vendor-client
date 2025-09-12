@@ -1,8 +1,6 @@
 "use client";
-
 import { Product } from "@/types/common";
 import { Box, CardMedia, Grid, Rating, Stack, Typography } from "@mui/material";
-
 import React, { useState } from "react";
 import AddToCart from "@/lib/Button/AddToCart";
 
@@ -21,7 +19,6 @@ const SingleProduct = ({ singleProduct }: { singleProduct: Product }) => {
   } = singleProduct;
 
   const [mainImage, setMainImage] = useState(productImages[0]);
-
   const sideImages = [...productImages].slice(0, 4);
   const formattedPrice = Number(price).toFixed(2);
 
@@ -57,10 +54,11 @@ const SingleProduct = ({ singleProduct }: { singleProduct: Product }) => {
                     onClick={() => setMainImage(slug)}
                     sx={{
                       width: "100%",
-                      height: "auto",
+                      height: { xs: 60, sm: 81, md: 91 },
                       borderRadius: 2,
                       objectFit: "cover",
                       cursor: "pointer",
+                      aspectRatio: "1 / 1",
                       border:
                         mainImage === slug
                           ? "2px solid #2e7d32"
@@ -80,11 +78,13 @@ const SingleProduct = ({ singleProduct }: { singleProduct: Product }) => {
               </Box>
             </Grid>
 
+            {/* Main Image */}
             <Grid size={{ xs: 9 }}>
               <CardMedia
                 sx={{
                   width: "100%",
-                  height: "100%",
+                  aspectRatio: "1 / 1",
+                  height: { xs: 276, sm: 360, md: 400 },
                   borderRadius: 3,
                   objectFit: "cover",
                   border: "1px solid #ddd",
@@ -109,23 +109,26 @@ const SingleProduct = ({ singleProduct }: { singleProduct: Product }) => {
             }}
           >
             <Stack spacing={2}>
-              <Box display="flex" alignItems="center" gap={2}>
+              <Box
+                display="flex"
+                alignItems={{ xs: "flex-start", md: "center" }}
+                flexDirection={{ xs: "column", md: "row" }} //
+                gap={1.5}
+              >
                 <Typography
                   variant="h4"
                   component="h1"
                   sx={{
-                    fontSize: { xs: "1.8rem", md: "2.2rem", lg: "2.4rem" },
+                    fontSize: { xs: "1.5rem", md: "2rem" },
                     fontWeight: 700,
                     color: "#222",
                   }}
                 >
                   {name}
                 </Typography>
+
                 <Typography
                   sx={{
-                    // backgroundColor:
-                    //   status === "In Stock" ? "#e6f4ea" : "#fff3e0",
-                    // color: status === "In Stock" ? "#2e7d32" : "#ef6c00",
                     padding: "3px 10px",
                     borderRadius: "12px",
                     fontSize: "0.85rem",
@@ -136,6 +139,7 @@ const SingleProduct = ({ singleProduct }: { singleProduct: Product }) => {
                   {status}
                 </Typography>
               </Box>
+
               <Stack direction="row" spacing={3} alignItems="center">
                 <Rating
                   name="half-rating-read"
@@ -185,14 +189,19 @@ const SingleProduct = ({ singleProduct }: { singleProduct: Product }) => {
               </Box>
             </Stack>
 
+            {/* Short Description */}
             <Box>
               <Typography component="p" sx={{ color: "#555", lineHeight: 1.6 }}>
-                {description}
+                {description?.slice(0, 200)}
               </Typography>
             </Box>
 
             <Stack>
-              <AddToCart id={id} name="Add To Cart" sx={{ py: "12px" }} />
+              <AddToCart
+                id={id}
+                name="Add To Cart"
+                sx={{ py: "8px", fontSize: "14px" }}
+              />
             </Stack>
 
             <Box>

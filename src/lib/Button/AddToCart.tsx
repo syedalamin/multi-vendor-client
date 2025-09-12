@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-'use client'
+"use client";
 import { useCreateCartMutation } from "@/redux/api/cartApi";
 import { getUserInfo } from "@/services/auth.services";
 import { Stack, Typography } from "@mui/material";
 import { usePathname, useRouter } from "next/navigation";
-;
 import React from "react";
 import { toast } from "sonner";
 
-const AddToCart = ({ id, name , sx}: { id: string; name: string , sx: any}) => {
+const AddToCart = ({ id, name, sx }: { id: string; name: string; sx: any }) => {
   const pathname = usePathname();
   const [createCart] = useCreateCartMutation();
   const userInfo = getUserInfo();
@@ -40,7 +39,7 @@ const AddToCart = ({ id, name , sx}: { id: string; name: string , sx: any}) => {
       sx={{ width: "100%" }}
       spacing={2}
     >
-      <Typography 
+      <Typography
         onClick={handleCartSubmit}
         sx={{
           ...sx,

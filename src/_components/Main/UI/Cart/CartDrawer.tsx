@@ -132,7 +132,7 @@ export default function CartDrawer() {
                         fontWeight: 600,
                       }}
                     >
-                      {item.productName}
+                      {item.productName.length>20 ? item?.productName?.slice(0, 20) : item.productName}
                     </Typography>
                     <Typography
                       sx={{

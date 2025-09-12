@@ -1,5 +1,5 @@
 "use client";
-import { signIn } from "next-auth/react";
+// import { signIn } from "next-auth/react";
 import React, { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -124,12 +124,12 @@ const LoginForm = () => {
           </Typography>
         </EMForm>
 
-        <Button
+        {/* <Button
           onClick={() => signIn("google", { callbackUrl: "/" })}
           sx={{ mt: 2, background: "#DB4437", color: "#fff" }}
         >
           Continue with Google
-        </Button>
+        </Button> */}
       </Box>
     </Stack>
   );

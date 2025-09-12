@@ -22,7 +22,7 @@ const SubCategoryData = ({ subCategory }: { subCategory: string }) => {
      
         // const baseUrl = "https://multi-vendor-server-wfx1.onrender.com/api/v1"; server
         // const baseUrl = "http://localhost:5000/api/v1"; 
-        const baseUrl = "http://localhost:5000/api/v1";
+        const baseUrl = "https://multi-vendor-server-wfx1.onrender.com/api/v1";
         const res = await fetch(`${baseUrl}/sub-category/${subCategory}`);
    
         const singleSubCategory = await res.json();

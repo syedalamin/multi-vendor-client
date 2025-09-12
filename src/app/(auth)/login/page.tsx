@@ -9,6 +9,7 @@ const LoginPage = () => {
   return (
     <Container>
         <LoginForm />
+     
     </Container>
   );
 };

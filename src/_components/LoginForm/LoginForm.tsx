@@ -1,4 +1,5 @@
 "use client";
+import { signIn } from "next-auth/react";
 import React, { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -18,7 +19,6 @@ const LoginForm = () => {
   const [error, setError] = useState("");
   const [loginUser] = useLoginUserMutation();
 
-
   const handleLogin = async (values: FieldValues) => {
     try {
       const res = await loginUser(values).unwrap();
@@ -29,7 +29,7 @@ const LoginForm = () => {
         }
 
         toast.success("User Login Successfully");
-   
+
         router.push(redirect);
       } else {
         setError(res?.message || "Login failed");
@@ -123,6 +123,13 @@ const LoginForm = () => {
             </Link>
           </Typography>
         </EMForm>
+
+        <Button
+          onClick={() => signIn("google", { callbackUrl: "/" })}
+          sx={{ mt: 2, background: "#DB4437", color: "#fff" }}
+        >
+          Continue with Google
+        </Button>
       </Box>
     </Stack>
   );

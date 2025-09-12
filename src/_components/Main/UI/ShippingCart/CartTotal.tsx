@@ -73,9 +73,9 @@ const CartTotal = (totalCart: any) => {
               border: "1px solid #f0f0f0",
             }}
           >
-            <Typography color="text.secondary">Sub Total</Typography>
+            <Typography color="text.secondary">Total</Typography>
             <Typography fontWeight="bold">
-              ${totalCart?.totalCart?.data?.data?.totalPrice ?? 0}
+              ৳ {totalCart?.totalCart?.data?.data?.totalPrice ?? 0}
             </Typography>
           </Box>
 
@@ -89,9 +89,9 @@ const CartTotal = (totalCart: any) => {
               border: "1px solid #dcedc8",
             }}
           >
-            <Typography fontWeight="bold">Total</Typography>
+            <Typography fontWeight="bold">Sub Total</Typography>
             <Typography fontWeight="bold" color="success.main">
-              ${totalCart?.totalCart?.data?.data?.totalDiscountPrice ?? 0}
+              ৳ {totalCart?.totalCart?.data?.data?.totalDiscountPrice ?? 0}
             </Typography>
           </Box>
 

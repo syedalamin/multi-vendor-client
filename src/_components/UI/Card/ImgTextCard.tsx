@@ -10,18 +10,17 @@ export default function ImgTextCard({ item }: { item: Category }) {
   return (
     <Box
       sx={{
-        border: "1px solid #2e7d32",
-        overflow: "hidden",
-
-        transition: "transform 0.3s, box-shadow 0.3s",
-        "&:hover": {
-      
-          transform: "translateY(-4px)",
-          boxShadow: "0 8px 16px rgba(0,0,0,0.15)",
-        },
+        height: "100%",
+        border: "1px solid #e0e0e0",
         display: "flex",
+        borderRadius: "8px",
         flexDirection: "column",
-        background: "linear-gradient(145deg, #fdfdfd, #f0f7f2)",
+        overflow: "hidden",
+        transition: "transform 0.3s, box-shadow 0.3s , border 0.3s ",
+        "&:hover": {
+          border: "1px solid #2e7d32",
+          transform: "translateY(-4px)",
+        },
       }}
     >
       <Link

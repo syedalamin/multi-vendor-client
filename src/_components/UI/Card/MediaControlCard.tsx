@@ -12,11 +12,15 @@ export default function MediaControlCard({ item }: { item: Product }) {
   return (
     <Box
       sx={{
+        height: "100%",
+        border: "1px solid #e0e0e0",
+        display: "flex",
+        borderRadius: "8px",
+        flexDirection: "column",
         overflow: "hidden",
-        border: "1px solid #2e7d32",
-
-        transition: "transform 0.3s, box-shadow 0.3s",
+        transition: "transform 0.3s, box-shadow 0.3s , border 0.3s ",
         "&:hover": {
+          border: "1px solid #2e7d32",
           transform: "translateY(-4px)",
         },
       }}

@@ -1,3 +1,4 @@
+
 "use client";
 import EMForm from "@/_components/Form/EMForm";
 import EMInput from "@/_components/Form/EMInput";
@@ -163,3 +164,7 @@ const RegistrationPage = () => {
 };
 
 export default RegistrationPage;
+
+
+
+

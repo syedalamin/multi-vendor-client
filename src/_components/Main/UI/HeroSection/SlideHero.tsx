@@ -2,21 +2,20 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import Link from "next/link";
+import { ArrowForward } from "@mui/icons-material";
 
 export default function MuiAutoSlider({
   data,
   mainSlide,
   subSlide,
   btnSlide,
-  height,
 }: {
   data: any;
   mainSlide: any;
   subSlide: any;
   btnSlide: any;
-  height: any;
 }) {
   const [activeStep, setActiveStep] = useState(0);
   const maxSteps = data.length;
@@ -36,19 +35,23 @@ export default function MuiAutoSlider({
 
   return (
     <Box position="relative" sx={{ overflow: "hidden" }}>
+      {/* Responsive Image */}
       <Box
         component="img"
         src={data[activeStep]?.imgPath}
         alt={data[activeStep]?.label}
         sx={{
-          ...height,
+          height: { xs: "300px", sm: "400px", md: "477px",   },
           display: "block",
           width: "100%",
           objectFit: "cover",
+          borderRadius: "8px",
           filter: "brightness(0.7)",
+          transition: "height 0.3s ease",
         }}
       />
 
+      {/* Overlay Content */}
       <Box
         position="absolute"
         top={0}
@@ -60,7 +63,7 @@ export default function MuiAutoSlider({
         justifyContent="center"
         alignItems="start"
         textAlign="left"
-        p={{ xs: 3, sm: 6 }}
+        p={{ xs: 2, sm: 3, md: 6 }}
       >
         <Box mb={2}>
           <Typography
@@ -78,15 +81,18 @@ export default function MuiAutoSlider({
           </Typography>
         </Box>
 
-        <Typography
+        <Button
           component={Link}
           href="/product"
+          endIcon={<ArrowForward />}
+          variant="text"
+          size="small"
           sx={{
             ...btnSlide,
           }}
         >
           Shop Now
-        </Typography>
+        </Button>
       </Box>
     </Box>
   );

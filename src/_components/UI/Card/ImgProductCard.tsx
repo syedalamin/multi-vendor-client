@@ -71,7 +71,7 @@ export default function ImgProductCard({ item }: { item: Product }) {
                   whiteSpace: "nowrap",
                 }}
               >
-                {item.name}
+                {item.name.length > 20 ? item.name.slice(0 , 19)+ "..." : item.name}
               </Typography>
 
               <Box

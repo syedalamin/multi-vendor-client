@@ -11,19 +11,7 @@ export default function MediaControlCard({ item }: { item: Product }) {
   const formattedPrice = Number(item.price).toFixed(2);
   return (
     <Box
-      sx={{
-        height: "100%",
-        border: "1px solid #e0e0e0",
-        display: "flex",
-        borderRadius: "8px",
-        flexDirection: "column",
-        overflow: "hidden",
-        transition: "transform 0.3s, box-shadow 0.3s , border 0.3s ",
-        "&:hover": {
-          border: "1px solid #2e7d32",
-          transform: "translateY(-4px)",
-        },
-      }}
+    
     >
       <CardActionArea>
         <Link href={`/product/${item?.slug}`}>
@@ -34,8 +22,8 @@ export default function MediaControlCard({ item }: { item: Product }) {
                 alt={item.name}
                 image={item.productImages[0]}
                 sx={{
-                  width: "100%",
-                  height: "100%",
+                  width: "120px",
+                  height: "100px",
                   objectFit: "cover",
                   flexShrink: 0,
                 }}
@@ -55,7 +43,7 @@ export default function MediaControlCard({ item }: { item: Product }) {
                       whiteSpace: "nowrap",
                     }}
                   >
-                    {item.name}
+                    {item.name.length > 20 ? item.name.slice(0 , 20)+ "..." : item.name}
                   </Typography>
                   <Box display="flex" alignItems="center" gap={1}>
                     <Typography

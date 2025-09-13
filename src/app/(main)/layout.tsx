@@ -1,5 +1,6 @@
 import Footer from "@/_components/Main/Shared/Footer/Footer";
-import Navbar from "@/_components/Main/Shared/Navbar/Navbar";
+import SearchBarWithNavbar from "@/_components/Main/Shared/Navbar/SearchBarWithNavbar";
+
 import DisplayCartButton from "@/_components/Main/UI/Cart/DisplayCartButton";
 
 import type { Metadata } from "next";
@@ -16,7 +17,7 @@ export default function MainLayout({
 }>) {
   return (
     <>
-      <Navbar />
+      <SearchBarWithNavbar/>
       <DisplayCartButton />
       {children}
       <Footer />

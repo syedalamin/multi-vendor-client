@@ -87,21 +87,23 @@ const Order = () => {
                 Billing Info
               </Typography>
               <Grid container spacing={3}>
-                <Grid size={{ xs: 12, md: 6 }}>
+                <Grid size={{ xs: 12, md: 4 }}>
                   <EMInput
                     name="firstName"
                     label="First Name"
                     fullWidth={true}
                   />
                 </Grid>
-                <Grid size={{ xs: 12, md: 6 }}>
+                <Grid size={{ xs: 12, md: 4 }}>
                   <EMInput name="lastName" label="Last Name" fullWidth={true} />
                 </Grid>
-                <Grid size={{ xs: 12, md: 6 }}>
+                <Grid size={{ xs: 12, md: 4 }}>
                   <EMInput name="country" label="Country" fullWidth={true} />
                 </Grid>
-
-                <Grid size={{ xs: 12, md: 6 }}>
+                <Grid size={{ xs: 12, }}>
+                  <EMInput name="address" label="Address" fullWidth={true} />
+                </Grid>
+                <Grid size={{ xs: 12, md:4 }}>
                   <EMSelect
                     name="districts"
                     label="District"
@@ -115,7 +117,7 @@ const Order = () => {
                     onChange={(e: any) => setSelectedDistrict(e.target.value)}
                   />
                 </Grid>
-                <Grid size={{ xs: 12, md: 6 }}>
+                <Grid size={{ xs: 12, md: 4 }}>
                   <EMSelect
                     name="city"
                     label="Thana"
@@ -131,10 +133,7 @@ const Order = () => {
                   />
                 </Grid>
 
-                <Grid size={{ xs: 12, md: 6 }}>
-                  <EMInput name="address" label="Address" fullWidth={true} />
-                </Grid>
-                <Grid size={{ xs: 12, md: 6 }}>
+                <Grid size={{ xs: 12, md: 4 }}>
                   <EMInput
                     name="postalCode"
                     label="Postal Code"
@@ -170,7 +169,7 @@ const Order = () => {
                   variant="h6"
                   sx={{
                     mb: 3,
-                    textAlign: "center",
+                    textAlign: "start",
                     fontWeight: "bold",
                     color: "#2e7d32",
                     letterSpacing: 0.5,
@@ -254,7 +253,6 @@ const Order = () => {
                   <Typography
                     variant="h6"
                     sx={{
-           
                       textAlign: "start",
                       fontWeight: "bold",
                       color: "#2e7d32",
@@ -281,8 +279,8 @@ const Order = () => {
                     }
                     label="Cash On Delivery"
                     sx={{
-                      gap: 1.2,  
-                      ml: 0.5,  
+                      gap: 1.2,
+                      ml: 0.5,
                     }}
                   />
                 </Box>

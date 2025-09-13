@@ -102,7 +102,7 @@ export default function CategorySectionDrawer({
 
   return (
     <Box sx={{ display: { sm: "flex" } }}>
-      {/* Navbar */}
+    
 
       <Button
         type="button"

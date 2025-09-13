@@ -73,6 +73,9 @@ const EMSelect = ({
             <Select
               {...field}
               label={label}
+              MenuProps={{
+                disableScrollLock: true, 
+              }}
               value={field.value ?? ""}
               onChange={(e) => {
                 field.onChange(e);

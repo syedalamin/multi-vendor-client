@@ -7,7 +7,16 @@ import EMForm from "@/_components/Form/EMForm";
 import EMInput from "@/_components/Form/EMInput";
 import EMSelect from "@/_components/Form/EMSelect";
 import { useGetTotalCartQuery } from "@/redux/api/cartApi";
-import { Box, Button, Grid, Paper, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControlLabel,
+  Grid,
+  Paper,
+  Radio,
+  Stack,
+  Typography,
+} from "@mui/material";
 
 import { useCreateShippingMutation } from "@/redux/api/shippingApi";
 import { FieldValues } from "react-hook-form";
@@ -65,6 +74,18 @@ const Order = () => {
                 background: "linear-gradient(135deg, #fafafa 0%, #ffffff 100%)",
               }}
             >
+              <Typography
+                variant="h6"
+                sx={{
+                  mb: 3,
+                  textAlign: "start",
+                  fontWeight: "bold",
+                  color: "#2e7d32",
+                  letterSpacing: 0.5,
+                }}
+              >
+                Billing Info
+              </Typography>
               <Grid container spacing={3}>
                 <Grid size={{ xs: 12, md: 6 }}>
                   <EMInput
@@ -229,6 +250,43 @@ const Order = () => {
                     </Typography>
                   </Box>
                 </Stack>
+                <Box pt={3}>
+                  <Typography
+                    variant="h6"
+                    sx={{
+           
+                      textAlign: "start",
+                      fontWeight: "bold",
+                      color: "#2e7d32",
+                      letterSpacing: 0.5,
+                    }}
+                  >
+                    Payment Method
+                  </Typography>
+
+                  <FormControlLabel
+                    value="cashondelivery"
+                    control={
+                      <Radio
+                        checked
+                        size="small"
+                        sx={{
+                          color: "#2e7d32",
+                          "&.Mui-checked": {
+                            color: "#2e7d32",
+                          },
+                          pointerEvents: "none",
+                        }}
+                      />
+                    }
+                    label="Cash On Delivery"
+                    sx={{
+                      gap: 1.2,  
+                      ml: 0.5,  
+                    }}
+                  />
+                </Box>
+
                 <Box mt={3} display="flex" justifyContent="center">
                   <Button
                     sx={{

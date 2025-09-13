@@ -45,7 +45,7 @@ export default function CartDrawer() {
             },
           }}
         >
-          ({allCart.length}) <br /> View Cart
+          ({allCart.length}) <br /> Items
         </Button>
       )}
 

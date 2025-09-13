@@ -3,6 +3,7 @@ import { Product } from "@/types/common";
 import { Box, CardMedia, Grid, Rating, Stack, Typography } from "@mui/material";
 import React, { useState } from "react";
 import AddToCart from "@/lib/Button/AddToCart";
+import ProductDetailsTab from "./ProductDetailsTab";
 
 const SingleProduct = ({ singleProduct }: { singleProduct: Product }) => {
   const {
@@ -112,7 +113,7 @@ const SingleProduct = ({ singleProduct }: { singleProduct: Product }) => {
               <Box
                 display="flex"
                 alignItems={{ xs: "flex-start", md: "center" }}
-                flexDirection={{ xs: "column", md: "row" }} //
+                flexDirection={{ xs: "column", md: "row" }}
                 gap={1.5}
               >
                 <Typography
@@ -133,10 +134,31 @@ const SingleProduct = ({ singleProduct }: { singleProduct: Product }) => {
                     borderRadius: "12px",
                     fontSize: "0.85rem",
                     fontWeight: 600,
-                    border: "1px solid rgba(0,0,0,0.1)",
+                    border: "1px solid transparent",
+                    display: "inline-block",
+                    ...(status === "ACTIVE" && {
+                      backgroundColor: "#e8f5e9",
+                      color: "#2e7d32",
+                      borderColor: "#c8e6c9",
+                    }),
+                    ...(status === "INACTIVE" && {
+                      backgroundColor: "#f5f5f5",
+                      color: "#757575",
+                      borderColor: "#e0e0e0",
+                    }),
+                    ...(status === "OUT_OF_STOCK" && {
+                      backgroundColor: "#fff3e0",
+                      color: "#ef6c00",
+                      borderColor: "#ffe0b2",
+                    }),
+                    ...(status === "DISCONTINUED" && {
+                      backgroundColor: "#ffebee",
+                      color: "#c62828",
+                      borderColor: "#ffcdd2",
+                    }),
                   }}
                 >
-                  {status}
+                  {status.replace("_", " ")}
                 </Typography>
               </Box>
 
@@ -215,6 +237,7 @@ const SingleProduct = ({ singleProduct }: { singleProduct: Product }) => {
           </Stack>
         </Grid>
       </Grid>
+      <ProductDetailsTab description={description} />
     </Stack>
   );
 };

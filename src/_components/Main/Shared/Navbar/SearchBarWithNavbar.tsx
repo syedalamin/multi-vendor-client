@@ -6,7 +6,7 @@ import {
   Box,
   Button,
   Container,
-  Divider,
+ 
   Drawer,
   Grid,
   Stack,
@@ -139,7 +139,7 @@ const SearchBarWithNavbar = () => {
                 >
                   <Typography variant="h5" component={"h2"}>
                     {MainLogo}
-                    <Divider />
+                     
                   </Typography>
                   <Button
                     onClick={toggleDrawer(false)}
@@ -232,7 +232,6 @@ const SearchBarWithNavbar = () => {
             justifyContent="space-between"
             alignItems="center"
             sx={{
-           
               width: "100%",
             }}
           >
@@ -243,11 +242,11 @@ const SearchBarWithNavbar = () => {
               sx={{
                 display: {
                   xs: "none",
-                  sm: "flex",  
+                  sm: "flex",
                 },
               }}
             >
-              <AllCategories/>
+              <AllCategories />
               <Stack direction="row" spacing={3}>
                 {NavLinks}
               </Stack>
@@ -271,7 +270,7 @@ const SearchBarWithNavbar = () => {
                   fontWeight: 500,
                 }}
               >
-                📞 +880 1711-123456
+                📞 +880 01315-831065
               </Typography>
             </Box>
 

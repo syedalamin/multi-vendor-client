@@ -1,14 +1,15 @@
 "use client";
 
 import SearchTable from "@/_components/Main/UI/SearchTable/SearchTable";
-
 import { SearchOutlinedIcon } from "@/_Icons";
 import { useGetProductsQuery } from "@/redux/api/productApi";
 import { Box, IconButton, InputBase, Stack } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const SearchButton = () => {
   const [inputValue, setInputValue] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const { data } = useGetProductsQuery(
     { searchTerm: inputValue },
@@ -25,13 +26,30 @@ const SearchButton = () => {
     productData = data?.data;
   }
 
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+
+  useEffect(() => {
+    if (inputValue) setIsOpen(true);
+  }, [inputValue]);
+
   return (
-    <Stack>
+    <Stack ref={containerRef}>
       <Box>
         <Box
           sx={{
             px: 2,
-            py: { xs: 0, sm: 0.3 }, 
+            py: { xs: 0, sm: 0.3 },
             display: "flex",
             alignItems: "center",
             borderRadius: "50px",
@@ -52,7 +70,7 @@ const SearchButton = () => {
           </IconButton>
         </Box>
 
-        {productData?.length > 0 && (
+        {isOpen && productData?.length > 0 && (
           <Stack
             sx={{
               position: "fixed",

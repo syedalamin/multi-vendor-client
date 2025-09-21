@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: { params: any }) {
 }
 
 import CategorySectionDrawer from "@/_components/Main/UI/CategorySection/CategorySection";
-import CategoryParams from "@/_components/UI/Category/CategoryParams";
+// import CategoryParams from "@/_components/UI/Category/CategoryParams";
 import { apiSingleFetcher } from "@/lib/NextFetch/fetcher";
 import { Stack } from "@mui/material";
 
@@ -20,7 +20,7 @@ const CategorySlugPage = async ({ params }: { params: any }) => {
 
   return (
     <Stack>
-      <CategoryParams props={{ category }} />
+      {/* <CategoryParams props={{ category }} /> */}
       <CategorySectionDrawer item={singleSubCategory} name="Sub Category" />
     </Stack>
   );

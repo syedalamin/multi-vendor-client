@@ -1,8 +1,11 @@
-
 "use client";
 import EMForm from "@/_components/Form/EMForm";
 import EMInput from "@/_components/Form/EMInput";
-import EMUploader from "@/_components/Form/EMUploader";
+  
+
+
+
+
 import { useLoginUserMutation } from "@/redux/api/authApi";
 import { useRegisterCustomerMutation } from "@/redux/api/userApi";
 import { storeUserInfo } from "@/services/auth.services";
@@ -19,27 +22,23 @@ const RegistrationPage = () => {
   const [registerCustomer] = useRegisterCustomerMutation();
   const [loginUser] = useLoginUserMutation();
   const handleRegistration = async (values: FieldValues) => {
-    const { firstName, lastName, email, contactNumber, password, file } =
-      values;
+    const { email, password } = values;
 
     const payload = {
       password,
       customer: {
-        firstName,
-        lastName,
         email,
-        contactNumber,
       },
     };
 
-    const data = modifyPayload(payload, file);
+    const data = modifyPayload(payload);
 
     try {
       const res = await registerCustomer(data).unwrap();
-      
+
       if (res?.data?.data?.id) {
         toast.success(res?.data?.message);
-        console.log(res?.data?.data)
+        console.log(res?.data?.data);
         const userRes = await loginUser({
           password,
           email,
@@ -61,7 +60,7 @@ const RegistrationPage = () => {
     <Container>
       <Stack height={"100vh"} justifyContent={"center"} alignItems={"center"}>
         <Box
-          maxWidth={600}
+          maxWidth={400}
           py={5}
           px={3}
           sx={{
@@ -78,14 +77,14 @@ const RegistrationPage = () => {
                 fontWeight={600}
                 sx={{ color: "#2e7d32" }}
               >
-                Registration
+                Create Account
               </Typography>
             </Box>
           </Stack>
           <Box>
             <EMForm onSubmit={handleRegistration}>
               <Grid wrap="wrap" container spacing={2} my={4}>
-                <Grid size={{ xs: 12, md: 6 }}>
+                {/* <Grid size={{ xs: 12, md: 6 }}>
                   <EMInput
                     name="firstName"
                     label="First Name"
@@ -94,8 +93,8 @@ const RegistrationPage = () => {
                 </Grid>
                 <Grid size={{ xs: 12, md: 6 }}>
                   <EMInput name="lastName" label="Last Name" fullWidth={true} />
-                </Grid>
-                <Grid size={{ xs: 12, md: 6 }}>
+                </Grid> */}
+                <Grid size={{ xs: 12 }}>
                   <EMInput
                     name="email"
                     label="Email"
@@ -103,7 +102,7 @@ const RegistrationPage = () => {
                     fullWidth={true}
                   />
                 </Grid>
-                <Grid size={{ xs: 12, md: 6 }}>
+                <Grid size={{ xs: 12 }}>
                   <EMInput
                     name="password"
                     label="Password"
@@ -112,7 +111,8 @@ const RegistrationPage = () => {
                     fullWidth={true}
                   />
                 </Grid>
-                <Grid size={{ xs: 12, md: 6 }}>
+                 
+                {/* <Grid size={{ xs: 12, md: 6 }}>
                   <EMInput
                     name="contactNumber"
                     label="Contact Number"
@@ -121,14 +121,9 @@ const RegistrationPage = () => {
                 </Grid>
                 <Grid size={{ xs: 12, md: 6 }}>
                   <EMUploader name="file" label="Upload" />
-                </Grid>
+                </Grid> */}
               </Grid>
               <Box>
-                <Typography textAlign={"right"} fontSize={"0.9rem"} pb={2}>
-                  <Link href={"/forget-password"} style={{ color: "#4caf50" }}>
-                    Forgot Password?
-                  </Link>
-                </Typography>
                 <Button
                   type="submit"
                   fullWidth
@@ -146,10 +141,10 @@ const RegistrationPage = () => {
                     },
                   }}
                 >
-                  Registration
+                  Create Account
                 </Button>
                 <Typography textAlign={"center"} mt={3} fontSize={"0.95rem"}>
-                  Do You Have An Account?{" "}
+                  Already have account ?{" "}
                   <Link href={"/login"} style={{ color: "#4caf50" }}>
                     Login
                   </Link>
@@ -164,7 +159,3 @@ const RegistrationPage = () => {
 };
 
 export default RegistrationPage;
-
-
-
-

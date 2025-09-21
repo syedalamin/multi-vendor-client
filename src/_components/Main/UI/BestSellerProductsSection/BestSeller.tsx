@@ -1,26 +1,21 @@
 "use client";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import MediaControlCard from "@/_components/UI/Card/MediaControlCard";
-import { Product, ProductStatus } from "@/types/common";
+import { Product } from "@/types/common";
 import { Grid, Typography } from "@mui/material";
 import React, { useMemo } from "react";
 
 const BestSeller = ({ productData }: { productData: any }) => {
   const discount = useMemo(() => {
     return productData?.data
-      ?.filter(
-        (item: Product) =>
-          item.averageRating >= 4 &&
-          item.stock > 0 &&
-          item.status === ProductStatus.ACTIVE
-      )
+      ?.filter((item: Product) => item.averageRating >= 4 && item.stock > 0)
       ?.sort(() => 0.5 - Math.random())
       ?.slice(0, 3);
   }, [productData?.data]);
 
   let product;
 
-  if (productData.success) {
+  if (productData?.success) {
     product = (
       <Grid container spacing={1} direction={"column"} alignItems={"start"}>
         {discount?.map((item: Product) => (

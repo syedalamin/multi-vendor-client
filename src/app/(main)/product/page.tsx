@@ -1,5 +1,4 @@
-import Product from "@/_components/Main/UI/Product/Product";
-import { Container } from "@mui/material";
+import MainProduct from "@/_components/Main/UI/Product/MainProduct";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,9 +8,7 @@ export const metadata: Metadata = {
 
 const ProductPage = () => {
   return (
-    <Container>
-      <Product />
-    </Container>
+    <MainProduct/>
   );
 };
 

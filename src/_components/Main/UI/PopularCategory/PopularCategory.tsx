@@ -1,16 +1,27 @@
+"use client";
+import Loading from "@/_components/Shared/Loading/Loading";
 import ImgTextCard from "@/_components/UI/Card/ImgTextCard";
-import { apiFetcher } from "@/lib/NextFetch/fetcher";
+
+import { useGetAllCategoryQuery } from "@/redux/api/categoryApi";
 import { Category } from "@/types/common";
 import { Grid, Stack, Typography } from "@mui/material";
 
 import React from "react";
 
-const PopularCategory = async () => {
-  const category = await apiFetcher("/category");
+const PopularCategory = () => {
+  const page = 1;
+  const limit = 12;
+  const { data: categoryData, isLoading } = useGetAllCategoryQuery({
+    page,
+    limit,
+  });
 
   let popularCategory;
 
-  if (category.success) {
+  if (isLoading) {
+    return <Loading />;
+  }
+  if (categoryData?.success) {
     popularCategory = (
       <Stack>
         <Stack>
@@ -45,9 +56,9 @@ const PopularCategory = async () => {
           alignItems={"stretch"}
           justifyContent={"center"}
         >
-          {category.data.slice(0, 12).map((item: Category) => (
+          {categoryData?.data?.map((item: Category) => (
             <Grid key={item.id} size={{ xs: 6, sm: 3, md: 2 }}>
-              <Stack >
+              <Stack>
                 <ImgTextCard item={item} />
               </Stack>
             </Grid>

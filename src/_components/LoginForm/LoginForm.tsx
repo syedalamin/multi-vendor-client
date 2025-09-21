@@ -43,7 +43,7 @@ const LoginForm = () => {
   return (
     <Stack height="100vh" justifyContent="center" alignItems="center">
       <Box
-        maxWidth={600}
+        maxWidth={400}
         py={5}
         px={3}
         sx={{
@@ -77,10 +77,10 @@ const LoginForm = () => {
 
         <EMForm onSubmit={handleLogin}>
           <Grid container spacing={2} my={4}>
-            <Grid size={{ xs: 12, md: 6 }}>
+            <Grid size={{ xs: 12 }}>
               <EMInput name="email" label="Email" type="email" fullWidth />
             </Grid>
-            <Grid size={{ xs: 12, md: 6 }}>
+            <Grid size={{ xs: 12 }}>
               <EMInput
                 name="password"
                 label="Password"

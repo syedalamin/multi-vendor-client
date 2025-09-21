@@ -4,6 +4,19 @@ import { baseApi } from "./baseApi";
 
 const orderApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    getAllOrderIds: builder.mutation({
+      query: (payload: string[]) => {
+        return {
+          url: `/order/ids`,
+          method: "post",
+          data: { payload},
+        };
+      },
+      transformResponse: (response: { data: any }) => {
+        return response.data;
+      },
+     
+    }),
     getMyOrders: builder.query({
       query: () => ({
         url: "/order/my-order",
@@ -48,7 +61,13 @@ const orderApi = baseApi.injectEndpoints({
       invalidatesTags: [tagTypes.order],
     }),
     updateOrderPaymentStatus: builder.mutation({
-      query: ({ id, paymentStatus }: { id: string; paymentStatus: string | undefined }) => {
+      query: ({
+        id,
+        paymentStatus,
+      }: {
+        id: string;
+        paymentStatus: string | undefined;
+      }) => {
         return {
           url: `/order/payment-status/${id}`,
           method: "PATCH",
@@ -75,10 +94,12 @@ const orderApi = baseApi.injectEndpoints({
 });
 
 export const {
+  useGetAllOrderIdsMutation,
   useGetMyOrdersQuery,
   useGetAllOrdersQuery,
   useGetSingleOrderQuery,
+
   useGetMyVendorOrdersQuery,
   useUpdateOrderStatusMutation,
-  useUpdateOrderPaymentStatusMutation
+  useUpdateOrderPaymentStatusMutation,
 } = orderApi;

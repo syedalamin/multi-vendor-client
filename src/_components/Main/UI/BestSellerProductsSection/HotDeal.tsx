@@ -2,10 +2,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import MediaControlCard from "@/_components/UI/Card/MediaControlCard";
 import { Product, ProductStatus } from "@/types/common";
-import { Grid, Typography } from "@mui/material";
+import { Grid, Stack, Typography } from "@mui/material";
 import React, { useMemo } from "react";
 
 const HotDeal = ({ productData }: { productData: any }) => {
+  console.log(productData);
   const discount = useMemo(() => {
     return productData?.data
       ?.filter(
@@ -20,7 +21,7 @@ const HotDeal = ({ productData }: { productData: any }) => {
 
   let product;
 
-  if (productData.success) {
+  if (productData?.success) {
     product = (
       <Grid container spacing={1} direction={"column"} alignItems={"start"}>
         {discount?.map((item: Product) => (
@@ -48,9 +49,16 @@ const HotDeal = ({ productData }: { productData: any }) => {
     );
   } else {
     product = (
-      <>
-        <Typography>NO Data</Typography>
-      </>
+      <Stack
+        sx={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Typography textAlign={"center"}>NO Data</Typography>
+      </Stack>
     );
   }
 

@@ -1,8 +1,6 @@
 
+import MainCategory from "@/_components/Main/UI/CategorySection/MainCategory";
 
-
-import Category from "@/_components/Main/UI/CategorySection/Category";
-import { Container } from "@mui/material";
 import { Metadata } from "next";
 
 
@@ -11,11 +9,9 @@ export const metadata: Metadata = {
   description: "...",
 };
 
-const CategoryPage = async () => {
+const CategoryPage =  () => {
   return (
-    <Container>
-      <Category />
-    </Container>
+    <MainCategory/>
   );
 };
 

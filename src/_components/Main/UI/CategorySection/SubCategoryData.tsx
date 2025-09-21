@@ -1,4 +1,5 @@
 "use client";
+import Loading from "@/_components/Shared/Loading/Loading";
 import ImgProductCard from "@/_components/UI/Card/ImgProductCard";
 
 import { Product } from "@/types/common";
@@ -19,12 +20,12 @@ const SubCategoryData = ({ subCategory }: { subCategory: string }) => {
     const fetchData = async () => {
       try {
         setLoading(true);
-     
+
         // const baseUrl = "https://multi-vendor-server-wfx1.onrender.com/api/v1"; server
-        // const baseUrl = "http://localhost:5000/api/v1"; 
+        // const baseUrl = "http://localhost:5000/api/v1";
         const baseUrl = "http://localhost:5000/api/v1";
         const res = await fetch(`${baseUrl}/sub-category/${subCategory}`);
-   
+
         const singleSubCategory = await res.json();
         setData(singleSubCategory);
       } catch (error) {
@@ -39,7 +40,14 @@ const SubCategoryData = ({ subCategory }: { subCategory: string }) => {
 
   let product;
 
-  if (!loading) {
+  if (loading) {
+    product =  <Loading/>;
+  } else if (
+    !categoryData?.data?.product ||
+    categoryData?.data?.product.length === 0
+  ) {
+    product = <Stack>No Data Found</Stack>;
+  } else {
     product = (
       <Stack>
         <Grid
@@ -49,22 +57,15 @@ const SubCategoryData = ({ subCategory }: { subCategory: string }) => {
           alignItems={"center"}
           justifyContent={"center"}
         >
-          {categoryData?.data?.product?.map((item: Product) => (
-            <Grid key={item.id} size={{ xs:6, sm: 6, md: 4 , lg: 12 / 4 }}>
+          {categoryData.data.product.map((item: Product) => (
+            <Grid key={item.id} size={{ xs: 6, sm: 6, md: 4, lg: 12 / 4 }}>
               <ImgProductCard item={item} />
             </Grid>
           ))}
         </Grid>
       </Stack>
     );
-  } else if (
-    !categoryData?.data?.product ||
-    categoryData?.data?.product.length === 0
-  ) {
-    product = <Stack>No Data Found</Stack>;
-  } else {
-    product = <Stack>Loading...</Stack>;
-  } 
+  }
 
   return product;
 };

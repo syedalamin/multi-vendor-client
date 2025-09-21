@@ -1,15 +1,26 @@
+"use client";
+import Loading from "@/_components/Shared/Loading/Loading";
 import ImgProductCard from "@/_components/UI/Card/ImgProductCard";
-import { apiFetcher } from "@/lib/NextFetch/fetcher";
+
+import { useGetProductsQuery } from "@/redux/api/productApi";
 import { Product } from "@/types/common";
 
 import { Grid, Stack, Typography } from "@mui/material";
 
-const PopularProduct = async () => {
-  const product = await apiFetcher("/product");
+const PopularProduct = () => {
+  const page = 1;
+  const limit = 10;
+  const { data: productData, isLoading } = useGetProductsQuery({
+    page: page,
+    limit: limit,
+  });
 
   let popularProduct;
 
-  if (product.success) {
+  if (isLoading) {
+    return <Loading />;
+  }
+  if (productData?.success) {
     popularProduct = (
       <Stack>
         <Stack>
@@ -44,7 +55,7 @@ const PopularProduct = async () => {
           alignItems={"stretch"}
           justifyContent={"center"}
         >
-          {product.data.slice(0, 12).map((item: Product) => (
+          {productData?.data?.map((item: Product) => (
             <Grid key={item.id} size={{ xs: 6, sm: 4, md: 12 / 4, lg: 12 / 5 }}>
               <ImgProductCard item={item} />
             </Grid>
@@ -54,9 +65,17 @@ const PopularProduct = async () => {
     );
   } else {
     popularProduct = (
-      <>
-        <Typography>NO Data</Typography>
-      </>
+      <Stack
+        sx={{
+    
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Typography textAlign={"center"}>NO Data</Typography>
+      </Stack>
     );
   }
 

@@ -1,7 +1,7 @@
 import { Stack } from "@mui/material";
 import React from "react";
 
-const loading = () => {
+const Loading = () => {
   return (
     <Stack
       sx={{
@@ -17,4 +17,4 @@ const loading = () => {
   );
 };
 
-export default loading;
+export default Loading;

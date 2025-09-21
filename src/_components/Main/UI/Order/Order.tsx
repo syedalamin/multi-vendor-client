@@ -23,23 +23,34 @@ import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 import { useGetAllDistrictQuery } from "@/redux/api/districtApi";
 import OrderCartTable from "./OrderCartTable";
+import { useRouter } from "next/navigation";
 
 const Order = () => {
+  const router = useRouter();
   const { data: districtData } = useGetAllDistrictQuery({});
   const { data: totalCart, isLoading } = useGetTotalCartQuery({});
   const [createShipping] = useCreateShippingMutation();
   const [selectedDistrict, setSelectedDistrict] = useState<string>("");
 
-  // console.log(totalCart);
   const sellers = totalCart?.data?.data?.sellers || [];
 
-  const deliveryCharge = sellers.reduce((total: number, seller: any) => {
+ 
+  const uniqueSellers = Array.from(
+    new Map(sellers.map((s: any) => [s.email, s])).values()
+  );
+
+  const deliveryCharge = uniqueSellers.reduce((total: number, seller: any) => {
+ 
     const charge = seller.district === selectedDistrict ? 80 : 130;
     return total + charge;
   }, 0);
 
   const discountTotal = totalCart?.data?.data?.totalDiscountPrice ?? 0;
   const grandTotal = discountTotal + deliveryCharge;
+
+ 
+
+  // -------------
 
   if (isLoading) return <Typography>Loading...</Typography>;
 
@@ -48,12 +59,13 @@ const Order = () => {
       const payload = {
         ...values,
       };
-      console.log(payload);
 
       const { data }: any = await createShipping(payload).unwrap();
 
       if (data?.success) {
         toast.success("Order Successful");
+        // router.push("/orders//thank-you");
+        router.push("/orders/");
       }
     } catch (err) {
       console.log(err);
@@ -100,10 +112,10 @@ const Order = () => {
                 <Grid size={{ xs: 12, md: 4 }}>
                   <EMInput name="country" label="Country" fullWidth={true} />
                 </Grid>
-                <Grid size={{ xs: 12, }}>
+                <Grid size={{ xs: 12 }}>
                   <EMInput name="address" label="Address" fullWidth={true} />
                 </Grid>
-                <Grid size={{ xs: 12, md:4 }}>
+                <Grid size={{ xs: 12, md: 4 }}>
                   <EMSelect
                     name="districts"
                     label="District"

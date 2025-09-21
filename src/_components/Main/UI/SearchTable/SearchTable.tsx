@@ -21,7 +21,10 @@ const SearchTable = ({ data }: { data: any }) => {
             alt={row.productName}
             image={row?.productImages?.[0]}
           />
-          <Link href={`/product/${row.slug}`} style={{ position: "absolute", inset: 0, zIndex: 1 }} />
+          <Link
+            href={`/product/${row.slug}`}
+            style={{ position: "absolute", inset: 0, zIndex: 1 }}
+          />
         </Box>
       ),
     },
@@ -34,9 +37,21 @@ const SearchTable = ({ data }: { data: any }) => {
       hideable: false,
       disableColumnMenu: true,
       renderCell: ({ row }) => (
-        <Box sx={{ position: "relative", width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <Box
+          sx={{
+            position: "relative",
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           {row.name}
-          <Link href={`/product/${row.slug}`} style={{ position: "absolute", inset: 0, zIndex: 1 }} />
+          <Link
+            href={`/product/${row.slug}`}
+            style={{ position: "absolute", inset: 0, zIndex: 1 }}
+          />
         </Box>
       ),
     },
@@ -49,16 +64,28 @@ const SearchTable = ({ data }: { data: any }) => {
       hideable: false,
       disableColumnMenu: true,
       renderCell: ({ row }) => (
-        <Box sx={{ position: "relative", width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <Box
+          sx={{
+            position: "relative",
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           {row.price}
-          <Link href={`/product/${row.slug}`} style={{ position: "absolute", inset: 0, zIndex: 1 }} />
+          <Link
+            href={`/product/${row.slug}`}
+            style={{ position: "absolute", inset: 0, zIndex: 1 }}
+          />
         </Box>
       ),
     },
   ];
 
   return (
-    <Box sx={{ height: 300, width: "100%" }}>
+    <Box sx={{ height: 400, width: "100%" }}>
       <DataGrid
         rows={data}
         columns={columns}
@@ -73,6 +100,7 @@ const SearchTable = ({ data }: { data: any }) => {
           background: "linear-gradient(135deg, #fafafa 0%, #ffffff 100%)",
           color: "text.secondary",
           borderRadius: 3,
+          py: 2,
           "& .MuiDataGrid-cell": {
             display: "flex",
             justifyContent: "center",
@@ -88,6 +116,12 @@ const SearchTable = ({ data }: { data: any }) => {
           },
           "& .MuiDataGrid-columnHeader:focus": {
             outline: "none",
+          },
+          "& .MuiDataGrid-columnHeader": {
+            display: "none",
+          },
+          "& .MuiDataGrid-columnHeaders": {
+            display: "none",
           },
         }}
       />

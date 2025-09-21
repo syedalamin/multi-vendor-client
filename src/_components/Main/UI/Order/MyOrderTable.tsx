@@ -177,7 +177,7 @@ const MyOrderTable = ({ data }: { data: any }) => {
           "& .MuiDataGrid-columnHeaders": {
             background: "linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)",
      
-            fontSize: "18px",
+            fontSize: "16px",
             fontWeight: 600,
             letterSpacing: "0.5px",
           },
@@ -185,7 +185,7 @@ const MyOrderTable = ({ data }: { data: any }) => {
             display: "flex",
             justifyContent: "flex-start",
             alignItems: "center",
-            fontSize: "18px",
+            fontSize: "16px",
             fontWeight: 600,
             lineHeight: 1.5,
             borderBottom: "1px solid #f0f0f0",

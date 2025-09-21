@@ -5,16 +5,17 @@ import {
   Box,
   Drawer,
   Typography,
-
   CardActionArea,
   CardMedia,
   Button,
+  Stack,
 } from "@mui/material";
 
 import SubCategoryData from "./SubCategoryData";
 import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { ArrowRightAltOutlined } from "@mui/icons-material";
+import { CloseOutlinedIcon } from "@/_Icons";
 
 const drawerWidth = 220;
 
@@ -53,57 +54,89 @@ export default function CategorySectionDrawer({
 
   const drawerContent = (
     <Box sx={{ p: 2 }}>
-      <Typography
-        py={2}
+      <Stack
+        direction="row"
         sx={{
-          fontSize: {
-            xs: "1.4rem",
-          },
+          justifyContent: "space-between",
+          justifyItems: "center",
         }}
-        fontWeight={600}
       >
-        {name}
-      </Typography>
+        <Typography
+          py={2}
+          sx={{
+            fontSize: {
+              xs: "1.4rem",
+            },
+          }}
+          fontWeight={600}
+        >
+          {name}
+        </Typography>
+        <Button
+          onClick={handleDrawerToggle}
+          disableRipple
+          sx={{
+            display: { xs: "block", sm: "none" },
+            backgroundColor: "white",
+            color: "black",
+            "&:hover": {
+              backgroundColor: "white",
+              boxShadow: 0,
+            },
+            padding: 0,
+            margin: 0,
+            minWidth: 0,
+            boxShadow: 0,
+          }}
+        >
+          <CloseOutlinedIcon />
+        </Button>
+      </Stack>
 
       {subCategory.map((sub: any) => (
-        <CardActionArea
-          key={sub.slug}
-          sx={{
-            my: 1,
-            boxShadow: 1,
-            py: 1,
-            display: "flex",
-            justifyContent: "start",
-            gap: 2,
-            overflow: "hidden",
-          }}
-          onClick={() => handleSubClick(sub.slug)}
-        >
-          <CardMedia
-            component="img"
-            sx={{ width: "50px", height: "auto" }}
-            image={sub?.image}
-            alt={sub?.name}
-          />
-          <Typography
+        <Box key={sub.slug}>
+          <CardActionArea
             sx={{
-              fontSize: {
-                xs: "1rem",
+              my: 1,
+              p: 1,
+              display: "flex",
+              justifyContent: "start",
+              gap: 2,
+              overflow: "hidden",
+              border: "1px solid #e0e0e0",
+              borderRadius: "8px",
+              transition: "transform 0.3s, box-shadow 0.3s , border 0.3s ",
+              "&:hover": {
+                border: "1px solid #2e7d32",
+                transform: "translateY(-4px)",
               },
             }}
-            fontWeight={500}
+            onClick={() => handleSubClick(sub.slug)}
           >
-            {sub?.name}
-          </Typography>
-        </CardActionArea>
+            <CardMedia
+              component="img"
+              sx={{ width: "50px", height: "auto" }}
+              image={sub?.image}
+              alt={sub?.name}
+            />
+            <Typography
+              sx={{
+                fontSize: {
+                  xs: "1rem",
+                },
+              }}
+              fontWeight={500}
+            >
+              {sub?.name}
+            </Typography>
+          </CardActionArea>{" "}
+        </Box>
       ))}
     </Box>
   );
 
   return (
     <Box sx={{ display: { sm: "flex" } }}>
-    
-
       <Button
         type="button"
         size="small"
@@ -127,16 +160,8 @@ export default function CategorySectionDrawer({
           },
         }}
       >
-       All Sub Category 
+        All Sub Category
       </Button>
-      {/* <IconButton
-        color="inherit"
-        edge="start"
-       
-        sx={{ mr: 2, display: { sm: "none" } }}
-      >
-        <MenuIcon />
-      </IconButton> */}
 
       {/* Sidebar */}
       <Box
@@ -155,7 +180,7 @@ export default function CategorySectionDrawer({
           sx={{
             display: { xs: "block", sm: "none" },
             "& .MuiDrawer-paper": {
-              width: drawerWidth,
+              width: 300,
               boxSizing: "border-box",
               height: "100%",
               position: "absolute",

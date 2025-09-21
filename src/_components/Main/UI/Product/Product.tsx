@@ -9,7 +9,7 @@ const Product = () => {
   const searchParams = useSearchParams();
 
   const page = Number(searchParams.get("page")) || 1;
-  const limit = Number(searchParams.get("limit")) || 12;
+  const limit = Number(searchParams.get("limit")) || 20;
 
   return <Stack>
     <AllProductData page={page} limit={limit}/>

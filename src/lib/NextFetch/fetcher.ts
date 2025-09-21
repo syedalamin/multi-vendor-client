@@ -1,16 +1,16 @@
 // lib/fetcher.ts (SSR GET Only)
 
-import { auth_key } from "@/constant/auth_key";
+ 
 import { GetResponse } from "@/types/common";
-import { cookies } from "next/headers";
+ 
 
 export async function apiFetcher(
   endpoint: string,
   { tags, revalidate }: { tags?: string[]; revalidate?: number } = {}
 ): Promise<GetResponse> {
   const baseUrl = process.env.BASE_URL;
-  const cookieStore = await cookies();
-  const token = cookieStore.get(auth_key)?.value;
+ 
+ 
   //
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 50000);
@@ -19,7 +19,7 @@ export async function apiFetcher(
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      ...(token && { Authorization: `${token}` }),
+     
     },
     cache: "no-store",
     next: { tags, revalidate },
@@ -47,8 +47,8 @@ export async function apiSingleFetcher(
   { tags, revalidate }: { tags?: string[]; revalidate?: number } = {}
 ): Promise<GetResponse> {
   const baseUrl = process.env.BASE_URL;
-  const cookieStore = await cookies();
-  const token = cookieStore.get(auth_key)?.value;
+ 
+ 
   //
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 50000);
@@ -57,7 +57,7 @@ export async function apiSingleFetcher(
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      ...(token && { Authorization: `${token}` }),
+ 
     },
     cache: "no-store",
     next: { tags, revalidate },

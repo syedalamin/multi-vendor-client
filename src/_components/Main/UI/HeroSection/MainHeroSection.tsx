@@ -24,7 +24,7 @@ const MainHeroSection = () => {
               <Box
                 sx={{
                   width: "100%",
-                  height: { xs: "250px", sm: "400px", md: "477px" },
+                  height: { xs: "320px", sm: "400px", md: "477px" },
                   overflow: "hidden",
                 }}
               >

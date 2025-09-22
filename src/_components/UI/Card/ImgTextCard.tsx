@@ -34,7 +34,7 @@ export default function ImgTextCard({ item }: { item: Category }) {
             alt={item.name}
             sx={{
               width: "100%",
-              height: { xs: "160px", sm: "140px" },
+              height: { xs: "120px", sm: "130px", md: "140px" },
               objectFit: "cover",
             }}
           />

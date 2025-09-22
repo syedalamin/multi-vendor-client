@@ -10,24 +10,49 @@ import Link from "next/link";
 export default function MediaControlCard({ item }: { item: Product }) {
   const formattedPrice = Number(item.price).toFixed(2);
   return (
-    <Box
-    
-    >
+    <Box>
       <CardActionArea>
         <Link href={`/product/${item?.slug}`}>
           <Grid container spacing={2}>
             <Grid size={4}>
-              <CardMedia
-                component="img"
-                alt={item.name}
-                image={item.productImages[0]}
-                sx={{
-                  width: "120px",
-                  height: "100px",
-                  objectFit: "cover",
-                  flexShrink: 0,
-                }}
-              />
+              <Box sx={{ position: "relative" }}>
+                <CardMedia
+                  component="img"
+                  alt={item.name}
+                  image={item.productImages[0]}
+                  sx={{
+                    width: "120px",
+                    height: "100px",
+                    flexShrink: 0,
+                  }}
+                />
+
+                {item.discount > 0 && (
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      top: 7,
+                      left: 7,
+                      borderRadius: "4px",
+                      background: "linear-gradient(145deg, #ff4d4d, #d32f2f)",
+                      color: "white",
+                      px: 1,
+                      py: 0.2,
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      fontWeight: "bold",
+                      textAlign: "center",
+                   
+                    }}
+                  >
+                    <Typography sx={{ fontSize: "0.7rem", fontWeight: 600 }}>
+                        {item.discount}%
+                    </Typography>
+                  </Box>
+                )}
+              </Box>
             </Grid>
             <Grid size={8} alignContent={"center"} alignItems={"center"}>
               <Box>
@@ -43,7 +68,9 @@ export default function MediaControlCard({ item }: { item: Product }) {
                       whiteSpace: "nowrap",
                     }}
                   >
-                    {item.name.length > 20 ? item.name.slice(0 , 20)+ "..." : item.name}
+                    {item.name.length > 20
+                      ? item.name.slice(0, 20) + "..."
+                      : item.name}
                   </Typography>
                   <Box display="flex" alignItems="center" gap={1}>
                     <Typography

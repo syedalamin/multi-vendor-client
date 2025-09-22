@@ -35,17 +35,50 @@ export default function ImgProductCard({ item }: { item: Product }) {
           href={`/product/${item?.slug}`}
           style={{ flexGrow: 1, display: "flex", flexDirection: "column" }}
         >
-          <CardMedia
-            component="img"
-            alt={item.name}
-            image={item.productImages[0]}
-            sx={{
-              width: "100%",
-              height: { xs: "150px", sm: "180px" },
-              objectFit: "cover",
-              flexShrink: 0,
-            }}
-          />
+          <Box sx={{ position: "relative" }}>
+         
+            <CardMedia
+              component="img"
+              alt={item.name}
+              image={item.productImages[0]}
+              sx={{
+                width: "100%",
+                height: { xs: "150px", sm: "180px" },
+                objectFit: "cover",
+                flexShrink: 0,
+              }}
+            />
+
+    
+            {item.discount > 0 && (
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: 7,
+                  left: 7,
+                  borderRadius: "4px",
+                  background: "linear-gradient(145deg, #ff4d4d, #d32f2f)",
+                  color: "white",
+                  px: 1,
+                  py: 0.20,
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  fontWeight: "bold",
+                  textAlign: "center",
+         
+                 
+                }}
+              >
+                <Typography
+                  sx={{ fontSize: "0.8rem", fontWeight: 600, }}
+                >
+                 Sale {item.discount}%
+                </Typography>
+              </Box>
+            )}
+          </Box>
           <Stack
             pt={2}
             px={2}
@@ -71,7 +104,9 @@ export default function ImgProductCard({ item }: { item: Product }) {
                   whiteSpace: "nowrap",
                 }}
               >
-                {item.name.length > 20 ? item.name.slice(0 , 19)+ "..." : item.name}
+                {item.name.length > 20
+                  ? item.name.slice(0, 19) + "..."
+                  : item.name}
               </Typography>
 
               <Box

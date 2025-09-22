@@ -4,8 +4,10 @@ import ImgProductCard from "@/_components/UI/Card/ImgProductCard";
 
 import { useGetProductsQuery } from "@/redux/api/productApi";
 import { Product } from "@/types/common";
+import { ArrowForward } from "@mui/icons-material";
 
-import { Grid, Stack, Typography } from "@mui/material";
+import { Button, Grid, Stack, Typography } from "@mui/material";
+import Link from "next/link";
 
 const PopularProduct = () => {
   const page = 1;
@@ -22,18 +24,23 @@ const PopularProduct = () => {
   }
   if (productData?.success) {
     popularProduct = (
-      <Stack>
-        <Stack>
+      <Stack spacing={5}>
+        <Stack
+          direction={"row"}
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            justifyItems: "center",
+          }}
+        >
           <Typography
-            pb={5}
             variant="h4"
             component="h1"
             sx={{
               fontSize: {
                 xs: "1.3rem",
                 sm: "1.8rem",
-                md: "2.3rem",
-                lg: "2.4rem",
               },
               fontWeight: {
                 xs: 600,
@@ -48,6 +55,35 @@ const PopularProduct = () => {
           >
             Popular Product
           </Typography>
+          <Button
+            component={Link}
+            href="/product"
+            endIcon={<ArrowForward />}
+            variant="text"
+            size="small"
+            sx={{
+              color: "#00B207",
+              fontWeight: "600",
+              textTransform: "none",
+              fontSize: "0.75rem",
+              py: 0.5,
+              px: 1.5,
+              borderRadius: "16px",
+              transition: "all 0.3s ease",
+              "&:hover": {
+                transform: "translateX(3px)",
+              },
+              "& .MuiButton-endIcon": {
+                fontSize: "1rem",
+                transition: "transform 0.3s ease",
+              },
+              "&:hover .MuiButton-endIcon": {
+                transform: "translateX(2px)",
+              },
+            }}
+          >
+            View All
+          </Button>
         </Stack>
         <Grid
           container
@@ -67,7 +103,6 @@ const PopularProduct = () => {
     popularProduct = (
       <Stack
         sx={{
-    
           width: "100%",
           display: "flex",
           justifyContent: "center",

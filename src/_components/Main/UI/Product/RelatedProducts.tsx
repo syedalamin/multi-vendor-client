@@ -27,7 +27,7 @@ const RelatedProducts = async ({ singleProduct }: { singleProduct: Product }) =>
             component="h1"
             sx={{
               fontSize: {
-                xs: "1.3rem",
+                xs: "1.5rem",
                 sm: "1.8rem",
                 md: "2.3rem",
                 lg: "2.4rem",

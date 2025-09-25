@@ -4,6 +4,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { Typography, Paper } from "@mui/material";
+import ReviewForm from './ReviewForm';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -49,7 +50,7 @@ function a11yProps(index: number) {
   };
 }
 
-export default function ProductDetailsTab({ description }: { description: string }) {
+export default function ProductDetailsTab({ description, id }: { description: string, id: string }) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -92,7 +93,7 @@ export default function ProductDetailsTab({ description }: { description: string
           />
           <Tab
             disableRipple  
-            label="Customer Feedback"
+            label="Rating & Reviews"
             {...a11yProps(1)}
             sx={{
               fontWeight: 600,
@@ -102,6 +103,18 @@ export default function ProductDetailsTab({ description }: { description: string
               "&:hover": { backgroundColor: "#f4f6f8" },
             }}
           />
+          {/* <Tab
+            disableRipple  
+            label="Customer Feedback"
+            {...a11yProps(2)}
+            sx={{
+              fontWeight: 600,
+              textTransform: "none",
+              fontSize: "1rem",
+              "&.Mui-selected": { color: "#2e7d32" },
+              "&:hover": { backgroundColor: "#f4f6f8" },
+            }}
+          /> */}
         </Tabs>
       </Box>
 
@@ -109,9 +122,10 @@ export default function ProductDetailsTab({ description }: { description: string
         {description}
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <Typography variant="body1" sx={{ color: "#555" }}>
-          No customer feedback yet. Be the first to review!
-        </Typography>
+        <ReviewForm id={id}/>
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={2}>
+        
       </CustomTabPanel>
     </Box>
   );

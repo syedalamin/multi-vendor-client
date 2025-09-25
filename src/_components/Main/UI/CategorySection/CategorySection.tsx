@@ -9,6 +9,7 @@ import {
   CardMedia,
   Button,
   Stack,
+  Container,
 } from "@mui/material";
 
 import SubCategoryData from "./SubCategoryData";
@@ -144,14 +145,13 @@ export default function CategorySectionDrawer({
         startIcon={<ArrowRightAltOutlined />}
         variant="contained"
         sx={{
-          mr: 2,
           display: { sm: "none" },
           background: "linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)",
           color: "white",
           fontWeight: 600,
           borderRadius: "2px",
           textTransform: "none",
-          px: 5,
+          my:1,
           py: 1,
           boxShadow: "0px 4px 12px rgba(0,0,0,0.15)",
           "&:hover": {
@@ -160,7 +160,7 @@ export default function CategorySectionDrawer({
           },
         }}
       >
-        All Sub Category
+        All
       </Button>
 
       {/* Sidebar */}
@@ -210,17 +210,13 @@ export default function CategorySectionDrawer({
       </Box>
 
       {/* Main Content */}
-      <Box
-        component="main"
+      <Container
         sx={{
           flexGrow: 1,
-          p: 3,
-
-          minHeight: "calc(100vh - 64px)",
         }}
       >
         <SubCategoryData subCategory={subCategorySlug} />
-      </Box>
+      </Container>
     </Box>
   );
 }

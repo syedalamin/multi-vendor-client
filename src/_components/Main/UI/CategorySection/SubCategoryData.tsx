@@ -21,8 +21,7 @@ const SubCategoryData = ({ subCategory }: { subCategory: string }) => {
       try {
         setLoading(true);
 
-        // const baseUrl = "https://multi-vendor-server-wfx1.onrender.com/api/v1"; server
-        // const baseUrl = "http://localhost:5000/api/v1";
+ 
         const baseUrl = "http://localhost:5000/api/v1";
         const res = await fetch(`${baseUrl}/sub-category/${subCategory}`);
 
@@ -53,7 +52,7 @@ const SubCategoryData = ({ subCategory }: { subCategory: string }) => {
         <Grid
           container
           spacing={2}
-          py={7}
+  
           alignItems={"center"}
           justifyContent={"center"}
         >

@@ -10,6 +10,7 @@ import AddToCart from "@/lib/Button/AddToCart";
 
 export default function ImgProductCard({ item }: { item: Product }) {
   const formattedPrice = Number(item.price).toFixed(2);
+ 
   return (
     <Box
       sx={{
@@ -165,6 +166,7 @@ export default function ImgProductCard({ item }: { item: Product }) {
             <AddToCart
               id={item?.id}
               name="Add To Cart"
+              stock={item?.stock}
               sx={{ padding: "8px 20px", fontSize: "0.8rem" }}
             />
           </Box>

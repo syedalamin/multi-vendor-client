@@ -1,3 +1,4 @@
+ 
 import { tagTypes } from "../tag-types";
 import { baseApi } from "./baseApi";
 
@@ -73,6 +74,7 @@ const productApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.product],
     }),
+    
   }),
 });
 
@@ -83,5 +85,6 @@ export const {
   useGetProductIdsMutation,
   useCreateProductMutation,
   useDeleteProductMutation,
-  useGetMyVendorProductsQuery
+  useGetMyVendorProductsQuery,
+   
 } = productApi;

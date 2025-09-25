@@ -6,7 +6,6 @@ import {
   Box,
   Button,
   Container,
- 
   Drawer,
   Grid,
   Stack,
@@ -20,6 +19,7 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import SearchButton from "@/_components/Shared/Buttons/SearchButton";
 import AllCategories from "./AllCategories";
+import DashboardButton from "@/_components/UI/DashboardButton";
 
 const SearchBarWithNavbar = () => {
   const [open, setOpen] = useState(false);
@@ -139,7 +139,6 @@ const SearchBarWithNavbar = () => {
                 >
                   <Typography variant="h5" component={"h2"}>
                     {MainLogo}
-                     
                   </Typography>
                   <Button
                     onClick={toggleDrawer(false)}
@@ -252,28 +251,36 @@ const SearchBarWithNavbar = () => {
               </Stack>
             </Stack>
 
-            <Box
-              sx={{
-                display: {
-                  xs: "none",
-                  sm: "block",
-                },
-              }}
+            <Stack
+              direction={"row"}
+              alignItems={"center"}
+              justifyContent={"space-between"}
+              gap={3}
             >
-              <Typography
-                variant="h5"
-                component={"h2"}
+             
+              <Box
                 sx={{
-                  fontSize: {
-                    xs: "0.85rem",
+                  display: {
+                    xs: "none",
+                    sm: "block",
                   },
-                  fontWeight: 500,
                 }}
               >
-                📞 +880 01315-831065
-              </Typography>
-            </Box>
-
+                <Typography
+                  variant="h5"
+                  component={"h2"}
+                  sx={{
+                    fontSize: {
+                      xs: "0.85rem",
+                    },
+                    fontWeight: 500,
+                  }}
+                >
+                  📞 +880 01315-831065
+                </Typography>
+              </Box>
+               <DashboardButton />
+            </Stack>
             {/* search */}
             <Stack
               sx={{

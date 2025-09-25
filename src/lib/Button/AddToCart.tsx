@@ -7,7 +7,17 @@ import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import { toast } from "sonner";
 
-const AddToCart = ({ id, name, sx }: { id: string; name: string; sx: any }) => {
+const AddToCart = ({
+  id,
+  name,
+  sx,
+  stock,
+}: {
+  id: string;
+  name: string;
+  sx: any;
+  stock: number;
+}) => {
   const pathname = usePathname();
   const [createCart] = useCreateCartMutation();
   const userInfo = getUserInfo();
@@ -21,10 +31,15 @@ const AddToCart = ({ id, name, sx }: { id: string; name: string; sx: any }) => {
   };
 
   const handleCartSubmit = async () => {
+    if (stock === 0) return;
     if (userInfo?.role) {
-      const res: any = await createCart(GenerateData).unwrap();
-      if (res?.success) {
-        toast.success(res?.message);
+      try {
+        const res: any = await createCart(GenerateData).unwrap();
+        if (res?.success) {
+          toast.success(res?.message);
+        } 
+      } catch (err: any) {
+        toast.error(err?.data);
       }
     } else {
       handleRoute();
@@ -48,18 +63,24 @@ const AddToCart = ({ id, name, sx }: { id: string; name: string; sx: any }) => {
           justifyContent: "center",
           alignItems: "center",
           textAlign: "center",
-          background: "#4caf50",
+          background: stock === 0 ? "#9e9e9e" : "#4caf50",
           color: "#fff",
           borderRadius: "30px",
           textDecoration: "none",
           fontWeight: "bold",
           transition: "background 0.3s ease",
-          cursor: "pointer",
+          cursor: stock === 0 ? "not-allowed" : "pointer",
+          pointerEvents: stock === 0 ? "none" : "auto",
+          opacity: stock === 0 ? 0.6 : 1,
         }}
-        onMouseEnter={(e) => (e.currentTarget.style.background = "#43a047")}
-        onMouseLeave={(e) => (e.currentTarget.style.background = "#4caf50")}
+        onMouseEnter={(e) => {
+          if (stock !== 0) e.currentTarget.style.background = "#43a047";
+        }}
+        onMouseLeave={(e) => {
+          if (stock !== 0) e.currentTarget.style.background = "#4caf50";
+        }}
       >
-        {name}
+        {stock === 0 ? "Out of Stock" : name}
       </Typography>
     </Stack>
   );

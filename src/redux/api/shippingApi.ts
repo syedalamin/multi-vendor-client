@@ -12,7 +12,7 @@ const shippingApi = baseApi.injectEndpoints({
         data: data,
       }),
 
-      invalidatesTags: [tagTypes.shipping, tagTypes.cart],
+      invalidatesTags: [tagTypes.shipping, tagTypes.cart, tagTypes.product],
     }),
     getAllShipping: builder.query({
       query: () => ({

@@ -1,16 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import EMForm from "@/_components/Form/EMForm";
 import EMInput from "@/_components/Form/EMInput";
-  
-
-
-
 
 import { useLoginUserMutation } from "@/redux/api/authApi";
 import { useRegisterCustomerMutation } from "@/redux/api/userApi";
 import { storeUserInfo } from "@/services/auth.services";
 import { modifyPayload } from "@/utils/ModifyFormData/modifyFormData";
 import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
+import next from "next";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -52,8 +50,9 @@ const RegistrationPage = () => {
           console.log(userRes?.data?.message);
         }
       }
-    } catch (err) {
-      console.log(err);
+    } catch (err: any) {
+      next(err)
+      toast.error("User is already existss");
     }
   };
   return (
@@ -84,16 +83,6 @@ const RegistrationPage = () => {
           <Box>
             <EMForm onSubmit={handleRegistration}>
               <Grid wrap="wrap" container spacing={2} my={4}>
-                {/* <Grid size={{ xs: 12, md: 6 }}>
-                  <EMInput
-                    name="firstName"
-                    label="First Name"
-                    fullWidth={true}
-                  />
-                </Grid>
-                <Grid size={{ xs: 12, md: 6 }}>
-                  <EMInput name="lastName" label="Last Name" fullWidth={true} />
-                </Grid> */}
                 <Grid size={{ xs: 12 }}>
                   <EMInput
                     name="email"
@@ -111,7 +100,7 @@ const RegistrationPage = () => {
                     fullWidth={true}
                   />
                 </Grid>
-                 
+
                 {/* <Grid size={{ xs: 12, md: 6 }}>
                   <EMInput
                     name="contactNumber"

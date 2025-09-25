@@ -1,68 +1,21 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 "use client";
 
-import {
-  useGetAllOrderIdsMutation,
-  useGetMyOrdersQuery,
- 
-} from "@/redux/api/orderApi";
-import { Box, Grid, Paper, Stack, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import Loading from "@/_components/Shared/Loading/Loading";
+import { useGetLatestInvoiceQuery } from "@/redux/api/invoiceApi";
+import { Box, CardMedia, Grid, Paper, Stack, Typography } from "@mui/material";
 
 const ThankYou = () => {
-  const { data: myOrder } = useGetMyOrdersQuery({});
-  const [getAllOrderIds] = useGetAllOrderIdsMutation();
-  const [ordersAll, setOrdersAll] = useState<any>(null);
-  const orders = myOrder?.data || [];
+  const { data: invoiceData, isLoading } = useGetLatestInvoiceQuery({});
 
-  let orderGroups;
-
-  if (orders.length > 0) {
-    const sortedOrders = orders
-      .slice()
-      .sort(
-        (a: any, b: any) =>
-          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-      );
-
-    const firstOrderTime = new Date(sortedOrders[0].createdAt).getTime();
-
-    const groupOrders = sortedOrders.filter((order: any) => {
-      const orderTime = new Date(order.createdAt).getTime();
-      const diffMinutes = (orderTime - firstOrderTime) / (1000 * 60);
-      return diffMinutes <= 2;
-    });
-
-    orderGroups = groupOrders || [];
-  }
-  const orderIds = orderGroups?.map((order: any) => order.id);
-
-
-  console.log(orderIds);
-
-
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const response = await getAllOrderIds(orderIds).unwrap();
-        setOrdersAll(response);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchOrders();
-  }, []);
-
-console.log(ordersAll);
- 
-
-  const d = new Date(ordersAll?.data?.createdAt[0]);
+  const d = new Date(invoiceData?.data?.createdAt);
 
   const formattedDate = `${d.getDate()}-${d.getMonth() + 1}-${d.getFullYear()}`;
 
-  // console.log(singleOrder?.success);
+  if(isLoading){
+    return <Loading/>
+  }
 
   return (
     <Stack>
@@ -84,7 +37,7 @@ console.log(ordersAll);
         Thank You
       </Typography>
 
-      {ordersAll?.success ? (
+      {invoiceData?.success ? (
         <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
           <Paper
             elevation={0}
@@ -134,7 +87,7 @@ console.log(ordersAll);
                     fontWeight: "bold",
                   }}
                 >
-                  Order Id
+                  Id
                 </Typography>
                 <Typography
                   variant="subtitle2"
@@ -144,14 +97,7 @@ console.log(ordersAll);
                     color: "#2e7d32",
                   }}
                 >
-                  {ordersAll?.data?.ids && ordersAll.data.ids.length > 1
-                    ? ordersAll.data.ids.map((id: string, index: number) => (
-                        <span key={index}>
-                          {id}
-                          {index < ordersAll.data.ids.length - 1 ? " , " : ""}
-                        </span>
-                      ))
-                    : ordersAll?.data?.ids?.[0]}
+                  {invoiceData?.data?.id}
                 </Typography>
               </Grid>
 
@@ -205,7 +151,7 @@ console.log(ordersAll);
                     color: "#2e7d32",
                   }}
                 >
-                  ৳ {ordersAll?.data?.totalAmount}
+                  ৳ {invoiceData?.data?.totalAmount}
                 </Typography>
               </Grid>
 
@@ -270,7 +216,7 @@ console.log(ordersAll);
                 <Typography sx={{ color: "#9e9e9e" }}>Total</Typography>
               </Box>
 
-              {ordersAll?.data?.orderItem.map((item: any) => (
+              {invoiceData?.data?.orderItems.map((item: any) => (
                 <Box
                   key={item.id}
                   sx={{
@@ -280,14 +226,26 @@ console.log(ordersAll);
                     borderRadius: 2,
                     backgroundColor: "#ffffff",
                     borderBottom: "1px dashed #9e9e9e",
+                    alignItems: "center"
                   }}
                 >
-                  <Typography variant="subtitle2" sx={{ color: "#9e9e9e" }}>
-                    {item?.product?.name.length > 10
-                      ? item?.product?.name.slice(0, 10)
-                      : item?.product?.name}{" "}
-                    x {item?.quantity}
-                  </Typography>
+                  <Stack direction={"row"}   alignItems={"center"} spacing={2} >
+                    <CardMedia
+                      component="img"
+                      sx={{
+                        width: 40,
+                        height: 40,
+                      }}
+                      image={item?.productImage}
+                      alt={item?.productName}
+                    />
+                    <Typography variant="subtitle2" sx={{ color: "#9e9e9e" }}>
+                      {item?.productName?.length > 10
+                        ? item?.productName.slice(0, 10)
+                        : item?.productName}{" "}
+                      x {item?.quantity}
+                    </Typography>
+                  </Stack>
                   <Typography
                     variant="subtitle2"
                     sx={{
@@ -307,6 +265,26 @@ console.log(ordersAll);
                 }}
               >
                 <Typography variant="subtitle2" sx={{ color: "#9e9e9e" }}>
+                  Sub Total
+                </Typography>
+
+                <Typography
+                  variant="subtitle2"
+                  sx={{
+                    color: "#2e7d32",
+                  }}
+                >
+                  ৳ {invoiceData?.data?.subTotal}
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  p: 1.2,
+                }}
+              >
+                <Typography variant="subtitle2" sx={{ color: "#9e9e9e" }}>
                   Delivery Charge
                 </Typography>
 
@@ -316,7 +294,7 @@ console.log(ordersAll);
                     color: "#2e7d32",
                   }}
                 >
-                  ৳ {ordersAll?.data?.deliveryCharge}
+                  ৳ {invoiceData?.data?.deliveryCharge}
                 </Typography>
               </Box>
               <Box
@@ -336,7 +314,7 @@ console.log(ordersAll);
                     color: "#2e7d32",
                   }}
                 >
-                  ৳ {ordersAll?.data?.totalAmount}
+                  ৳ {invoiceData?.data?.totalAmount}
                 </Typography>
               </Box>
               <Box

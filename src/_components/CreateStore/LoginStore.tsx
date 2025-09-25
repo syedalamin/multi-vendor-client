@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-// import { signIn } from "next-auth/react";
+ 
  
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -12,10 +12,10 @@ import EMForm from "@/_components/Form/EMForm";
 import EMInput from "@/_components/Form/EMInput";
 import { useLoginUserMutation } from "@/redux/api/authApi";
 import { storeUserInfo } from "@/services/auth.services";
-const LoginForm = () => {
+const LoginStore = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirect = searchParams.get("redirect") || "/";
+  const redirect = searchParams.get("redirect") || "/dashboard";
 
   const [loginUser] = useLoginUserMutation();
 
@@ -54,7 +54,7 @@ const LoginForm = () => {
       >
         <Stack justifyContent="center" alignItems="center" mb={3}>
           <Typography variant="h4" fontWeight={600} sx={{ color: "#2e7d32" }}>
-            Login
+            Store Login
           </Typography>
         </Stack>
 
@@ -100,22 +100,17 @@ const LoginForm = () => {
           </Box>
 
           <Typography textAlign="center" mt={3} fontSize="0.95rem">
-            Don&apos;t have an account?{" "}
-            <Link href="/registration" style={{ color: "#4caf50" }}>
-              Create One
+            Don&apos;t have an store?{" "}
+            <Link href="/create-store" style={{ color: "#4caf50" }}>
+              Create One Store
             </Link>
           </Typography>
         </EMForm>
 
-        {/* <Button
-          onClick={() => signIn("google", { callbackUrl: "/" })}
-          sx={{ mt: 2, background: "#DB4437", color: "#fff" }}
-        >
-          Continue with Google
-        </Button> */}
+ 
       </Box>
     </Stack>
   );
 };
 
-export default LoginForm;
+export default LoginStore;

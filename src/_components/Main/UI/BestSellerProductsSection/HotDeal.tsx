@@ -6,7 +6,7 @@ import { Grid, Stack, Typography } from "@mui/material";
 import React, { useMemo } from "react";
 
 const HotDeal = ({ productData }: { productData: any }) => {
-  console.log(productData);
+ 
   const discount = useMemo(() => {
     return productData?.data
       ?.filter(

@@ -9,7 +9,7 @@ import Link from "next/link";
 import { ArrowForward } from "@mui/icons-material";
 const MainHeroSection = () => {
   return (
-    <Stack py={4}>
+    <Stack pt={4}>
       <Stack>
         <Grid container spacing={3}>
           <Grid size={{ xs: 12, md: 8 }}>

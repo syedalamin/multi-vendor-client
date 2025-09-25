@@ -17,7 +17,10 @@ const SingleProduct = ({ singleProduct }: { singleProduct: Product }) => {
     id,
     subCategory,
     averageRating,
+    rating,
+    stock
   } = singleProduct;
+
 
   const [mainImage, setMainImage] = useState(productImages[0]);
   const sideImages = [...productImages].slice(0, 4);
@@ -163,12 +166,18 @@ const SingleProduct = ({ singleProduct }: { singleProduct: Product }) => {
               </Box>
 
               <Stack direction="row" spacing={3} alignItems="center">
-                <Rating
-                  name="half-rating-read"
-                  defaultValue={averageRating}
-                  readOnly
-                  size="small"
-                />
+                <Stack direction={"row"} spacing={1} alignItems={"center"}>
+                  <Rating
+                    name="half-rating-read"
+                    defaultValue={averageRating}
+                    precision={0.5}
+                    readOnly
+                    size="small"
+                  />
+                  <Typography color="#555" fontSize="0.7rem">
+                    ( {rating} {rating > 1 ? "reviews" : "review"} )
+                  </Typography>
+                </Stack>
                 <Typography color="#555" fontSize="0.9rem">
                   SKU: {sku}
                 </Typography>
@@ -223,6 +232,7 @@ const SingleProduct = ({ singleProduct }: { singleProduct: Product }) => {
                 id={id}
                 name="Add To Cart"
                 sx={{ py: "8px", fontSize: "14px" }}
+                stock={stock}
               />
             </Stack>
 
@@ -237,7 +247,7 @@ const SingleProduct = ({ singleProduct }: { singleProduct: Product }) => {
           </Stack>
         </Grid>
       </Grid>
-      <ProductDetailsTab description={description} />
+      <ProductDetailsTab description={description} id={id} />
     </Stack>
   );
 };

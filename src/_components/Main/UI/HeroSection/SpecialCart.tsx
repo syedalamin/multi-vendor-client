@@ -14,12 +14,20 @@ const SpecialCart = () => {
           position="relative"
           sx={{ borderRadius: "10px", overflow: "hidden" }}
         >
-          <Image
-            src={milk}
-            alt="Hero Image"
-            quality={100}
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          />
+          <Box
+            sx={{
+              width: "100%",
+              height: { xs: "250px",   },
+              overflow: "hidden",
+            }}
+          >
+            <Image
+              src={milk}
+              alt="Hero Image"
+              quality={100}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
+          </Box>
 
           <Box
             position="absolute"
@@ -65,12 +73,20 @@ const SpecialCart = () => {
           position="relative"
           sx={{ borderRadius: "10px", overflow: "hidden" }}
         >
-          <Image
-            src={icewater}
-            alt="Hero Image"
-            quality={100}
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          />
+          <Box
+            sx={{
+              width: "100%",
+              height: { xs: "250px",    },
+              overflow: "hidden",
+            }}
+          >
+            <Image
+              src={icewater}
+              alt="Hero Image"
+              quality={100}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
+          </Box>
 
           <Box
             position="absolute"
@@ -125,13 +141,20 @@ const SpecialCart = () => {
           position="relative"
           sx={{ borderRadius: "10px", overflow: "hidden" }}
         >
-          <Image
-            src={brakfast}
-            alt="Hero Image"
-            quality={100}
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          />
-
+          <Box
+            sx={{
+              width: "100%",
+              height: { xs: "250px",   },
+              overflow: "hidden",
+            }}
+          >
+            <Image
+              src={brakfast}
+              alt="Hero Image"
+              quality={100}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
+          </Box>
           <Box
             position="absolute"
             top={0}

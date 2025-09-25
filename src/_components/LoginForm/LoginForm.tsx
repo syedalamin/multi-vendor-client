@@ -107,12 +107,7 @@ const LoginForm = () => {
           </Typography>
         </EMForm>
 
-        {/* <Button
-          onClick={() => signIn("google", { callbackUrl: "/" })}
-          sx={{ mt: 2, background: "#DB4437", color: "#fff" }}
-        >
-          Continue with Google
-        </Button> */}
+  
       </Box>
     </Stack>
   );

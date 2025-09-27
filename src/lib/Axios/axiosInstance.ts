@@ -30,28 +30,7 @@ instance.interceptors.request.use(
   }
 );
 
-// instance.interceptors.request.use(
-//   async (config) => {
-//     let accessToken = getFromLocalStorage(auth_key);
 
-//     if (!accessToken) {
-//       const session = await getSession();
-
-//       accessToken = (session as any)?.accessToken;
-//     }
-
-//     if (accessToken) {
-//       config.headers.Authorization = accessToken;
-//     }
-
-//     return config;
-//   },
-//   (error) => {
-//     return Promise.reject(error);
-//   }
-// );
-
-// Add a response interceptor
 instance.interceptors.response.use(
   function (response): AxiosResponse<ResponseSuccessType> {
     return {
@@ -72,40 +51,7 @@ instance.interceptors.response.use(
   }
 );
 
-// instance.interceptors.request.use(async (config) => {
-//   let accessToken = getFromLocalStorage("auth_token");
 
-//   if (!accessToken) {
-//     const session = await getSession();
-//     accessToken = session?.accessToken;
-//   }
-
-//   if (accessToken) {
-//     config.headers.Authorization = `Bearer ${accessToken}`;
-//   }
-
-//   return config;
-// });
 
 export { instance };
 
-// const config = error?.config;
-
-//     if (error?.response?.status === 500 && !config.sent) {
-//       config.sent = true;
-//       const res = await getNewAccessToken();
-//       const accessToken = res?.data?.accessToken;
-
-//       if (accessToken) {
-//         config.headers["Authorization"] = accessToken;
-//         setToLocalStorage(auth_key, accessToken);
-//         return instance(config);
-//       }
-//     } else {
-//       const responseObject = {
-//         statusCode: error?.response?.data?.statusCode || 500,
-//         message: error?.response?.data?.message || "Something went wrong",
-//         errorMessages: error?.response?.data?.message,
-//       };
-//       return responseObject;
-//     }

@@ -22,7 +22,7 @@ const SubCategoryData = ({ subCategory }: { subCategory: string }) => {
         setLoading(true);
 
  
-        const baseUrl = "http://api.trustyshoptbd.com/api/v1";
+        const baseUrl = "https://api.trustyshoptbd.com/api/v1";
         const res = await fetch(`${baseUrl}/sub-category/${subCategory}`);
 
         const singleSubCategory = await res.json();

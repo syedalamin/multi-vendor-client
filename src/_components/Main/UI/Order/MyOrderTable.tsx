@@ -64,7 +64,7 @@ const MyOrderTable = ({ data }: { data: any }) => {
           <Box>
             <Box
               sx={{ display: "flex", flexDirection: "column", gap: 0.5 }}
-              py={4}
+              py={1}
             >
               <Typography
                 sx={{ fontSize: "18px", fontWeight: 600, color: "#1976d2" }}

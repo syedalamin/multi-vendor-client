@@ -5,7 +5,7 @@ import { useDeleteCartMutation } from "@/redux/api/cartApi";
 import { CardMedia, IconButton } from "@mui/material";
 import Box from "@mui/material/Box";
 import { DataGrid, GridColDef, GridDeleteIcon } from "@mui/x-data-grid";
- 
+
 import { toast } from "sonner";
 
 export default function ShippingTable({ data }: { data: any }) {
@@ -37,11 +37,7 @@ export default function ShippingTable({ data }: { data: any }) {
         return (
           <Box>
             <CardMedia
-              sx={{
-                width: "50%",
-                height: "50%",
-                borderRadius: 2,
-              }}
+              sx={{ width: 50, height: 50, borderRadius: 2 }}
               component="img"
               alt={row.productName}
               image={row?.productImage}
@@ -137,7 +133,6 @@ export default function ShippingTable({ data }: { data: any }) {
     },
   ];
 
- 
   return (
     <Box sx={{ height: 400, width: "100%" }}>
       <DataGrid

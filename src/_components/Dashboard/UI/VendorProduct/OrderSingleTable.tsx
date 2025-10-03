@@ -1,22 +1,56 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { AccountBoxIcon } from "@/_Icons";
-import { Avatar, Box, CardMedia } from "@mui/material";
+import { AccountBoxIcon, VisibilityOutlinedIcon } from "@/_Icons";
+import { Avatar, Box, CardMedia, IconButton } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import Link from "next/link";
 
 const SingleOrderTable = ({ data }: { data: any }) => {
-
+  console.log(data);
   const columns: GridColDef[] = [
     {
-      field: "product",
-      headerName: "Image",
-      flex: 1,
+      field: "action",
+      headerName: "Details",
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       filterable: false,
       hideable: false,
       disableColumnMenu: true,
       renderCell: ({ row }) => (
-        <Box sx={{ position: "relative", width: "100%", height: "100%" }}>
+        <Box>
+          <IconButton sx={{ color: "#1976d2" }}>
+            <VisibilityOutlinedIcon />
+          </IconButton>
+          <Link
+            href={`/product/${row?.product?.slug}`}
+            style={{ position: "absolute", inset: 0, zIndex: 1 }}
+          />
+        </Box>
+      ),
+    },
+    {
+      field: "orderId",
+      headerName: "Order Id",
+      headerAlign: "center",
+      align: "center",
+      sortable: false,
+      filterable: false,
+      hideable: false,
+      disableColumnMenu: true,
+    },
+    {
+      field: "product",
+      headerName: "Image",
+      minWidth: 100,
+      headerAlign: "center",
+      align: "center",
+      sortable: false,
+      filterable: false,
+      hideable: false,
+      disableColumnMenu: true,
+      renderCell: ({ row }) => (
+        <Box>
           {row?.product ? (
             <CardMedia
               sx={{ width: 50, height: 50, borderRadius: 2 }}
@@ -35,45 +69,69 @@ const SingleOrderTable = ({ data }: { data: any }) => {
     {
       field: "name",
       headerName: "Name",
-      flex: 1,
+      headerAlign: "center",
+      align: "center",
+      minWidth: 250,
       sortable: false,
       filterable: false,
       hideable: false,
       disableColumnMenu: true,
-       renderCell: ({ row }) => (
-        <Box sx={{ position: "relative", width: "100%", height: "100%" }}>
-         {row?.product?.name}
+      renderCell: ({ row }) => (
+        <Box
+          sx={{
+            whiteSpace: "normal",
+            wordBreak: "break-word",
+            lineHeight: 1.2,
+          }}
+        >
+          {row?.product?.name}
         </Box>
       ),
     },
     {
       field: "price",
       headerName: "Price",
-      flex: 1,
+      headerAlign: "center",
+        minWidth: 100,
+      align: "center",
       sortable: false,
       filterable: false,
       hideable: false,
-      
+      disableColumnMenu: true,
+    },
+    {
+      field: "discount",
+      headerName: "Discount Percent",
+      headerAlign: "center",
+      minWidth: 150,
+      align: "center",
+      sortable: false,
+      filterable: false,
+      hideable: false,
+      disableColumnMenu: true,
+      renderCell: ({ row }) => <Box>{row?.product?.discount}</Box>,
     },
     {
       field: "discountPrice",
       headerName: "Discount Price",
-      flex: 1,
+      headerAlign: "center",
+      minWidth: 150,
+      align: "center",
       sortable: false,
       filterable: false,
       hideable: false,
-      
+      disableColumnMenu: true,
     },
     {
       field: "quantity",
       headerName: "Quantity",
-      flex: 1,
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       filterable: false,
       hideable: false,
-      
+      disableColumnMenu: true,
     },
-    
   ];
   return (
     <Box sx={{ height: 400, width: "100%" }}>
@@ -90,26 +148,34 @@ const SingleOrderTable = ({ data }: { data: any }) => {
           border: "1px solid #e0e0e0",
           background: "linear-gradient(135deg, #fafafa 0%, #ffffff 100%)",
           color: "text.secondary",
-          borderRadius: 0,
+          borderRadius: 3,
+
           "& .MuiDataGrid-cell": {
             display: "flex",
-            justifyContent: "start",
-            alignItems: "start",
-            outline: "none",
-            cursor: "pointer",
-          },
-          "& .MuiDataGrid-cell:focus-within": {
-            outline: "none",
-          },
-          "& .MuiDataGrid-row.Mui-selected": {
-            backgroundColor: "inherit",
-          },
-          "& .MuiDataGrid-columnHeader:focus": {
+            justifyContent: "center",
+            alignItems: "center",
             outline: "none",
           },
 
-          "& .MuiDataGrid-columnHeader": {
-            textAlign: "left",
+          "& .MuiDataGrid-cell:focus, & .MuiDataGrid-cell:focus-within": {
+            outline: "none",
+          },
+
+          "& .MuiDataGrid-columnHeader:focus, & .MuiDataGrid-columnHeader:focus-within":
+            {
+              outline: "none",
+            },
+
+          "& .MuiDataGrid-row.Mui-selected": {
+            backgroundColor: "inherit",
+          },
+          "& .MuiDataGrid-columnHeaderTitle": {
+            textAlign: "center",
+            width: "100%",
+          },
+
+          "& .MuiDataGrid-columnSeparator": {
+            display: "none",
           },
         }}
       />

@@ -24,7 +24,8 @@ export default function ShippingTable({ data }: { data: any }) {
     {
       field: "productImage",
       headerName: "Product",
-      flex: 1,
+
+      minWidth: 100,
       headerAlign: "center",
       align: "center",
       type: undefined,
@@ -51,12 +52,25 @@ export default function ShippingTable({ data }: { data: any }) {
     },
     {
       field: "productName",
-      headerName: " ",
+      headerName: "Name",
+      headerAlign: "center",
+      align: "center",
+      minWidth: 250,
       sortable: false,
       filterable: false,
       hideable: false,
       disableColumnMenu: true,
-      flex: 1,
+      renderCell: ({ row }) => (
+        <Box
+          sx={{
+            whiteSpace: "normal",
+            wordBreak: "break-word",
+            lineHeight: 1.2,
+          }}
+        >
+          {row.productName}
+        </Box>
+      ),
     },
     {
       field: "basePrice",
@@ -65,7 +79,8 @@ export default function ShippingTable({ data }: { data: any }) {
       filterable: false,
       hideable: false,
       disableColumnMenu: true,
-      flex: 1,
+      headerAlign: "center",
+      align: "center",
     },
     {
       field: "quantity",
@@ -74,7 +89,9 @@ export default function ShippingTable({ data }: { data: any }) {
       filterable: false,
       hideable: false,
       disableColumnMenu: true,
-      flex: 1,
+      headerAlign: "center",
+      align: "center",
+
       renderCell: (params: any) => {
         return <Counter params={params.row} />;
       },
@@ -82,12 +99,14 @@ export default function ShippingTable({ data }: { data: any }) {
 
     {
       field: "discountPrice",
-      headerName: "SUBTOTAL",
+      headerName: "TOTAL",
       sortable: false,
       filterable: false,
       hideable: false,
       disableColumnMenu: true,
-      flex: 1,
+      headerAlign: "center",
+      align: "center",
+
       renderCell: (params: any) => {
         return Number(params.row.discountPrice) > 0
           ? params.row.discountPrice
@@ -96,8 +115,8 @@ export default function ShippingTable({ data }: { data: any }) {
     },
     {
       field: "action",
-      headerName: "Action",
-      flex: 1,
+      headerName: "Delete",
+
       headerAlign: "center",
       align: "center",
       sortable: false,
@@ -136,24 +155,33 @@ export default function ShippingTable({ data }: { data: any }) {
           background: "linear-gradient(135deg, #fafafa 0%, #ffffff 100%)",
           color: "text.secondary",
           borderRadius: 3,
+
           "& .MuiDataGrid-cell": {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             outline: "none",
           },
-          "& .MuiDataGrid-cell:focus-within": {
+
+          "& .MuiDataGrid-cell:focus, & .MuiDataGrid-cell:focus-within": {
             outline: "none",
           },
+
+          "& .MuiDataGrid-columnHeader:focus, & .MuiDataGrid-columnHeader:focus-within":
+            {
+              outline: "none",
+            },
+
           "& .MuiDataGrid-row.Mui-selected": {
             backgroundColor: "inherit",
           },
-          "& .MuiDataGrid-columnHeader:focus": {
-            outline: "none",
+          "& .MuiDataGrid-columnHeaderTitle": {
+            textAlign: "center",
+            width: "100%",
           },
-          "& .MuiButton-root": {
-            outline: "none",
-            boxShadow: "none",
+
+          "& .MuiDataGrid-columnSeparator": {
+            display: "none",
           },
         }}
       />

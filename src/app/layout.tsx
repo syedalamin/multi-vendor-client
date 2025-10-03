@@ -1,21 +1,18 @@
-
-// import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
+ 
 import "./globals.css";
 import Providers from "@/lib/Providers/Providers";
 
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
 
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
-
-
- 
 
 export default function RootLayout({
   children,
@@ -26,7 +23,7 @@ export default function RootLayout({
     <Providers>
       <html lang="en">
         <body
-          className={`antialiased`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           {children}
         </body>
@@ -34,8 +31,6 @@ export default function RootLayout({
     </Providers>
   );
 }
-
-
 
 //  <body
 //           className={`${geistSans.variable} ${geistMono.variable} antialiased`}

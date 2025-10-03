@@ -8,6 +8,9 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Home",
   description: "...",
+  icons: {
+    icon: "/trystyShopbdfav.png",
+  },
 };
 
 export default function MainLayout({
@@ -17,7 +20,7 @@ export default function MainLayout({
 }>) {
   return (
     <>
-      <SearchBarWithNavbar/>
+      <SearchBarWithNavbar />
       <DisplayCartButton />
       {children}
       <Footer />

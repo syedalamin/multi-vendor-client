@@ -276,7 +276,7 @@ const SearchBarWithNavbar = () => {
                     fontWeight: 500,
                   }}
                 >
-                  📞 +880 01315-831065
+                  📞 +880 1813-022222
                 </Typography>
               </Box>
                <DashboardButton />

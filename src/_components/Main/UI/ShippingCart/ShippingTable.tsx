@@ -5,7 +5,7 @@ import { useDeleteCartMutation } from "@/redux/api/cartApi";
 import { CardMedia, IconButton } from "@mui/material";
 import Box from "@mui/material/Box";
 import { DataGrid, GridColDef, GridDeleteIcon } from "@mui/x-data-grid";
-import { useMemo } from "react";
+ 
 import { toast } from "sonner";
 
 export default function ShippingTable({ data }: { data: any }) {
@@ -74,7 +74,7 @@ export default function ShippingTable({ data }: { data: any }) {
     },
     {
       field: "basePrice",
-      headerName: "BASE PRICE",
+      headerName: "Price",
       sortable: false,
       filterable: false,
       hideable: false,
@@ -84,7 +84,7 @@ export default function ShippingTable({ data }: { data: any }) {
     },
     {
       field: "quantity",
-      headerName: "QUANTITY",
+      headerName: "Quantity",
       sortable: false,
       filterable: false,
       hideable: false,
@@ -99,7 +99,7 @@ export default function ShippingTable({ data }: { data: any }) {
 
     {
       field: "discountPrice",
-      headerName: "TOTAL",
+      headerName: "Total",
       sortable: false,
       filterable: false,
       hideable: false,
@@ -116,7 +116,6 @@ export default function ShippingTable({ data }: { data: any }) {
     {
       field: "action",
       headerName: "Delete",
-
       headerAlign: "center",
       align: "center",
       sortable: false,
@@ -138,11 +137,11 @@ export default function ShippingTable({ data }: { data: any }) {
     },
   ];
 
-  const rows = useMemo(() => data || [], [data]);
+ 
   return (
     <Box sx={{ height: 400, width: "100%" }}>
       <DataGrid
-        rows={rows}
+        rows={data}
         columns={columns}
         hideFooter
         disableRowSelectionOnClick

@@ -4,7 +4,7 @@ import { Container} from "@mui/material";
 import type { Metadata } from 'next'
  
 export const metadata: Metadata = {
-  title: 'Cart',
+  title: 'Cart - TrustyShop BD',
   description: '...',
 }
 const CartPage = () => {

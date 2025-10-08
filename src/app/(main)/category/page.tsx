@@ -5,7 +5,7 @@ import { Metadata } from "next";
 
 
 export const metadata: Metadata = {
-  title: "Category",
+  title: "Category - TrustyShop BD",
   description: "...",
 };
 

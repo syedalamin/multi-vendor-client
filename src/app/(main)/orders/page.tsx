@@ -4,7 +4,7 @@ import { Container } from "@mui/material";
 import { Metadata } from "next";
 import React from "react";
 export const metadata: Metadata = {
-  title: "My Orders",
+  title: "My Orders - TrustyShop BD",
   description: "...",
 };
 const MyOrdersPage = () => {

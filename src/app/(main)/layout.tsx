@@ -6,10 +6,10 @@ import DisplayCartButton from "@/_components/Main/UI/Cart/DisplayCartButton";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Home",
+  title: "Home - TrustyShop BD",
   description: "...",
   icons: {
-    icon: "/trystyShopbdfav.png",
+    icon: "/public/favicon.ico",
   },
 };
 

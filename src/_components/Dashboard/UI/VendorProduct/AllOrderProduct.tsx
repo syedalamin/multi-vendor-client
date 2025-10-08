@@ -1,32 +1,39 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use state";
 
+import EMForm from "@/_components/Form/EMForm";
+import EMSelect from "@/_components/Form/EMSelect";
 import { VisibilityOutlinedIcon } from "@/_Icons";
 import {
   useUpdateOrderPaymentStatusMutation,
   useUpdateOrderStatusMutation,
 } from "@/redux/api/orderApi";
 
-import { Box, Button, IconButton, Typography } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Link from "next/link";
 import React from "react";
+import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 
 const AllOrderProduct = ({ data }: { data: any }) => {
   const [updateOrderStatus] = useUpdateOrderStatusMutation();
   const [updateOrderPaymentStatus] = useUpdateOrderPaymentStatusMutation();
 
-  const statusStyles: Record<string, any> = {
-    PENDING: { backgroundColor: "#ff9800", hoverColor: "#e68900" },
-    SHIPPED: { backgroundColor: "#2196f3", hoverColor: "#1976d2" },
-    DELIVERED: { backgroundColor: "#4caf50", hoverColor: "#388e3c" },
-    CANCELLED: { backgroundColor: "#f44336", hoverColor: "#d32f2f" },
+  const statusStyles: Record<string, string> = {
+    PENDING: "#ff9800",
+    SHIPPED: "#2196f3",
+    DELIVERED: "#4caf50",
+    CANCELLED: "#f44336",
   };
-  const paymentStatusStyles: Record<string, any> = {
-    PENDING: { backgroundColor: "#ff9800", hoverColor: "#e68900" },
-    PAID: { backgroundColor: "#4caf50", hoverColor: "#388e3c" },
-    FAILED: { backgroundColor: "#f44336", hoverColor: "#d32f2f" },
+
+  const paymentStatusStyles: Record<string, string> = {
+    PENDING: "#ff9800",
+    PAID: "#4caf50",
+    FAILED: "#f44336",
+  };
+  const handleStatusEdit = async (values: FieldValues) => {
+    console.log(values);
   };
 
   const handleUpdate = async ({
@@ -36,21 +43,16 @@ const AllOrderProduct = ({ data }: { data: any }) => {
     id: string;
     status: string;
   }) => {
-    try {
-      let finalStatus;
+    console.log(id, status);
 
-      if (status == "PENDING") {
-        finalStatus = "SHIPPED";
-      } else if (status == "SHIPPED") {
-        finalStatus = "DELIVERED";
-      }
+    try {
       const updated = await updateOrderStatus({
         id: id,
-        status: finalStatus,
+        status: status,
       }).unwrap();
       toast.success(updated?.message);
     } catch (err: any) {
-      console.log(err);
+      toast.error(err?.data);
     }
   };
   const handlePaymentUpdate = async ({
@@ -61,26 +63,55 @@ const AllOrderProduct = ({ data }: { data: any }) => {
     paymentStatus: string;
   }) => {
     try {
-      let finalStatus;
-
-      if (paymentStatus == "PENDING") {
-        finalStatus = "PAID";
-      }
       const updated = await updateOrderPaymentStatus({
         id: id,
-        paymentStatus: finalStatus,
+        paymentStatus: paymentStatus,
       }).unwrap();
       toast.success(updated?.message);
     } catch (err: any) {
-      console.log(err);
+      toast.error(err?.data);
     }
   };
 
   const columns: GridColDef[] = [
     {
+      field: "action",
+      headerName: "Details",
+      headerAlign: "center",
+      align: "center",
+      sortable: false,
+      filterable: false,
+      hideable: false,
+      disableColumnMenu: true,
+      renderCell: ({ row }) => (
+        <Box>
+          <Typography
+            component={Link}
+            href={`/dashboard/vendor/order-product/${row.id}`}
+          >
+            <IconButton sx={{ color: "#1976d2" }}>
+              <VisibilityOutlinedIcon />
+            </IconButton>
+          </Typography>
+        </Box>
+      ),
+    },
+    {
+      field: "id",
+      headerName: "orderId",
+      headerAlign: "center",
+      align: "center",
+      sortable: false,
+      filterable: false,
+      hideable: false,
+      disableColumnMenu: true,
+    },
+    {
       field: "shippingInfo",
-      headerName: "Customer Info",
-      flex: 2,
+      headerName: "Info",
+      headerAlign: "center",
+      align: "left",
+      minWidth: 200,
       sortable: false,
       filterable: false,
       hideable: false,
@@ -88,13 +119,6 @@ const AllOrderProduct = ({ data }: { data: any }) => {
       renderCell: (params) => {
         const info = params.value;
         if (!info) return "N/A";
-
-        const labels = {
-          contact: "📞",
-          district: "🏙️",
-          city: "🌆",
-          postalCode: "📮",
-        };
 
         return (
           <Box>
@@ -109,19 +133,25 @@ const AllOrderProduct = ({ data }: { data: any }) => {
               </Typography>
 
               <Typography sx={{ fontSize: "16px", color: "#555" }}>
-                {labels.contact}Contact: {info.phone}
+                Contact: {info.phone}
               </Typography>
 
               <Typography sx={{ fontSize: "16px", color: "#555" }}>
-                {labels.district}District: {info.districts}
+                District: {info.districts}
               </Typography>
 
               <Typography sx={{ fontSize: "16px", color: "#555" }}>
-                {labels.city}City: {info.city}
+                Thana: {info.city}
               </Typography>
 
               <Typography sx={{ fontSize: "16px", color: "#555" }}>
-                {labels.postalCode}Post Code: {info.postalCode}
+                Post Code: {info.postalCode}
+              </Typography>
+              <Typography sx={{ fontSize: "16px", color: "#555" }}>
+                {info.address}
+              </Typography>
+              <Typography sx={{ fontSize: "16px", color: "#555" }}>
+                {info.notes}
               </Typography>
             </Box>
           </Box>
@@ -130,8 +160,9 @@ const AllOrderProduct = ({ data }: { data: any }) => {
     },
     {
       field: "totalAmount",
-      headerName: "Total Amount",
-      flex: 1,
+      headerName: "Total",
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       filterable: false,
       hideable: false,
@@ -139,8 +170,9 @@ const AllOrderProduct = ({ data }: { data: any }) => {
     },
     {
       field: "deliveryCharge",
-      headerName: "Delivery Charge",
-      flex: 1,
+      headerName: "Delivery",
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       filterable: false,
       hideable: false,
@@ -148,8 +180,10 @@ const AllOrderProduct = ({ data }: { data: any }) => {
     },
     {
       field: "status",
-      headerName: "Delivery",
-      flex: 1,
+      headerName: "Status",
+      headerAlign: "center",
+      align: "center",
+      minWidth: 170,
       sortable: false,
       filterable: false,
       hideable: false,
@@ -157,40 +191,35 @@ const AllOrderProduct = ({ data }: { data: any }) => {
       renderCell: ({ row }) => {
         const status = row?.status;
         const id = row?.id;
-        const style = statusStyles[status] || {
-          backgroundColor: "#9e9e9e",
-          hoverColor: "#757575",
-        };
+
         return (
           <Box>
-            <Box>
-              <Button
-                sx={{
-                  p: "2px",
-                  color: "#fff",
-                  backgroundColor: style.backgroundColor,
-                  cursor:
-                    status === "CANCELLED" || status === "DELIVERED"
-                      ? "not-allowed"
-                      : "pointer",
-                  pointerEvents:
-                    status === "CANCELLED" || status === "DELIVERED"
-                      ? "none"
-                      : "auto",
-                }}
-                onClick={() => handleUpdate({ id, status })}
-              >
-                {row.status}
-              </Button>
-            </Box>
+            <EMForm onSubmit={handleStatusEdit}>
+              <EMSelect
+                name="status"
+                fullWidth
+                defaultValue={status}
+                textColor={statusStyles[status]}
+                onChange={(event: any) =>
+                  handleUpdate({ id, status: event.target.value })
+                }
+                options={[
+                  { label: "PENDING", value: "PENDING" },
+                  { label: "SHIPPED", value: "SHIPPED" },
+                  { label: "DELIVERED", value: "DELIVERED" },
+                  { label: "CANCELLED", value: "CANCELLED" },
+                ]}
+              />
+            </EMForm>
           </Box>
         );
       },
     },
     {
       field: "paymentType",
-      headerName: "Payment Type",
-      flex: 1,
+      headerName: "Type",
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       filterable: false,
       hideable: false,
@@ -199,7 +228,9 @@ const AllOrderProduct = ({ data }: { data: any }) => {
     {
       field: "paymentStatus",
       headerName: "Payment",
-      flex: 1,
+      headerAlign: "center",
+      align: "center",
+      minWidth: 120,
       sortable: false,
       filterable: false,
       hideable: false,
@@ -207,65 +238,33 @@ const AllOrderProduct = ({ data }: { data: any }) => {
       renderCell: ({ row }) => {
         const paymentStatus = row?.paymentStatus;
         const id = row?.id;
-        const style = paymentStatusStyles[paymentStatus] || {
-          backgroundColor: "#9e9e9e",
-          hoverColor: "#757575",
-        };
+
         return (
           <Box>
             <Box>
-              <Button
-                sx={{
-                  p: "2px",
-                  color: "#fff",
-                  backgroundColor: style.backgroundColor,
-                  cursor:
-                    paymentStatus === "PAID" || paymentStatus === "FAILED"
-                      ? "not-allowed"
-                      : "pointer",
-                  pointerEvents:
-                    paymentStatus === "PAID" || paymentStatus === "FAILED"
-                      ? "none"
-                      : "auto",
-                }}
-                onClick={() => handlePaymentUpdate({ id, paymentStatus })}
-              >
-                {row.paymentStatus}
-              </Button>
+              <EMForm onSubmit={handleStatusEdit}>
+                <EMSelect
+                  name="paymentStatus"
+                  fullWidth
+                  defaultValue={paymentStatus}
+                  textColor={paymentStatusStyles[paymentStatus]}
+                  onChange={(event: any) =>
+                    handlePaymentUpdate({
+                      id,
+                      paymentStatus: event.target.value,
+                    })
+                  }
+                  options={[
+                    { label: "PENDING", value: "PENDING" },
+                    { label: "PAID", value: "PAID" },
+                    { label: "FAILED", value: "FAILED" },
+                  ]}
+                />
+              </EMForm>
             </Box>
           </Box>
         );
       },
-    },
-
-    {
-      field: "action",
-      headerName: "Details",
-      flex: 0.8,
-      sortable: false,
-      filterable: false,
-      hideable: false,
-      disableColumnMenu: true,
-      renderCell: ({ row }) => (
-        <Box
-          sx={{
-            position: "relative",
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            justifyContent: "start",
-            alignItems: "center",
-          }}
-        >
-          <IconButton sx={{ color: "#1976d2" }}>
-            <VisibilityOutlinedIcon />
-          </IconButton>
-          <Link
-            href={`/dashboard/vendor/order-product/${row.id}`}
-            style={{ position: "absolute", inset: 0, zIndex: 1 }}
-          />
-        </Box>
-      ),
     },
   ];
 
@@ -283,39 +282,36 @@ const AllOrderProduct = ({ data }: { data: any }) => {
         disableMultipleRowSelection
         disableVirtualization
         sx={{
+          border: "1px solid #e0e0e0",
           background: "linear-gradient(135deg, #fafafa 0%, #ffffff 100%)",
           color: "text.secondary",
-          "& .MuiDataGrid-columnHeaders": {
-            background: "linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)",
 
-            fontWeight: 600,
-            letterSpacing: "0.5px",
-          },
           "& .MuiDataGrid-cell": {
             display: "flex",
-            justifyContent: "flex-start",
+            justifyContent: "center",
             alignItems: "center",
-            fontSize: "18px",
-            fontWeight: 600,
-            lineHeight: 1.5,
-            borderBottom: "1px solid #f0f0f0",
+            outline: "none",
           },
-          "& .MuiDataGrid-row:nth-of-type(odd)": {
-            backgroundColor: "#f9f9f9",
+
+          "& .MuiDataGrid-cell:focus, & .MuiDataGrid-cell:focus-within": {
+            outline: "none",
           },
-          "& .MuiDataGrid-row:hover": {
-            backgroundColor: "#e3f2fd !important",
-            transition: "all 0.25s ease-in-out",
-            boxShadow: "inset 0 0 8px rgba(25,118,210,0.2)",
+
+          "& .MuiDataGrid-columnHeader:focus, & .MuiDataGrid-columnHeader:focus-within":
+            {
+              outline: "none",
+            },
+
+          "& .MuiDataGrid-row.Mui-selected": {
+            backgroundColor: "inherit",
           },
+          "& .MuiDataGrid-columnHeaderTitle": {
+            textAlign: "center",
+            width: "100%",
+          },
+
           "& .MuiDataGrid-columnSeparator": {
             display: "none",
-          },
-          "& .MuiDataGrid-cell:focus-within": {
-            outline: "none",
-          },
-          "& .MuiDataGrid-columnHeader:focus": {
-            outline: "none",
           },
         }}
       />

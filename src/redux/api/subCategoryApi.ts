@@ -25,6 +25,28 @@ const subCategoryApi = baseApi.injectEndpoints({
       providesTags: [tagTypes.subCategory],
     }),
 
+    getSingleSubCategory: builder.query({
+      query: (slug: string | undefined) => ({
+        url: `/sub-category/${slug}`,
+        method: "GET",
+      }),
+      transformResponse: (response) => {
+        return response.data;
+      },
+      providesTags: [tagTypes.subCategory],
+    }),
+
+    updateSubCategory: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/sub-category/${id}`,
+        method: "PATCH",
+        data: data,
+      }),
+      transformResponse: (response) => {
+        return response.data;
+      },
+      invalidatesTags: [tagTypes.subCategory],
+    }),
     deleteSubCategory: builder.mutation({
       query: (id: string | undefined) => ({
         url: `/sub-category/${id}`,
@@ -35,5 +57,10 @@ const subCategoryApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useCreateSubCategoryMutation, useGetAllSubCategoryQuery , useDeleteSubCategoryMutation} =
-  subCategoryApi;
+export const {
+  useCreateSubCategoryMutation,
+  useGetAllSubCategoryQuery,
+  useDeleteSubCategoryMutation,
+  useGetSingleSubCategoryQuery,
+  useUpdateSubCategoryMutation
+} = subCategoryApi;

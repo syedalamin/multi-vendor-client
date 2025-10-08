@@ -8,7 +8,7 @@ import { CardActionArea, Grid, Rating } from "@mui/material";
 import Link from "next/link";
 
 export default function MediaControlCard({ item }: { item: Product }) {
-  const formattedPrice = Number(item.price).toFixed(2);
+  const formattedPrice = Number(item.price);
   return (
     <Box>
       <CardActionArea>
@@ -80,7 +80,7 @@ export default function MediaControlCard({ item }: { item: Product }) {
                         color: "#2e7d32",
                       }}
                     >
-                      ${(item.price * (1 - item.discount / 100)).toFixed(2)}
+                     ৳{(item.price * (1 - item.discount / 100))}
                     </Typography>
 
                     {item.discount > 0 && (
@@ -91,7 +91,7 @@ export default function MediaControlCard({ item }: { item: Product }) {
                           fontSize: { xs: "0.9rem" },
                         }}
                       >
-                        {formattedPrice}
+                        ৳{formattedPrice}
                       </Typography>
                     )}
                   </Box>

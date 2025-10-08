@@ -1,18 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AccountBoxIcon } from "@/_Icons";
+import FullScreenModal from "@/_components/Shared/Modal/FullScreenModal";
 import { useDeleteProductMutation } from "@/redux/api/productApi";
+import { EditOutlined } from "@mui/icons-material";
 
 import { Avatar, Box, CardMedia, IconButton } from "@mui/material";
 import { DataGrid, GridColDef, GridDeleteIcon } from "@mui/x-data-grid";
+import { useState } from "react";
 
-import React from "react";
 import { toast } from "sonner";
+import EditProduct from "./EditProduct";
 
 const VendorAllProduct = ({ data }: { data: any }) => {
+  const [open, setOpen] = useState(false);
+  const [productId, setProductId] = useState("");
   const [deleteProduct] = useDeleteProductMutation();
   const handleDelete = async (id: string) => {
     try {
-
       const productDeleted = await deleteProduct(id).unwrap();
       toast.success(productDeleted?.data?.message);
     } catch (err: any) {
@@ -24,7 +28,8 @@ const VendorAllProduct = ({ data }: { data: any }) => {
     {
       field: "productImages",
       headerName: "Image",
-      flex: 1,
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       filterable: false,
       hideable: false,
@@ -48,17 +53,31 @@ const VendorAllProduct = ({ data }: { data: any }) => {
     },
     {
       field: "name",
-      headerName: "Product Name",
-      flex: 1,
+      headerName: "Name",
+      headerAlign: "center",
+      align: "center",
+      minWidth: 250,
       sortable: false,
       filterable: false,
       hideable: false,
       disableColumnMenu: true,
+      renderCell: ({ row }) => (
+        <Box
+          sx={{
+            whiteSpace: "normal",
+            wordBreak: "break-word",
+            lineHeight: 1.2,
+          }}
+        >
+          {row?.name}
+        </Box>
+      ),
     },
     {
       field: "stock",
-      headerName: "Product Stock",
-      flex: 1,
+      headerName: "Stock",
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       filterable: false,
       hideable: false,
@@ -67,7 +86,18 @@ const VendorAllProduct = ({ data }: { data: any }) => {
     {
       field: "price",
       headerName: "Price",
-      flex: 1,
+      headerAlign: "center",
+      align: "center",
+      sortable: false,
+      filterable: false,
+      hideable: false,
+      disableColumnMenu: true,
+    },
+    {
+      field: "discount",
+      headerName: "Percentage",
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       filterable: false,
       hideable: false,
@@ -75,24 +105,26 @@ const VendorAllProduct = ({ data }: { data: any }) => {
     },
 
     {
-      field: "discount",
-      headerName: "Discount Price",
-      flex: 1,
+      field: "discountTotal",
+      headerName: "Total",
+
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       filterable: false,
       hideable: false,
       disableColumnMenu: true,
       renderCell: ({ row }) => (
-        <Box>
-          {row?.price && (row.price * (1 - row.discount / 100)).toFixed(2)}
-        </Box>
+        <Box>{row?.price && row.price * (1 - row.discount / 100)}</Box>
       ),
     },
 
     {
       field: "status",
       headerName: "Status",
-      flex: 1,
+      headerAlign: "center",
+      align: "center",
+      minWidth: 150,
       sortable: false,
       filterable: false,
       hideable: false,
@@ -101,7 +133,8 @@ const VendorAllProduct = ({ data }: { data: any }) => {
     {
       field: "action",
       headerName: "Action",
-      flex: 1,
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       filterable: false,
       hideable: false,
@@ -114,6 +147,15 @@ const VendorAllProduct = ({ data }: { data: any }) => {
               aria-label="delete"
             >
               <GridDeleteIcon />
+            </IconButton>
+            <IconButton
+              onClick={() => {
+                setOpen(true);
+                setProductId(row.id);
+              }}
+              aria-label="delete"
+            >
+              <EditOutlined />
             </IconButton>
           </Box>
         );
@@ -135,29 +177,39 @@ const VendorAllProduct = ({ data }: { data: any }) => {
           border: "1px solid #e0e0e0",
           background: "linear-gradient(135deg, #fafafa 0%, #ffffff 100%)",
           color: "text.secondary",
-          borderRadius: 0,
+
           "& .MuiDataGrid-cell": {
             display: "flex",
-            justifyContent: "start",
-            alignItems: "start",
-            outline: "none",
-            cursor: "pointer",
-          },
-          "& .MuiDataGrid-cell:focus-within": {
-            outline: "none",
-          },
-          "& .MuiDataGrid-row.Mui-selected": {
-            backgroundColor: "inherit",
-          },
-          "& .MuiDataGrid-columnHeader:focus": {
+            justifyContent: "center",
+            alignItems: "center",
             outline: "none",
           },
 
-          "& .MuiDataGrid-columnHeader": {
-            textAlign: "left",
+          "& .MuiDataGrid-cell:focus, & .MuiDataGrid-cell:focus-within": {
+            outline: "none",
+          },
+
+          "& .MuiDataGrid-columnHeader:focus, & .MuiDataGrid-columnHeader:focus-within":
+            {
+              outline: "none",
+            },
+
+          "& .MuiDataGrid-row.Mui-selected": {
+            backgroundColor: "inherit",
+          },
+          "& .MuiDataGrid-columnHeaderTitle": {
+            textAlign: "center",
+            width: "100%",
+          },
+
+          "& .MuiDataGrid-columnSeparator": {
+            display: "none",
           },
         }}
       />
+      <FullScreenModal open={open} setOpen={setOpen} title="Edit Product">
+        <EditProduct id={productId} setOpen={setOpen} />
+      </FullScreenModal>
     </Box>
   );
 };

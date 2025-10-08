@@ -1,4 +1,3 @@
- 
 import { tagTypes } from "../tag-types";
 import { baseApi } from "./baseApi";
 
@@ -8,6 +7,17 @@ const productApi = baseApi.injectEndpoints({
       query: (data) => ({
         url: "/product/create-product",
         method: "POST",
+        data: data,
+      }),
+      transformResponse: (response) => {
+        return response.data;
+      },
+      invalidatesTags: [tagTypes.product],
+    }),
+    updateProduct: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/product/${id}`,
+        method: "PATCH",
         data: data,
       }),
       transformResponse: (response) => {
@@ -59,6 +69,10 @@ const productApi = baseApi.injectEndpoints({
         url: `/product/id/${id}`,
         method: "GET",
       }),
+      transformResponse: (response) => {
+        return response.data;
+      },
+      providesTags: [tagTypes.product],
     }),
     getProductIds: builder.mutation({
       query: (ids: string[]) => ({
@@ -74,7 +88,6 @@ const productApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.product],
     }),
-    
   }),
 });
 
@@ -84,7 +97,7 @@ export const {
   useLazyGetProductsQuery,
   useGetProductIdsMutation,
   useCreateProductMutation,
+  useUpdateProductMutation,
   useDeleteProductMutation,
   useGetMyVendorProductsQuery,
-   
 } = productApi;

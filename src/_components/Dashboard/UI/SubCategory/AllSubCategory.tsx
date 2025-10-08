@@ -1,31 +1,35 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AccountBoxIcon } from "@/_Icons";
-import { useDeleteSubCategoryMutation } from "@/redux/api/subCategoryApi";
-
+// import { useDeleteSubCategoryMutation } from "@/redux/api/subCategoryApi";
+import FullScreenModal from "@/_components/Shared/Modal/FullScreenModal";
 import { Avatar, Box, CardMedia, IconButton } from "@mui/material";
-import { DataGrid, GridColDef, GridDeleteIcon } from "@mui/x-data-grid";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
-import React from "react";
-import { toast } from "sonner";
+import React, { useState } from "react";
+// import { toast } from "sonner";
+import EditSubCategory from "./SubCategoryEdit";
+import { EditOutlined } from "@mui/icons-material";
 
 const AllSubCategory = ({ data }: { data: any }) => {
-  const [deleteSubCategory] = useDeleteSubCategoryMutation();
-  const handleDelete = async (id: string) => {
-    try {
-      console.log(id);
-      const subCategoryDeleted = await deleteSubCategory(id).unwrap();
-      toast.success(subCategoryDeleted.data.message);
-    } catch (err: any) {
-      console.log(err);
-    }
-  };
+  const [open, setOpen] = useState(false);
+  const [categorySlug, setCategorySlug] = useState("");
+  // const [deleteSubCategory] = useDeleteSubCategoryMutation();
+  // const handleDelete = async (id: string) => {
+  //   try {
+  //     console.log(id);
+  //     const subCategoryDeleted = await deleteSubCategory(id).unwrap();
+  //     toast.success(subCategoryDeleted.data.message);
+  //   } catch (err: any) {
+  //     console.log(err);
+  //   }
+  // };
 
-  // console.log(data);
   const columns: GridColDef[] = [
     {
       field: "image",
       headerName: "Image",
-      flex: 1,
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       filterable: false,
       hideable: false,
@@ -47,10 +51,35 @@ const AllSubCategory = ({ data }: { data: any }) => {
         </Box>
       ),
     },
+
     {
       field: "name",
       headerName: "Name",
-      flex: 1,
+      headerAlign: "center",
+      align: "center",
+      minWidth: 250,
+      sortable: false,
+      filterable: false,
+      hideable: false,
+      disableColumnMenu: true,
+      renderCell: ({ row }) => (
+        <Box
+          sx={{
+            whiteSpace: "normal",
+            wordBreak: "break-word",
+            lineHeight: 1.2,
+          }}
+        >
+          {row?.name}
+        </Box>
+      ),
+    },
+
+    {
+      field: "isDeleted",
+      headerName: "Is Deleted",
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       filterable: false,
       hideable: false,
@@ -59,7 +88,8 @@ const AllSubCategory = ({ data }: { data: any }) => {
     {
       field: "action",
       headerName: "Action",
-      flex: 1,
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       filterable: false,
       hideable: false,
@@ -67,11 +97,19 @@ const AllSubCategory = ({ data }: { data: any }) => {
       renderCell: ({ row }) => {
         return (
           <Box>
-            <IconButton
+            {/* <IconButton
               onClick={() => handleDelete(row.id)}
               aria-label="delete"
             >
               <GridDeleteIcon />
+            </IconButton> */}
+            <IconButton
+              onClick={() => {
+                setOpen(true);
+                setCategorySlug(row.slug);
+              }}
+            >
+              <EditOutlined />
             </IconButton>
           </Box>
         );
@@ -93,29 +131,39 @@ const AllSubCategory = ({ data }: { data: any }) => {
           border: "1px solid #e0e0e0",
           background: "linear-gradient(135deg, #fafafa 0%, #ffffff 100%)",
           color: "text.secondary",
-          borderRadius: 0,
+
           "& .MuiDataGrid-cell": {
             display: "flex",
-            justifyContent: "start",
-            alignItems: "start",
-            outline: "none",
-            cursor: "pointer",
-          },
-          "& .MuiDataGrid-cell:focus-within": {
-            outline: "none",
-          },
-          "& .MuiDataGrid-row.Mui-selected": {
-            backgroundColor: "inherit",
-          },
-          "& .MuiDataGrid-columnHeader:focus": {
+            justifyContent: "center",
+            alignItems: "center",
             outline: "none",
           },
 
-          "& .MuiDataGrid-columnHeader": {
-            textAlign: "left",
+          "& .MuiDataGrid-cell:focus, & .MuiDataGrid-cell:focus-within": {
+            outline: "none",
+          },
+
+          "& .MuiDataGrid-columnHeader:focus, & .MuiDataGrid-columnHeader:focus-within":
+            {
+              outline: "none",
+            },
+
+          "& .MuiDataGrid-row.Mui-selected": {
+            backgroundColor: "inherit",
+          },
+          "& .MuiDataGrid-columnHeaderTitle": {
+            textAlign: "center",
+            width: "100%",
+          },
+
+          "& .MuiDataGrid-columnSeparator": {
+            display: "none",
           },
         }}
       />
+      <FullScreenModal open={open} setOpen={setOpen} title="Edit Sub Category">
+        <EditSubCategory slug={categorySlug} setOpen={setOpen} />
+      </FullScreenModal>
     </Box>
   );
 };

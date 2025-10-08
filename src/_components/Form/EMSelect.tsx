@@ -19,6 +19,8 @@ type IInputProps = {
   onChange?: (value: any) => void;
   required?: boolean;
   options: { label: string; value: string | number }[];
+  defaultValue?: string;
+  textColor?: string;
 };
 const EMSelect = ({
   name,
@@ -29,6 +31,8 @@ const EMSelect = ({
   required,
   onChange,
   options,
+  defaultValue,
+  textColor,
 }: IInputProps) => {
   const { control } = useFormContext();
   return (
@@ -36,6 +40,7 @@ const EMSelect = ({
       <Controller
         control={control}
         name={name}
+        defaultValue={defaultValue || ""}
         render={({ field, fieldState: { error } }) => (
           <FormControl
             fullWidth={fullWidth}
@@ -69,17 +74,22 @@ const EMSelect = ({
               ...sx,
             }}
           >
-            <InputLabel>{label}</InputLabel>
+            <InputLabel sx={{}}>{label}</InputLabel>
             <Select
               {...field}
               label={label}
               MenuProps={{
-                disableScrollLock: true, 
+                disableScrollLock: true,
               }}
-              value={field.value ?? ""}
+              value={field.value ?? defaultValue ?? ""}
               onChange={(e) => {
                 field.onChange(e);
                 if (onChange) onChange(e);
+              }}
+              sx={{
+                "& .MuiSelect-select": {
+                  color: textColor || "black",
+                },
               }}
             >
               {options.map((opt) => (

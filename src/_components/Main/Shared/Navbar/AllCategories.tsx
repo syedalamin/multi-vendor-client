@@ -1,6 +1,13 @@
 "use client";
 import * as React from "react";
-import { Menu, MenuItem, Typography, Box, Stack } from "@mui/material";
+import {
+  Menu,
+  MenuItem,
+  Typography,
+  Box,
+  Stack,
+  CardMedia,
+} from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useGetAllCategoryQuery } from "@/redux/api/categoryApi";
 import { Category } from "@/types/common";
@@ -54,15 +61,23 @@ export default function AllCategories() {
           horizontal: "left",
         }}
       >
-        {categoryData?.data
-          ?.slice(0, 10) 
-          .map((item: Category) => (
-            <Stack key={item?.id}>
-              <Link href={`/category/${item?.slug}`}>
-                <MenuItem onClick={handleClose}>{item?.name}</MenuItem>
-              </Link>
-            </Stack>
-          ))}
+        {categoryData?.data?.slice(0, 10).map((item: Category) => (
+          <Stack key={item?.id}>
+            <Link href={`/category/${item?.slug}`}>
+              <MenuItem onClick={handleClose}>
+                <Stack direction={"row"} justifyContent={"center"} alignItems={"center"} gap={2}>
+                  <CardMedia
+                    sx={{ width: 40, height: 40 }}
+                    component="img"
+                    alt={item?.name}
+                    image={item?.image}
+                  />
+                  {item?.name}
+                </Stack>
+              </MenuItem>
+            </Link>
+          </Stack>
+        ))}
       </Menu>
     </Box>
   );

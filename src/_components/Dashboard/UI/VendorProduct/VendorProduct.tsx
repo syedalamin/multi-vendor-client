@@ -28,9 +28,10 @@ const VendorProduct = () => {
   const { data: productData } = useGetMyVendorProductsQuery({});
   const { data: subCategoryData } = useGetAllSubCategoryQuery({});
 
-  const handleRegistration = async (values: FieldValues) => {
+  const handleProduct = async (values: FieldValues) => {
     const { name, discount, subCategoryId, description, price, stock, file } =
       values;
+      
 
     const payload = {
       name,
@@ -100,7 +101,7 @@ const VendorProduct = () => {
       </Stack>
       <FullScreenModal open={open} setOpen={setOpen} title="Create Product">
         <Box>
-          <EMForm onSubmit={handleRegistration}>
+          <EMForm onSubmit={handleProduct}>
             <Grid wrap="wrap" container spacing={2} my={4}>
               <Grid size={{ xs: 12, md: 6 }}>
                 <EMInput name="name" label="Product Name" fullWidth={true} />

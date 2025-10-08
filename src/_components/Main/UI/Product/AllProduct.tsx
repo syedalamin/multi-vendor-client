@@ -38,7 +38,7 @@ const AllProduct = ({ page, limit }: { page: number; limit: number }) => {
   const handleScroll = () => {
     if (
       window.innerHeight + window.scrollY >=
-      document.body.offsetHeight - 500
+      document.body.offsetHeight - 800
     ) {
       if (
         hasMore &&

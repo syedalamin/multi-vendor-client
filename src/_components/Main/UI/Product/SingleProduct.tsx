@@ -24,7 +24,7 @@ const SingleProduct = ({ singleProduct }: { singleProduct: Product }) => {
 
   const [mainImage, setMainImage] = useState(productImages[0]);
   const sideImages = [...productImages].slice(0, 4);
-  const formattedPrice = Number(price).toFixed(2);
+  const formattedPrice = Number(price) ;
 
   return (
     <Stack py={5}>
@@ -191,7 +191,7 @@ const SingleProduct = ({ singleProduct }: { singleProduct: Product }) => {
                       fontSize: "1rem",
                     }}
                   >
-                    ${formattedPrice}
+                    ৳{formattedPrice}
                   </Typography>
                 )}
                 <Typography
@@ -201,7 +201,7 @@ const SingleProduct = ({ singleProduct }: { singleProduct: Product }) => {
                     color: "#2e7d32",
                   }}
                 >
-                  ${(price * (1 - discount / 100)).toFixed(2)}
+                  ৳{(price * (1 - discount / 100))}
                 </Typography>
                 {discount > 0 && (
                   <Typography

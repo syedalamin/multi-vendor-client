@@ -6,7 +6,7 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Link from "next/link";
 
 const SingleOrderTable = ({ data }: { data: any }) => {
-  console.log(data);
+  
   const columns: GridColDef[] = [
     {
       field: "action",
@@ -101,9 +101,9 @@ const SingleOrderTable = ({ data }: { data: any }) => {
     },
     {
       field: "discount",
-      headerName: "Discount Percent",
+      headerName: "Percentage",
       headerAlign: "center",
-      minWidth: 150,
+     
       align: "center",
       sortable: false,
       filterable: false,

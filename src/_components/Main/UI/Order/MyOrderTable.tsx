@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { VisibilityOutlinedIcon } from "@/_Icons";
-import { Box, IconButton, Typography } from "@mui/material";
+import { Box,  Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import Link from "next/link";
+ 
 
 const MyOrderTable = ({ data }: { data: any }) => {
   const statusStyles: Record<string, any> = {
@@ -14,28 +13,28 @@ const MyOrderTable = ({ data }: { data: any }) => {
   };
 
   const columns: GridColDef[] = [
-    {
-      field: "action",
-      headerName: "Details",
-      headerAlign: "center",
-      align: "center",
-      sortable: false,
-      filterable: false,
-      hideable: false,
-      disableColumnMenu: true,
-      renderCell: ({ row }) => (
-        <Box>
-          <IconButton sx={{ color: "#1976d2" }}>
-            <VisibilityOutlinedIcon />
-          </IconButton>
-          <Link
-            href={`/orders/${row.id}`}
-            style={{ position: "absolute", inset: 0, zIndex: 1 }}
-          />
-        </Box>
-      ),
-    },
-    
+    // {
+    //   field: "action",
+    //   headerName: "Details",
+    //   headerAlign: "center",
+    //   align: "center",
+    //   sortable: false,
+    //   filterable: false,
+    //   hideable: false,
+    //   disableColumnMenu: true,
+    //   renderCell: ({ row }) => (
+    //     <Box>
+    //       <IconButton sx={{ color: "#1976d2" }}>
+    //         <VisibilityOutlinedIcon />
+    //       </IconButton>
+    //       <Link
+    //         href={`/orders/${row.id}`}
+    //         style={{ position: "absolute", inset: 0, zIndex: 1 }}
+    //       />
+    //     </Box>
+    //   ),
+    // },
+
     {
       field: "id",
       headerName: "orderId",
@@ -48,7 +47,7 @@ const MyOrderTable = ({ data }: { data: any }) => {
     },
     {
       field: "shippingInfo",
-      headerName: "Customer Info",
+      headerName: "Info",
       headerAlign: "center",
       align: "center",
       minWidth: 250,
@@ -165,7 +164,6 @@ const MyOrderTable = ({ data }: { data: any }) => {
           border: "1px solid #e0e0e0",
           background: "linear-gradient(135deg, #fafafa 0%, #ffffff 100%)",
           color: "text.secondary",
-         
 
           "& .MuiDataGrid-cell": {
             display: "flex",

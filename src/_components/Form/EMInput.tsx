@@ -13,6 +13,7 @@ type IInputProps = {
   required?: boolean;
   multiline?: boolean;
   rows?: number;
+  defaultValue?: string;
 };
 const EMInput = ({
   name,
@@ -24,7 +25,8 @@ const EMInput = ({
   placeholder,
   required,
   multiline,
-  rows
+  rows,
+  defaultValue,
 }: IInputProps) => {
   const { control } = useFormContext();
   return (
@@ -32,12 +34,12 @@ const EMInput = ({
       <Controller
         control={control}
         name={name}
+        defaultValue={defaultValue || ""}
         render={({ field, fieldState: { error } }) => (
           <TextField
             {...field}
             label={label}
             type={type}
-            // type=""
             variant="outlined"
             size={size}
             value={field.value ?? ""}

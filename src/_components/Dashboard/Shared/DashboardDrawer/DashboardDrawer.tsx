@@ -14,8 +14,6 @@ import AuthButton from "@/_components/UI/AuthButton";
 
 const drawerWidth = 270;
 
-
-
 export default function DashboardDrawer({
   children,
 }: {
@@ -47,15 +45,17 @@ export default function DashboardDrawer({
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
-  
+
           background: "white",
           color: "black",
         }}
       >
-        <Toolbar sx={{
-          display: "flex",
-          justifyContent:"space-between"
-        }}>
+        <Toolbar
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -65,11 +65,11 @@ export default function DashboardDrawer({
           >
             <MenuIcon />
           </IconButton>
-          
+
           <Typography variant="h6" noWrap component="div">
-           {MainLogo} 
+            {MainLogo}
           </Typography>
-           <AuthButton />
+          <AuthButton />
         </Toolbar>
       </AppBar>
       <Box
@@ -77,7 +77,6 @@ export default function DashboardDrawer({
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           variant="temporary"
           open={mobileOpen}
@@ -92,7 +91,7 @@ export default function DashboardDrawer({
           }}
           slotProps={{
             root: {
-              keepMounted: true, // Better open performance on mobile.
+              keepMounted: true,
             },
           }}
         >
@@ -118,7 +117,7 @@ export default function DashboardDrawer({
           flexGrow: 1,
           p: 3,
           mt: 7,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          width: { xs: "100%", sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
         {children}

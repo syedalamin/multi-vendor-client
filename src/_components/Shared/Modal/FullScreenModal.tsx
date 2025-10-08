@@ -34,7 +34,7 @@ export default function ResponsiveDialog({
         }}
       >
         <DialogTitle textAlign={"center"} id="customized-dialog-title">
-          <Typography component={"h2"} variant="h5" fontWeight={600}>
+          <Typography component={"h2"}  variant="h5" fontWeight={600}>
             {title}
           </Typography>
         </DialogTitle>

@@ -7,9 +7,7 @@ import AllOrderProduct from "./AllOrderProduct";
 
 const OrderProduct = () => {
   const { data: allOrderData } = useGetMyVendorOrdersQuery({});
-
-  // console.log(allOrderData);
-
+ 
   return (
     <Stack>
       <Stack>

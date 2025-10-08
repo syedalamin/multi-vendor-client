@@ -9,8 +9,8 @@ import Link from "next/link";
 import AddToCart from "@/lib/Button/AddToCart";
 
 export default function ImgProductCard({ item }: { item: Product }) {
-  const formattedPrice = Number(item.price).toFixed(2);
- 
+  const formattedPrice = Number(item.price)
+
   return (
     <Box
       sx={{
@@ -37,7 +37,6 @@ export default function ImgProductCard({ item }: { item: Product }) {
           style={{ flexGrow: 1, display: "flex", flexDirection: "column" }}
         >
           <Box sx={{ position: "relative" }}>
-         
             <CardMedia
               component="img"
               alt={item.name}
@@ -50,7 +49,6 @@ export default function ImgProductCard({ item }: { item: Product }) {
               }}
             />
 
-    
             {item.discount > 0 && (
               <Box
                 sx={{
@@ -61,21 +59,17 @@ export default function ImgProductCard({ item }: { item: Product }) {
                   background: "linear-gradient(145deg, #ff4d4d, #d32f2f)",
                   color: "white",
                   px: 1,
-                  py: 0.20,
+                  py: 0.2,
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "center",
                   alignItems: "center",
                   fontWeight: "bold",
                   textAlign: "center",
-         
-                 
                 }}
               >
-                <Typography
-                  sx={{ fontSize: "0.8rem", fontWeight: 600, }}
-                >
-                 Sale {item.discount}%
+                <Typography sx={{ fontSize: "0.8rem", fontWeight: 600 }}>
+                  Sale {item.discount}%
                 </Typography>
               </Box>
             )}
@@ -124,7 +118,7 @@ export default function ImgProductCard({ item }: { item: Product }) {
                     color: "#2e7d32",
                   }}
                 >
-                  ${(item.price * (1 - item.discount / 100)).toFixed(2)}
+                  ৳{item.price * (1 - item.discount / 100)}
                 </Typography>
 
                 {item.discount > 0 && (
@@ -135,7 +129,7 @@ export default function ImgProductCard({ item }: { item: Product }) {
                       fontSize: { xs: "0.9rem", sm: "1rem", md: "1.1rem" },
                     }}
                   >
-                    {formattedPrice}
+                    ৳{formattedPrice}
                   </Typography>
                 )}
               </Box>

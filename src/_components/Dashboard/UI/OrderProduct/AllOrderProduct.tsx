@@ -21,9 +21,43 @@ const AllOrderProduct = ({ data }: { data: any }) => {
 
   const columns: GridColDef[] = [
     {
+      field: "action",
+      headerName: "Details",
+      headerAlign: "center",
+      align: "center",
+      sortable: false,
+      filterable: false,
+      hideable: false,
+      disableColumnMenu: true,
+      renderCell: ({ row }) => (
+        <Box>
+          <Typography
+            component={Link}
+            href={`/dashboard/admin/order-product/${row.id}`}
+          >
+            <IconButton sx={{ color: "#1976d2" }}>
+              <VisibilityOutlinedIcon />
+            </IconButton>
+          </Typography>
+        </Box>
+      ),
+    },
+    {
+      field: "id",
+      headerName: "orderId",
+      headerAlign: "center",
+      align: "center",
+      sortable: false,
+      filterable: false,
+      hideable: false,
+      disableColumnMenu: true,
+    },
+    {
       field: "shippingInfo",
-      headerName: "Customer Info",
-      flex: 2,
+      headerName: "Info",
+      headerAlign: "center",
+      align: "left",
+      minWidth: 200,
       sortable: false,
       filterable: false,
       hideable: false,
@@ -31,13 +65,6 @@ const AllOrderProduct = ({ data }: { data: any }) => {
       renderCell: (params) => {
         const info = params.value;
         if (!info) return "N/A";
-
-        const labels = {
-          contact: "📞",
-          district: "🏙️",
-          city: "🌆",
-          postalCode: "📮",
-        };
 
         return (
           <Box>
@@ -52,19 +79,25 @@ const AllOrderProduct = ({ data }: { data: any }) => {
               </Typography>
 
               <Typography sx={{ fontSize: "16px", color: "#555" }}>
-                {labels.contact}Contact: {info.phone}
+                Contact: {info.phone}
               </Typography>
 
               <Typography sx={{ fontSize: "16px", color: "#555" }}>
-                {labels.district}District: {info.districts}
+                District: {info.districts}
               </Typography>
 
               <Typography sx={{ fontSize: "16px", color: "#555" }}>
-                {labels.city}City: {info.city}
+                Thana: {info.city}
               </Typography>
 
               <Typography sx={{ fontSize: "16px", color: "#555" }}>
-                {labels.postalCode}Post Code: {info.postalCode}
+                Post Code: {info.postalCode}
+              </Typography>
+              <Typography sx={{ fontSize: "16px", color: "#555" }}>
+                {info.address}
+              </Typography>
+              <Typography sx={{ fontSize: "16px", color: "#555" }}>
+                {info.notes}
               </Typography>
             </Box>
           </Box>
@@ -73,8 +106,9 @@ const AllOrderProduct = ({ data }: { data: any }) => {
     },
     {
       field: "totalAmount",
-      headerName: "Total Amount",
-      flex: 1,
+      headerName: "Total",
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       filterable: false,
       hideable: false,
@@ -82,8 +116,9 @@ const AllOrderProduct = ({ data }: { data: any }) => {
     },
     {
       field: "deliveryCharge",
-      headerName: "Delivery Charge",
-      flex: 1,
+      headerName: "Delivery",
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       filterable: false,
       hideable: false,
@@ -91,8 +126,9 @@ const AllOrderProduct = ({ data }: { data: any }) => {
     },
     {
       field: "status",
-      headerName: "Delivery",
-      flex: 1,
+      headerName: "Status",
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       filterable: false,
       hideable: false,
@@ -110,9 +146,9 @@ const AllOrderProduct = ({ data }: { data: any }) => {
               fontWeight: 600,
               textAlign: "center",
               color: "#fff",
-              backgroundColor: style.backgroundColor,
               display: "inline-block",
-              minWidth: "90px",
+              minWidth: "100px",
+              backgroundColor: style.backgroundColor,
             }}
           >
             {row.status}
@@ -122,8 +158,9 @@ const AllOrderProduct = ({ data }: { data: any }) => {
     },
     {
       field: "paymentType",
-      headerName: "Payment Type",
-      flex: 1,
+      headerName: "Type",
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       filterable: false,
       hideable: false,
@@ -132,7 +169,8 @@ const AllOrderProduct = ({ data }: { data: any }) => {
     {
       field: "paymentStatus",
       headerName: "Payment",
-      flex: 1,
+      headerAlign: "center",
+      align: "center",
       sortable: false,
       filterable: false,
       hideable: false,
@@ -154,44 +192,15 @@ const AllOrderProduct = ({ data }: { data: any }) => {
               fontWeight: 600,
               textAlign: "center",
               color: "#fff",
-              backgroundColor: style.backgroundColor,
               display: "inline-block",
               minWidth: "90px",
+              backgroundColor: style.backgroundColor,
             }}
           >
             {row.paymentStatus}
           </Typography>
         );
       },
-    },
-    {
-      field: "action",
-      headerName: "Details",
-      flex: 0.8,
-      sortable: false,
-      filterable: false,
-      hideable: false,
-      disableColumnMenu: true,
-      renderCell: ({ row }) => (
-        <Box
-          sx={{
-            position: "relative",
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            justifyContent: "start",
-            alignItems: "center",
-          }}
-        >
-          <IconButton sx={{ color: "#1976d2" }}>
-            <VisibilityOutlinedIcon />
-          </IconButton>
-          <Link
-            href={`/dashboard/admin/order-product/${row.id}`}
-            style={{ position: "absolute", inset: 0, zIndex: 1 }}
-          />
-        </Box>
-      ),
     },
   ];
 
@@ -208,41 +217,36 @@ const AllOrderProduct = ({ data }: { data: any }) => {
         disableMultipleRowSelection
         disableVirtualization
         sx={{
-       
+          border: "1px solid #e0e0e0",
           background: "linear-gradient(135deg, #fafafa 0%, #ffffff 100%)",
           color: "text.secondary",
-          "& .MuiDataGrid-columnHeaders": {
-            background: "linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)",
 
-       
-            fontWeight: 600,
-            letterSpacing: "0.5px",
-          },
           "& .MuiDataGrid-cell": {
             display: "flex",
-            justifyContent: "flex-start",
+            justifyContent: "center",
             alignItems: "center",
-            fontSize: "18px",
-            fontWeight: 600,
-            lineHeight: 1.5,
-            borderBottom: "1px solid #f0f0f0",
+            outline: "none",
           },
-          "& .MuiDataGrid-row:nth-of-type(odd)": {
-            backgroundColor: "#f9f9f9",
+
+          "& .MuiDataGrid-cell:focus, & .MuiDataGrid-cell:focus-within": {
+            outline: "none",
           },
-          "& .MuiDataGrid-row:hover": {
-            backgroundColor: "#e3f2fd !important",
-            transition: "all 0.25s ease-in-out",
-            boxShadow: "inset 0 0 8px rgba(25,118,210,0.2)",
+
+          "& .MuiDataGrid-columnHeader:focus, & .MuiDataGrid-columnHeader:focus-within":
+            {
+              outline: "none",
+            },
+
+          "& .MuiDataGrid-row.Mui-selected": {
+            backgroundColor: "inherit",
           },
+          "& .MuiDataGrid-columnHeaderTitle": {
+            textAlign: "center",
+            width: "100%",
+          },
+
           "& .MuiDataGrid-columnSeparator": {
             display: "none",
-          },
-          "& .MuiDataGrid-cell:focus-within": {
-            outline: "none",
-          },
-          "& .MuiDataGrid-columnHeader:focus": {
-            outline: "none",
           },
         }}
       />

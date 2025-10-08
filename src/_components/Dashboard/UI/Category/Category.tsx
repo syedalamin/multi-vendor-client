@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import EMForm from "@/_components/Form/EMForm";
 import EMInput from "@/_components/Form/EMInput";
@@ -20,7 +21,7 @@ const Category = () => {
   const { data: categoryData } = useGetAllCategoryQuery({});
   const [createCategory] = useCreateCategoryMutation()
 
-  const handleRegistration = async (values: FieldValues) => {
+  const handleCreate = async (values: FieldValues) => {
     const { name, file } = values;
 
     const payload = {
@@ -36,8 +37,8 @@ const Category = () => {
         toast.success(res.message);
         setOpen(false);
       }
-    } catch (err) {
-      console.log(err);
+    } catch (err: any) {
+      toast.error(err.data);
     }
   };
 
@@ -86,7 +87,7 @@ const Category = () => {
       </Stack>
       <FullScreenModal open={open} setOpen={setOpen} title="Create Category">
         <Box>
-          <EMForm onSubmit={handleRegistration}>
+          <EMForm onSubmit={handleCreate}>
             <Grid wrap="wrap" container spacing={2} my={4}>
               <Grid size={{ xs: 12, md: 6 }}>
                 <EMInput name="name" label="Category Name" fullWidth={true} />

@@ -36,7 +36,7 @@ export default function AllCategories() {
           px: 2,
           py: 1.2,
           backgroundColor: "#00B207",
-          // backgroundColor: "#2e7d32",
+         
           color: "#fff",
 
           cursor: "pointer",

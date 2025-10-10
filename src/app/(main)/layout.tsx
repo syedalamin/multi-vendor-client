@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: "Home - TrustyShop BD",
   description: "...",
   icons: {
-    icon: "/public/favicon.ico",
+    icon: "/favicon.ico",
   },
 };
 

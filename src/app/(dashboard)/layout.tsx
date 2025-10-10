@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "TrustyShop BD",
   description: "...",
   icons: {
-    icon: "/public/favicon.ico",
+    icon: "/favicon.ico",
   },
 };
 export default function DashboardLayout({

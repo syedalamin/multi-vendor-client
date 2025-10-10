@@ -257,7 +257,6 @@ const SearchBarWithNavbar = () => {
               justifyContent={"space-between"}
               gap={3}
             >
-             
               <Box
                 sx={{
                   display: {
@@ -279,7 +278,7 @@ const SearchBarWithNavbar = () => {
                   📞 +880 1813-022222
                 </Typography>
               </Box>
-               <DashboardButton />
+              <DashboardButton />
             </Stack>
             {/* search */}
             <Stack

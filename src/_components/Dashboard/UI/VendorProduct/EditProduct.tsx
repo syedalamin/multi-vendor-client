@@ -20,7 +20,7 @@ import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 
 const EditProduct = ({ id , setOpen}: { id: string , setOpen: any}) => {
-  const { data: subCategoryData } = useGetAllSubCategoryQuery({});
+  const { data: subCategoryData } = useGetAllSubCategoryQuery({limit: 100});
   const [updateProduct] = useUpdateProductMutation();
   const { data: productData, isLoading } = useGetProductIdQuery(id);
 

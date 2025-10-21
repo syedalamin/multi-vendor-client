@@ -5,12 +5,15 @@ import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
-
+import trystyShop from "@/image/trustyShop.jpg";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import SideBar from "./SideBar";
 import AuthButton from "@/_components/UI/AuthButton";
+import Image from "next/image";
+import NotificationBell from "@/_components/Shared/Message/NotificationBellProps";
+import { Stack } from "@mui/material";
 
 const drawerWidth = 270;
 
@@ -36,7 +39,14 @@ export default function DashboardDrawer({
       setMobileOpen(!mobileOpen);
     }
   };
-  const MainLogo = <>Multi Vendor</>;
+  const MainLogo = (
+    <Image
+      className="w-full bg-cover overflow-hidden"
+      height={22}
+      alt=""
+      src={trystyShop}
+    />
+  );
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -69,7 +79,10 @@ export default function DashboardDrawer({
           <Typography variant="h6" noWrap component="div">
             {MainLogo}
           </Typography>
-          <AuthButton />
+          <Stack gap={3} direction={"row"}>
+            <NotificationBell />
+            <AuthButton />
+          </Stack>
         </Toolbar>
       </AppBar>
       <Box

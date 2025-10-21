@@ -13,7 +13,8 @@ type IInputProps = {
   required?: boolean;
   multiline?: boolean;
   rows?: number;
-  defaultValue?: string;
+  defaultValue?: string | number;
+  disabled?: boolean;
 };
 const EMInput = ({
   name,
@@ -27,6 +28,7 @@ const EMInput = ({
   multiline,
   rows,
   defaultValue,
+  disabled,
 }: IInputProps) => {
   const { control } = useFormContext();
   return (
@@ -49,6 +51,7 @@ const EMInput = ({
             error={!!error?.message}
             multiline={multiline}
             rows={rows}
+            disabled={disabled}
             sx={{
               "& .MuiOutlinedInput-root": {
                 borderRadius: 1,

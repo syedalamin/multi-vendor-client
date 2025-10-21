@@ -32,7 +32,7 @@ const SearchBarWithNavbar = () => {
     { label: "Home", hre: "/" },
     { label: "Category", hre: "/category" },
     { label: "Product", hre: "/product" },
-    { label: "Blog", hre: "/blog" },
+    // { label: "Blog", hre: "/blog" },
   ];
 
   const pathname = usePathname();

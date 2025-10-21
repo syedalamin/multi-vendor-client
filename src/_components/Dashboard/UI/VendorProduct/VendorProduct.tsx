@@ -11,11 +11,7 @@ import { FieldValues } from "react-hook-form";
 import EMSelect from "@/_components/Form/EMSelect";
 import { useGetAllSubCategoryQuery } from "@/redux/api/subCategoryApi";
 import EMUploaderMany from "@/_components/Form/EMUploaderMany";
-import {
-  useCreateProductMutation,
-  useGetMyVendorProductsQuery,
- 
-} from "@/redux/api/productApi";
+import { useCreateProductMutation } from "@/redux/api/productApi";
 import { modifyProductPayload } from "@/utils/ModifyFormData/modifyFormData";
 import { toast } from "sonner";
 
@@ -25,13 +21,12 @@ const VendorProduct = () => {
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => setOpen(true);
   const [createProduct] = useCreateProductMutation();
-  const { data: productData } = useGetMyVendorProductsQuery({});
-  const { data: subCategoryData } = useGetAllSubCategoryQuery({});
+
+  const { data: subCategoryData } = useGetAllSubCategoryQuery({ limit: 100 });
 
   const handleProduct = async (values: FieldValues) => {
     const { name, discount, subCategoryId, description, price, stock, file } =
       values;
-      
 
     const payload = {
       name,
@@ -41,7 +36,6 @@ const VendorProduct = () => {
       stock: Number(stock),
       description,
     };
-
 
     const data = modifyProductPayload(payload, file);
 
@@ -131,32 +125,25 @@ const VendorProduct = () => {
                   type="number"
                 />
               </Grid>
-              <Grid
-                direction={"column"}
-                container
-                spacing={2}
-                size={{ xs: 12, md: 6 }}
-              >
-                <Grid>
-                  <EMSelect
-                    name="subCategoryId"
-                    label="Category Id"
-                    fullWidth={true}
-                    options={
-                      subCategoryData?.data?.map((item: any) => ({
-                        label: item.name,
-                        value: item.id,
-                      })) || []
-                    }
-                  />
-                </Grid>
-
-                <Grid>
-                  <EMUploaderMany name="file" label="Upload" />
-                </Grid>
+              <Grid size={{ xs: 12, md: 6 }}>
+                <EMSelect
+                  name="subCategoryId"
+                  label="Category Id"
+                  fullWidth={true}
+                  options={
+                    subCategoryData?.data?.map((item: any) => ({
+                      label: item.name,
+                      value: item.id,
+                    })) || []
+                  }
+                />
               </Grid>
 
               <Grid size={{ xs: 12, md: 6 }}>
+                <EMUploaderMany name="file" label="Upload" />
+              </Grid>
+
+              <Grid size={{ xs: 12 }}>
                 <EMInput
                   name="description"
                   label="Description"
@@ -192,7 +179,7 @@ const VendorProduct = () => {
         </Box>
       </FullScreenModal>
       <Stack>
-        <VendorAllProduct data={productData?.data} />
+        <VendorAllProduct />
       </Stack>
     </Stack>
   );

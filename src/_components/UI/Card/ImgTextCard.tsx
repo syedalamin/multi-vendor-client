@@ -1,3 +1,4 @@
+ 
 import * as React from "react";
 import Typography from "@mui/material/Typography";
 import CardActionArea from "@mui/material/CardActionArea";
@@ -13,7 +14,7 @@ export default function ImgTextCard({ item }: { item: Category }) {
         height: "100%",
         border: "1px solid #e0e0e0",
         display: "flex",
-        borderRadius: "8px",
+        borderRadius: "5px",
         flexDirection: "column",
         overflow: "hidden",
         transition: "transform 0.3s, box-shadow 0.3s , border 0.3s ",
@@ -43,21 +44,21 @@ export default function ImgTextCard({ item }: { item: Category }) {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              py: 2,
+              py: 1,
             }}
           >
             <Typography
               sx={{
                 fontSize: {
-                  xs: "14px",
-                  md: "16px",
+                  xs: "15px",
+                  // md: "16px",
                 },
                 color: "#333",
                 textAlign: "center",
               }}
-              fontWeight={700}
+              fontWeight={600}
             >
-              {item.name}
+             {item.name.slice(0, 15)}
             </Typography>
           </Stack>
         </CardActionArea>

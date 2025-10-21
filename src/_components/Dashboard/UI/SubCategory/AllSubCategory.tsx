@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AccountBoxIcon } from "@/_Icons";
 // import { useDeleteSubCategoryMutation } from "@/redux/api/subCategoryApi";
 import FullScreenModal from "@/_components/Shared/Modal/FullScreenModal";
@@ -9,20 +8,21 @@ import React, { useState } from "react";
 // import { toast } from "sonner";
 import EditSubCategory from "./SubCategoryEdit";
 import { EditOutlined } from "@mui/icons-material";
+import { useGetAllSubCategoryQuery } from "@/redux/api/subCategoryApi";
 
-const AllSubCategory = ({ data }: { data: any }) => {
+const AllSubCategory = () => {
+  const [paginationModel, setPaginationModel] = React.useState({
+    page: 0,
+    pageSize: 10,
+  });
+
+  const { data: subCategoryData, isLoading } = useGetAllSubCategoryQuery({
+    limit: paginationModel.pageSize,
+    page: paginationModel.page + 1,
+  });
+
   const [open, setOpen] = useState(false);
   const [categorySlug, setCategorySlug] = useState("");
-  // const [deleteSubCategory] = useDeleteSubCategoryMutation();
-  // const handleDelete = async (id: string) => {
-  //   try {
-  //     console.log(id);
-  //     const subCategoryDeleted = await deleteSubCategory(id).unwrap();
-  //     toast.success(subCategoryDeleted.data.message);
-  //   } catch (err: any) {
-  //     console.log(err);
-  //   }
-  // };
 
   const columns: GridColDef[] = [
     {
@@ -97,12 +97,6 @@ const AllSubCategory = ({ data }: { data: any }) => {
       renderCell: ({ row }) => {
         return (
           <Box>
-            {/* <IconButton
-              onClick={() => handleDelete(row.id)}
-              aria-label="delete"
-            >
-              <GridDeleteIcon />
-            </IconButton> */}
             <IconButton
               onClick={() => {
                 setOpen(true);
@@ -117,16 +111,22 @@ const AllSubCategory = ({ data }: { data: any }) => {
     },
   ];
   return (
-    <Box sx={{ height: 400, width: "100%" }}>
+    <Box sx={{ height: 500, width: "100%" }}>
       <DataGrid
-        rows={data}
+        rows={subCategoryData?.data}
         columns={columns}
-        hideFooter
         disableRowSelectionOnClick
         disableColumnSorting
         disableColumnFilter
         disableMultipleRowSelection
         disableVirtualization
+        loading={isLoading}
+        pagination
+        paginationModel={paginationModel}
+        onPaginationModelChange={setPaginationModel}
+        rowCount={subCategoryData?.meta?.total || 0}
+        pageSizeOptions={[5, 10, 20, 50]}
+        paginationMode="server"
         sx={{
           border: "1px solid #e0e0e0",
           background: "linear-gradient(135deg, #fafafa 0%, #ffffff 100%)",

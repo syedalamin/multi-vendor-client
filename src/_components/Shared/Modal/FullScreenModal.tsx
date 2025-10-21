@@ -31,6 +31,7 @@ export default function ResponsiveDialog({
             border: "1px solid #e0e0e0",
             background: "linear-gradient(135deg, #fafafa 0%, #ffffff 100%)",
           },
+          
         }}
       >
         <DialogTitle textAlign={"center"} id="customized-dialog-title">

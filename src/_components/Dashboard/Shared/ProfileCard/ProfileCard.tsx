@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from "react";
+
 import {
   Card,
   CardContent,
@@ -12,61 +13,61 @@ import {
   Stack,
   Chip,
 } from "@mui/material";
-import {
-  AccountBox as AccountBoxIcon,
-  Phone,
-  Email,
-  LocationOn,
-  Person,
-  Shield,
-} from "@mui/icons-material";
+
+import ResponsiveDialog from "@/_components/Shared/Modal/FullScreenModal";
+ 
+import EditAdminProfile from "./EditAdminProfile";
 
 export default function ProfileCard({ item }: { item: any }) {
+  const [open, setOpen] = React.useState(false);
+
   const {
+    profilePhoto,
     firstName,
     lastName,
-    profilePhoto,
     email,
     contactNumber,
     address,
     gender,
-    role,
+
     status,
+    role,
   } = item || {};
 
   return (
     <Card
       sx={{
-        textAlign: "center",
-        alignItems: "center",
         overflow: "hidden",
-        p: 3,
-        borderRadius: "20px",
-        boxShadow: 4,
-        width: 700,
+        borderRadius: "2px",
+        mt: 3,
+        width: "100%",
         mx: "auto",
+        textAlign: "center",
+        p: 3,
       }}
     >
-      {/* Avatar */}
+      {/* Profile Photo */}
       <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
         <Avatar
           src={profilePhoto || ""}
           alt={`${firstName} ${lastName}`}
           sx={{
+            width: 120,
+            height: 120,
+            border: "4px solid white",
+            boxShadow: 2,
             bgcolor: "warning.main",
-            width: 110,
-            height: 110,
             fontSize: "2rem",
           }}
-        >
-          {!profilePhoto && <AccountBoxIcon fontSize="large" />}
-        </Avatar>
+        />
       </Box>
 
       {/* Name */}
-      <Typography variant="h6" sx={{ mt: 2, fontWeight: "bold" }}>
+      <Typography variant="h6" fontWeight="bold" mt={2}>
         {firstName} {lastName}
       </Typography>
+
+      {/*  Status */}
       <Stack
         direction="row"
         spacing={1}
@@ -74,36 +75,54 @@ export default function ProfileCard({ item }: { item: any }) {
         alignItems="center"
         mt={1}
       >
-        {role && <Chip label={role} color="warning" size="small" />}  {status && <Chip label={status} color="success" size="small" />}
+        <Chip label={role} color="warning" size="small" />{" "}
+        <Chip label={status} color="success" size="small" />
       </Stack>
+
       <Divider sx={{ my: 2 }} />
 
       {/* Info Section */}
-      <CardContent>
-        <Stack spacing={1.5}>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Email color="warning" fontSize="small" />
-            <Typography variant="body2">{email}</Typography>
-          </Box>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Phone color="warning" fontSize="small" />
-            <Typography variant="body2">{contactNumber}</Typography>
-          </Box>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <LocationOn color="warning" fontSize="small" />
-            <Typography variant="body2">{address}</Typography>
-          </Box>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Person color="warning" fontSize="small" />
-            <Typography variant="body2">{gender}</Typography>
-          </Box>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Shield color="warning" fontSize="small" />
-            <Typography variant="body2">{role}</Typography>
-          </Box>
+      <CardContent sx={{ textAlign: "left", px: { xs: 2, sm: 4 } }}>
+        <Stack spacing={1.4}>
+          {[
+            { label: "Name", value: `${firstName} ${lastName}` },
+            { label: "Email", value: email },
+            { label: "Contact Number", value: contactNumber },
+            { label: "Address", value: address },
+            { label: "Gender", value: gender },
+          ].map(({ label, value }) => (
+            <Box
+              key={label}
+              sx={{
+                display: "flex",
+                flexDirection: { xs: "column", sm: "row" },
+                alignItems: { sm: "center" },
+                gap: 1,
+                py: 1,
+                borderBottom: "1px solid #e0e0e0",
+              }}
+            >
+              <Typography
+                variant="body2"
+                sx={{
+                  fontWeight: 600,
+                  minWidth: { sm: "130px" },
+                  color: "text.secondary",
+                  fontSize: { xs: "0.9rem", sm: "1rem" },
+                }}
+              >
+                {label} :
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{ fontSize: { xs: "0.9rem", sm: "1rem" } }}
+              >
+                {value || "-"}
+              </Typography>
+            </Box>
+          ))}
         </Stack>
       </CardContent>
-
       {/* Actions */}
       <CardActions
         sx={{
@@ -115,19 +134,24 @@ export default function ProfileCard({ item }: { item: any }) {
       >
         <Button
           variant="contained"
-          color="warning"
-          sx={{ borderRadius: "30px", px: 3 }}
+          onClick={() => setOpen(true)}
+          sx={{
+            borderRadius: "30px",
+            px: { xs: 1, sm: 3 },
+            fontSize: { xs: "0.7rem", sm: "0.8rem", md: "0.9rem" },
+            backgroundColor: "#2e7d32",
+            "&:hover": { backgroundColor: "#1b5e20" },
+          }}
         >
           Edit Profile
         </Button>
-        <Button
-          variant="outlined"
-          color="inherit"
-          sx={{ borderRadius: "30px", px: 3 }}
-        >
-          Logout
-        </Button>
       </CardActions>
+
+      <ResponsiveDialog open={open} setOpen={setOpen} title="Edit Profile">
+        <EditAdminProfile setOpen={setOpen} />
+      </ResponsiveDialog>
     </Card>
   );
 }
+
+ 

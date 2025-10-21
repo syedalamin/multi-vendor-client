@@ -1,6 +1,11 @@
+"use client";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AccountBoxIcon } from "@/_Icons";
-import { useDeleteProductMutation } from "@/redux/api/productApi";
+import {
+  useDeleteProductMutation,
+  useGetProductsQuery,
+} from "@/redux/api/productApi";
 
 import { Avatar, Box, CardMedia, IconButton } from "@mui/material";
 import { DataGrid, GridColDef, GridDeleteIcon } from "@mui/x-data-grid";
@@ -8,11 +13,21 @@ import { DataGrid, GridColDef, GridDeleteIcon } from "@mui/x-data-grid";
 import React from "react";
 import { toast } from "sonner";
 
-const AllProduct = ({ data }: { data: any }) => {
+const AllProduct = () => {
+  const [paginationModel, setPaginationModel] = React.useState({
+    page: 0,
+    pageSize: 10,
+  });
+
+  
+  const { data: productData, isLoading } = useGetProductsQuery({
+    limit: paginationModel.pageSize,
+    page: paginationModel.page + 1,
+  });
+
   const [deleteProduct] = useDeleteProductMutation();
   const handleDelete = async (id: string) => {
     try {
-
       const productDeleted = await deleteProduct(id).unwrap();
       toast.success(productDeleted?.data?.message);
     } catch (err: any) {
@@ -121,11 +136,17 @@ const AllProduct = ({ data }: { data: any }) => {
     },
   ];
   return (
-    <Box sx={{ height: 400, width: "100%" }}>
+    <Box sx={{ height: 500, width: "100%" }}>
       <DataGrid
-        rows={data}
+        rows={productData?.data || []}
         columns={columns}
-        hideFooter
+        loading={isLoading}
+        pagination
+        paginationModel={paginationModel}
+        onPaginationModelChange={setPaginationModel}
+        rowCount={productData?.meta?.total || 0}
+        pageSizeOptions={[5, 10, 20, 50]}
+        paginationMode="server"
         disableRowSelectionOnClick
         disableColumnSorting
         disableColumnFilter

@@ -13,27 +13,7 @@ const MyOrderTable = ({ data }: { data: any }) => {
   };
 
   const columns: GridColDef[] = [
-    // {
-    //   field: "action",
-    //   headerName: "Details",
-    //   headerAlign: "center",
-    //   align: "center",
-    //   sortable: false,
-    //   filterable: false,
-    //   hideable: false,
-    //   disableColumnMenu: true,
-    //   renderCell: ({ row }) => (
-    //     <Box>
-    //       <IconButton sx={{ color: "#1976d2" }}>
-    //         <VisibilityOutlinedIcon />
-    //       </IconButton>
-    //       <Link
-    //         href={`/orders/${row.id}`}
-    //         style={{ position: "absolute", inset: 0, zIndex: 1 }}
-    //       />
-    //     </Box>
-    //   ),
-    // },
+    
 
     {
       field: "id",

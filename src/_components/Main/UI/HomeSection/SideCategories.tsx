@@ -45,12 +45,18 @@ const SideCategories = () => {
                 alt={item?.name}
                 image={item?.image}
               />
-              <Typography component={"h6"} variant="subtitle2">
+              <Typography
+                component={"h6"}
+                variant="subtitle2"
+                sx={{
+                  fontWeight: 600,
+                }}
+              >
                 {item?.name}
               </Typography>
             </Stack>
             <Box>
-                <KeyboardArrowRightSharp sx={{ ml: 0.5 }} />
+              <KeyboardArrowRightSharp sx={{ ml: 0.5 }} />
             </Box>
           </MenuItem>
 
@@ -92,7 +98,15 @@ const SideCategories = () => {
                       alt={sub?.name}
                       image={sub?.image}
                     />
-                    <Typography>{sub?.name}</Typography>
+                    <Typography
+                      component={"h6"}
+                      variant="subtitle2"
+                      sx={{
+                        fontWeight: 600,
+                      }}
+                    >
+                      {sub?.name}
+                    </Typography>
                   </MenuItem>
                 </Link>
               ))}

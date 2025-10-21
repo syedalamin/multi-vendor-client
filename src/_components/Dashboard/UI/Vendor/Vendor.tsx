@@ -12,7 +12,7 @@ import React, { useState } from "react";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 import AllVendorProfile from "./AllVendorProfile";
-import { useGetAllVendorsQuery } from "@/redux/api/vendorApi";
+ 
 import EMSelect from "@/_components/Form/EMSelect";
 import { useGetAllDistrictQuery } from "@/redux/api/districtApi";
 
@@ -24,7 +24,7 @@ const Vendor = () => {
   const { data: districtData } = useGetAllDistrictQuery({});
 
   const [createVendor] = useCreateVendorMutation();
-  const { data } = useGetAllVendorsQuery({});
+
 
   const handleRegistration = async (values: FieldValues) => {
     const {
@@ -55,13 +55,14 @@ const Vendor = () => {
 
     try {
       const res = await createVendor(data).unwrap();
-      console.log(res);
+  
       if (res.success) {
         toast.success(res.message);
         setOpen(false);
       }
-    } catch (err) {
-      console.log(err);
+    } catch (err: any) {
+       toast.error(err?.data);
+
     }
   };
 
@@ -142,13 +143,11 @@ const Vendor = () => {
               <Grid size={{ xs: 12, md: 6 }}>
                 <EMInput
                   name="contactNumber"
-                  label="BKash Number"
+                  label="Contact Number"
                   fullWidth={true}
                 />
               </Grid>
-              {/* <Grid size={{ xs: 12, md: 6 }}>
-                <EMInput name="district" label="District" fullWidth={true} />
-              </Grid> */}
+        
               <Grid size={{ xs: 12, md: 6 }}>
                 <EMSelect
                   name="district"
@@ -178,9 +177,7 @@ const Vendor = () => {
                   }
                 />
               </Grid>
-              {/* <Grid size={{ xs: 12, md: 6 }}>
-                <EMInput name="city" label="City" fullWidth={true} />
-              </Grid> */}
+          
               <Grid size={{ xs: 12, md: 6 }}>
                 <EMUploader name="logo" label="Upload Logo" />
               </Grid>
@@ -213,7 +210,7 @@ const Vendor = () => {
         </Box>
       </FullScreenModal>
       <Stack>
-        <AllVendorProfile data={data?.vendor} />
+        <AllVendorProfile   />
       </Stack>
     </Stack>
   );

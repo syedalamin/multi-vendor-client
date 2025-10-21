@@ -5,7 +5,7 @@ import EMInput from "@/_components/Form/EMInput";
 import EMUploader from "@/_components/Form/EMUploader";
 import FullScreenModal from "@/_components/Shared/Modal/FullScreenModal";
 import { AddIcon, RemoveIcon } from "@/_Icons";
-import { useCreateCategoryMutation, useGetAllCategoryQuery } from "@/redux/api/categoryApi";
+import { useCreateCategoryMutation  } from "@/redux/api/categoryApi";
 import { modifyPayload } from "@/utils/ModifyFormData/modifyFormData";
 
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
@@ -18,7 +18,7 @@ const Category = () => {
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => setOpen(true);
 
-  const { data: categoryData } = useGetAllCategoryQuery({});
+
   const [createCategory] = useCreateCategoryMutation()
 
   const handleCreate = async (values: FieldValues) => {
@@ -121,7 +121,7 @@ const Category = () => {
           </EMForm>
         </Box>
       </FullScreenModal>
-      <Stack><AllCategory data={categoryData?.data}/></Stack>
+      <Stack><AllCategory  /></Stack>
     </Stack>
   );
 };

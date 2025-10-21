@@ -13,9 +13,13 @@ import {
   CardMedia,
   Chip,
 } from "@mui/material";
-import { Phone, Email, LocationOn, Star, Store } from "@mui/icons-material";
+
+import ResponsiveDialog from "@/_components/Shared/Modal/FullScreenModal";
+import { Store } from "@mui/icons-material";
+import EditVendorProfile from "./EditVendorProfile";
 
 export default function VendorProfileCard({ item }: { item: any }) {
+  const [open, setOpen] = React.useState(false);
   const {
     shopName,
     logo,
@@ -23,10 +27,9 @@ export default function VendorProfileCard({ item }: { item: any }) {
     description,
     email,
     contactNumber,
-    address,
-
+    city,
+    district,
     status,
-    rating,
     isVerified,
     isBlocked,
   } = item || {};
@@ -35,10 +38,12 @@ export default function VendorProfileCard({ item }: { item: any }) {
     <Card
       sx={{
         overflow: "hidden",
-        borderRadius: "20px",
-        boxShadow: 5,
-        width: 1000,
+        borderRadius: "2px",
+        mt: 3,
+        width: "100%",
         mx: "auto",
+        textAlign: "center",
+        p: 3,
       }}
     >
       {/* Banner */}
@@ -46,7 +51,7 @@ export default function VendorProfileCard({ item }: { item: any }) {
         component="img"
         sx={{
           width: "100%",
-          height: 200,
+          height: { xs: 150, sm: 200, md: 250 },
           border: "4px solid white",
           bgcolor: "warning.main",
         }}
@@ -60,8 +65,8 @@ export default function VendorProfileCard({ item }: { item: any }) {
           src={logo || ""}
           alt={shopName}
           sx={{
-            width: 200,
-            height: 200,
+            width: { xs: 100, sm: 150, md: 200 },
+            height: { xs: 100, sm: 150, md: 200 },
             border: "4px solid green",
             bgcolor: "warning.main",
           }}
@@ -101,32 +106,55 @@ export default function VendorProfileCard({ item }: { item: any }) {
         {description && (
           <Typography
             variant="body2"
-            color="text.secondary"
-            sx={{ mb: 2, fontStyle: "italic" }}
+            sx={{
+              mb: 2,
+              fontStyle: "italic",
+              color: "text.secondary",
+              fontSize: { xs: "0.9rem", sm: "1rem" },
+            }}
           >
             {description}
           </Typography>
         )}
-
-        <Stack spacing={1.5}>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Email color="warning" fontSize="small" />
-            <Typography variant="body2">{email}</Typography>
-          </Box>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Phone color="warning" fontSize="small" />
-            <Typography variant="body2">{contactNumber}</Typography>
-          </Box>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <LocationOn color="warning" fontSize="small" />
-            <Typography variant="body2">{address}</Typography>
-          </Box>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Star color="warning" fontSize="small" />
-            <Typography variant="body2">
-              {rating || "0"} / 5.0 (Average Rating)
-            </Typography>
-          </Box>
+      </CardContent>
+      <CardContent sx={{ textAlign: "left", px: { xs: 2, sm: 4 } }}>
+        <Stack spacing={1.4}>
+          {[
+            { label: "Email", value: email },
+            { label: "Contact Number", value: contactNumber },
+            { label: "District", value: district },
+            { label: "City", value: city },
+          ].map(({ label, value }) => (
+            <Box
+              key={label}
+              sx={{
+                display: "flex",
+                flexDirection: { xs: "column", sm: "row" },
+                alignItems: { sm: "center" },
+                gap: 1,
+                py: 1,
+                borderBottom: "1px solid #e0e0e0",
+              }}
+            >
+              <Typography
+                variant="body2"
+                sx={{
+                  fontWeight: 600,
+                  minWidth: { sm: "130px" },
+                  color: "text.secondary",
+                  fontSize: { xs: "0.9rem", sm: "1rem" },
+                }}
+              >
+                {label} :
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{ fontSize: { xs: "0.9rem", sm: "1rem" } }}
+              >
+                {value || "-"}
+              </Typography>
+            </Box>
+          ))}
         </Stack>
       </CardContent>
 
@@ -141,19 +169,21 @@ export default function VendorProfileCard({ item }: { item: any }) {
       >
         <Button
           variant="contained"
-          color="warning"
-          sx={{ borderRadius: "30px", px: 3 }}
+          onClick={() => setOpen(true)}
+          sx={{
+            borderRadius: "30px",
+            px: { xs: 1, sm: 3 },
+            fontSize: { xs: "0.7rem", sm: "0.8rem", md: "0.9rem" },
+            backgroundColor: "#2e7d32",
+            "&:hover": { backgroundColor: "#1b5e20" },
+          }}
         >
-          Edit Shop
-        </Button>
-        <Button
-          variant="outlined"
-          color="inherit"
-          sx={{ borderRadius: "30px", px: 3 }}
-        >
-          Delete Shop
+          Edit Profile
         </Button>
       </CardActions>
+      <ResponsiveDialog open={open} setOpen={setOpen} title="Edit Profile">
+        <EditVendorProfile setOpen={setOpen} />
+      </ResponsiveDialog>
     </Card>
   );
 }

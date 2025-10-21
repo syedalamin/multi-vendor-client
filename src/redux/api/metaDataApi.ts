@@ -9,7 +9,7 @@ const metaDataApi = baseApi.injectEndpoints({
         url: "/meta-data/vendor",
         method: "GET",
       }),
-      transformResponse: (response:any ) => {
+      transformResponse: (response: any) => {
         return response.data;
       },
       providesTags: [tagTypes.cart, tagTypes.order, tagTypes.product],
@@ -19,13 +19,38 @@ const metaDataApi = baseApi.injectEndpoints({
         url: "/meta-data/admin",
         method: "GET",
       }),
-      transformResponse: (response:any ) => {
+      transformResponse: (response: any) => {
         return response.data;
       },
       providesTags: [tagTypes.cart, tagTypes.order, tagTypes.product],
     }),
+    getImageData: builder.query({
+      query: () => ({
+        url: "/meta-data/image",
+        method: "GET",
+      }),
+      transformResponse: (response: any) => {
+        return response.data;
+      },
+      providesTags: [tagTypes.images],
+    }),
+    createImageData: builder.mutation({
+      query: (data) => ({
+        url: "/meta-data/images",
+        method: "POST",
+        data: data,
+      }),
+      transformResponse: (response) => {
+        return response.data;
+      },
+      invalidatesTags: [tagTypes.images],
+    }),
   }),
 });
 
-export const { useGetMyVendorMetaDataQuery,useGetAllAdminMetaDataQuery   } =
-  metaDataApi;
+export const {
+  useGetMyVendorMetaDataQuery,
+  useGetAllAdminMetaDataQuery,
+  useGetImageDataQuery,
+  useCreateImageDataMutation,
+} = metaDataApi;

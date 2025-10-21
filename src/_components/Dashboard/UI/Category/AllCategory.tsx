@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
 import FullScreenModal from "@/_components/Shared/Modal/FullScreenModal";
 import { AccountBoxIcon } from "@/_Icons";
 // import { useDeleteCategoryMutation } from "@/redux/api/categoryApi";
@@ -8,23 +8,24 @@ import { Avatar, Box, CardMedia, IconButton } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
 import React, { useState } from "react";
- 
+
 import EditCategory from "./CategoryEdit";
+import { useGetAllCategoryQuery } from "@/redux/api/categoryApi";
 // import { toast } from "sonner";
 
-const AllCategory = ({ data }: { data: any }) => {
+const AllCategory = () => {
+  const [paginationModel, setPaginationModel] = React.useState({
+    page: 0,
+    pageSize: 10,
+  });
+
+  const { data: categoryData, isLoading } = useGetAllCategoryQuery({
+    limit: paginationModel.pageSize,
+    page: paginationModel.page + 1,
+  });
+
   const [open, setOpen] = useState(false);
   const [categoryId, setCategoryId] = useState("");
-  // const [deleteCategory] = useDeleteCategoryMutation();
-  // const handleDelete = async (id: string) => {
-  //   try {
-  //     const categoryDeleted = await deleteCategory(id).unwrap();
-  //     toast.success(categoryDeleted?.data?.message);
-  //   } catch (err: any) {
-  //     console.log(err);
-  //     toast.error("You have to delete the subcategory first.");
-  //   }
-  // };
 
   const columns: GridColDef[] = [
     {
@@ -100,18 +101,11 @@ const AllCategory = ({ data }: { data: any }) => {
       renderCell: ({ row }) => {
         return (
           <Box>
-            {/* <IconButton
-              onClick={() => handleDelete(row.id)}
-              aria-label="delete"
-            >
-              <GridDeleteIcon />
-            </IconButton> */}
             <IconButton
               onClick={() => {
                 setOpen(true);
                 setCategoryId(row.slug);
               }}
-         
             >
               <EditOutlined />
             </IconButton>
@@ -121,11 +115,17 @@ const AllCategory = ({ data }: { data: any }) => {
     },
   ];
   return (
-    <Box sx={{ height: 400, width: "100%" }}>
+    <Box sx={{ height: 500, width: "100%" }}>
       <DataGrid
-        rows={data}
+        rows={categoryData?.data || []}
         columns={columns}
-        hideFooter
+        loading={isLoading}
+        pagination
+        paginationModel={paginationModel}
+        onPaginationModelChange={setPaginationModel}
+        rowCount={categoryData?.meta?.total || 0}
+        pageSizeOptions={[5, 10, 20, 50]}
+        paginationMode="server"
         disableRowSelectionOnClick
         disableColumnSorting
         disableColumnFilter

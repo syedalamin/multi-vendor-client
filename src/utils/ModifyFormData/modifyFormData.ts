@@ -32,8 +32,6 @@ export const modifyPayloads = (
   return formData;
 };
 
-
-
 export const modifyProductPayload = (payload: object, file?: File | File[]) => {
   const formData = new FormData();
 
@@ -43,10 +41,34 @@ export const modifyProductPayload = (payload: object, file?: File | File[]) => {
     formData.append("file", file);
   } else if (Array.isArray(file)) {
     file.forEach((f) => {
-      formData.append("file", f); 
+      formData.append("file", f);
     });
   }
 
   return formData;
 };
 
+export const modifyHomePayloads = (
+  payload: object,
+  files?: {
+    sliderImages?: File[];
+    heroImages?: File[];
+    hotDealImages?: File[];
+    hotMainImages?: File[];
+    reviewImages?: File[];
+    reviewMainImages?: File[];
+    footerImages?: File[];
+  }
+) => {
+  const formData = new FormData();
+  formData.append("data", JSON.stringify(payload));
+  if (!files) return formData;
+
+  Object.entries(files).forEach(([key, value]) => {
+    if (Array.isArray(value)) {
+      value.forEach((file) => formData.append(key, file));
+    }
+  });
+
+  return formData;
+};

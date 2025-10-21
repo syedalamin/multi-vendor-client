@@ -5,7 +5,7 @@ import EMSelect from "@/_components/Form/EMSelect";
 import EMUploader from "@/_components/Form/EMUploader";
 import FullScreenModal from "@/_components/Shared/Modal/FullScreenModal";
 import { AddIcon, RemoveIcon } from "@/_Icons";
-import { useGetAllAdminsQuery } from "@/redux/api/adminApi";
+ 
 import { useCreateAdminMutation } from "@/redux/api/userApi";
 import { modifyPayload } from "@/utils/ModifyFormData/modifyFormData";
 import { Box, Button, Grid, Stack, Typography } from "@mui/material";
@@ -18,7 +18,7 @@ const CreateAdmin = () => {
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => setOpen(true);
   const [createAdmin] = useCreateAdminMutation();
-  const { data } = useGetAllAdminsQuery({});
+ 
 
   const handleRegistration = async (values: FieldValues) => {
     const {
@@ -180,7 +180,7 @@ const CreateAdmin = () => {
         </Box>
       </FullScreenModal>
       <Stack>
-        <AdminAllProfile data={data?.admin?.data} />
+        <AdminAllProfile />
       </Stack>
     </Stack>
   );

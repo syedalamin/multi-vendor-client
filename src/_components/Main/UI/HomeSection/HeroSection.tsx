@@ -1,20 +1,20 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { Swiper, SwiperSlide } from "swiper/react";
-import slider1 from "@/image/Slider1.png";
-import slider2 from "@/image/Slider2.png";
-import slider3 from "@/image/Slider3.png";
+
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { EffectFade, Navigation, Autoplay } from "swiper/modules";
-import { Box, Grid } from "@mui/material";
-import Image from "next/image";
+import { Box, CardMedia, Grid } from "@mui/material";
 import SideCategories from "./SideCategories";
+import { useGetImageDataQuery } from "@/redux/api/metaDataApi";
 
 const HeroSection = () => {
+  const { data: imageData } = useGetImageDataQuery({});
   return (
-    <Box sx={{ position: "relative", pb: 2 }}>
+    <Box sx={{ position: "relative" }}>
       <Grid container spacing={1}>
         <Grid
           size={{ xs: 12, md: 3 }}
@@ -28,7 +28,6 @@ const HeroSection = () => {
               height: { xs: "220px", sm: "350px" },
               py: 1,
               backgroundColor: "#fff",
-           
             }}
           >
             <SideCategories />
@@ -49,8 +48,8 @@ const HeroSection = () => {
             modules={[EffectFade, Navigation, Autoplay]}
             className="mySwiper"
           >
-            {[slider1, slider2, slider3].map((slide, i) => (
-              <SwiperSlide key={i}>
+            {imageData?.data?.sliderImages?.map((slide: any) => (
+              <SwiperSlide key={slide}>
                 <Box
                   sx={{
                     width: "100%",
@@ -58,15 +57,11 @@ const HeroSection = () => {
                     overflow: "hidden",
                   }}
                 >
-                  <Image
-                    src={slide}
-                    alt={`Hero Image ${i + 1}`}
-                    quality={100}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
+                  <CardMedia
+                    sx={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    component="img"
+                    alt={slide}
+                    image={slide}
                   />
                 </Box>
               </SwiperSlide>

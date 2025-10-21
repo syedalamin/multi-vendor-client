@@ -15,9 +15,18 @@ const subCategoryApi = baseApi.injectEndpoints({
       invalidatesTags: [tagTypes.subCategory],
     }),
     getAllSubCategory: builder.query({
-      query: () => ({
+      query: ({
+        page,
+        limit,
+        searchTerm,
+      }: {
+        page?: number;
+        limit?: number;
+        searchTerm?: string;
+      }) => ({
         url: "/sub-category",
         method: "GET",
+        params: { page, limit, searchTerm },
       }),
       transformResponse: (response) => {
         return response.data;
@@ -62,5 +71,5 @@ export const {
   useGetAllSubCategoryQuery,
   useDeleteSubCategoryMutation,
   useGetSingleSubCategoryQuery,
-  useUpdateSubCategoryMutation
+  useUpdateSubCategoryMutation,
 } = subCategoryApi;

@@ -43,6 +43,19 @@ const userApi = baseApi.injectEndpoints({
       transformResponse: (response) => {
         return response.data;
       },
+      providesTags: [tagTypes.vendor, tagTypes.admin],
+    }),
+
+    updateMyProfile: builder.mutation({
+      query: ({ data }) => ({
+        url: `/user/me`,
+        method: "PATCH",
+        data: data,
+      }),
+      transformResponse: (response) => {
+        return response.data;
+      },
+      invalidatesTags: [tagTypes.vendor, tagTypes.admin],
     }),
   }),
 });
@@ -52,4 +65,5 @@ export const {
   useCreateAdminMutation,
   useCreateVendorMutation,
   useGetMyProfileQuery,
+  useUpdateMyProfileMutation,
 } = userApi;

@@ -1,24 +1,35 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use state";
-
+import FullScreenModal from "@/_components/Shared/Modal/FullScreenModal";
 import EMForm from "@/_components/Form/EMForm";
+import EMSearchInput from "@/_components/Form/EMSearchInput";
 import EMSelect from "@/_components/Form/EMSelect";
 import { VisibilityOutlinedIcon } from "@/_Icons";
+import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
 import {
   useUpdateOrderPaymentStatusMutation,
   useUpdateOrderStatusMutation,
 } from "@/redux/api/orderApi";
 
-import { Box, IconButton, Typography } from "@mui/material";
+import { Box,  IconButton, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
+import Invoice from "../Vendor/Invoice";
 
 const AllOrderProduct = ({ data }: { data: any }) => {
   const [updateOrderStatus] = useUpdateOrderStatusMutation();
   const [updateOrderPaymentStatus] = useUpdateOrderPaymentStatusMutation();
+  const [open, setOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedOrder, setSelectedOrder] = useState<any>(null);
+  const filteredData = data
+    ?.filter((item: any) =>
+      item.id.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .reverse();
 
   const statusStyles: Record<string, string> = {
     PENDING: "#ff9800",
@@ -91,6 +102,17 @@ const AllOrderProduct = ({ data }: { data: any }) => {
           >
             <IconButton sx={{ color: "#1976d2" }}>
               <VisibilityOutlinedIcon />
+            </IconButton>
+          </Typography>
+          <Typography>
+            <IconButton
+              onClick={() => {
+                setOpen(true);
+                setSelectedOrder(row);
+              }}
+              sx={{ color: "#1976d2" }}
+            >
+              <LocalPrintshopIcon />
             </IconButton>
           </Typography>
         </Box>
@@ -270,8 +292,16 @@ const AllOrderProduct = ({ data }: { data: any }) => {
 
   return (
     <Box sx={{ height: 600, width: "100%" }}>
+      <Box sx={{ width: "100%" }}>
+        <EMSearchInput
+          label="Search by Order ID"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          align="right"
+        />
+      </Box>
       <DataGrid
-        rows={data}
+        rows={filteredData || []}
         columns={columns}
         getRowId={(row) => row.id}
         getRowHeight={() => "auto"}
@@ -315,8 +345,13 @@ const AllOrderProduct = ({ data }: { data: any }) => {
           },
         }}
       />
+      <FullScreenModal open={open} setOpen={setOpen}>
+        {selectedOrder && <Invoice data={selectedOrder} setOpen={setOpen} />}
+      </FullScreenModal>
     </Box>
   );
 };
 
 export default AllOrderProduct;
+
+ 

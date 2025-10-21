@@ -83,6 +83,11 @@ const drawerItems = (role: USER_ROLE): DrawerItem[] => {
           title: "Order Product",
           path: `/dashboard/${role}/order-product`,
           icon: AdminPanelSettingsIcon,
+        },
+        {
+          title: "Home Image",
+          path: `/dashboard/${role}/home-images`,
+          icon: AdminPanelSettingsIcon,
         }
       );
       break;

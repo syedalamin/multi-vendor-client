@@ -4,9 +4,10 @@ import { baseApi } from "./baseApi";
 const adminApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllAdmins: builder.query({
-      query: () => ({
+      query: ({ page, limit }: { page?: number; limit?: number }) => ({
         url: "/admin",
         method: "GET",
+        params: { page, limit },
       }),
       transformResponse: (response) => {
         return {
@@ -33,4 +34,8 @@ const adminApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetAllAdminsQuery, useSoftDeleteMutation ,useDeleteAdminMutation } = adminApi;
+export const {
+  useGetAllAdminsQuery,
+  useSoftDeleteMutation,
+  useDeleteAdminMutation,
+} = adminApi;

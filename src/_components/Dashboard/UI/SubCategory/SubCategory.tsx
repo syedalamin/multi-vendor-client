@@ -14,7 +14,7 @@ import { toast } from "sonner";
 import AllSubCategory from "./AllSubCategory";
 import {
   useCreateSubCategoryMutation,
-  useGetAllSubCategoryQuery,
+ 
 } from "@/redux/api/subCategoryApi";
 import EMSelect from "@/_components/Form/EMSelect";
 import { useGetAllCategoryQuery } from "@/redux/api/categoryApi";
@@ -24,7 +24,7 @@ const SubCategory = () => {
   const handleClickOpen = () => setOpen(true);
 
   const { data: categoryData } = useGetAllCategoryQuery({});
-  const { data: subCategoryData } = useGetAllSubCategoryQuery({});
+  
 
   const [createSubCategory] = useCreateSubCategoryMutation();
 
@@ -144,7 +144,7 @@ const SubCategory = () => {
         </Box>
       </FullScreenModal>
       <Stack>
-        <AllSubCategory data={subCategoryData?.data} />
+        <AllSubCategory   />
       </Stack>
     </Stack>
   );

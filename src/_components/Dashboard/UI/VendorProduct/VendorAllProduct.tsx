@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AccountBoxIcon } from "@/_Icons";
 import FullScreenModal from "@/_components/Shared/Modal/FullScreenModal";
-import { useDeleteProductMutation } from "@/redux/api/productApi";
+import {
+  useDeleteProductMutation,
+  useGetMyVendorProductsQuery,
+} from "@/redux/api/productApi";
 import { EditOutlined } from "@mui/icons-material";
 
 import { Avatar, Box, CardMedia, IconButton } from "@mui/material";
@@ -11,7 +14,17 @@ import { useState } from "react";
 import { toast } from "sonner";
 import EditProduct from "./EditProduct";
 
-const VendorAllProduct = ({ data }: { data: any }) => {
+const VendorAllProduct = () => {
+  const [paginationModel, setPaginationModel] = useState({
+    page: 0,
+    pageSize: 10,
+  });
+
+  const { data: productData, isLoading } = useGetMyVendorProductsQuery({
+    limit: paginationModel.pageSize,
+    page: paginationModel.page + 1,
+  });
+
   const [open, setOpen] = useState(false);
   const [productId, setProductId] = useState("");
   const [deleteProduct] = useDeleteProductMutation();
@@ -163,11 +176,17 @@ const VendorAllProduct = ({ data }: { data: any }) => {
     },
   ];
   return (
-    <Box sx={{ height: 400, width: "100%" }}>
+    <Box sx={{ height: 500, width: "100%" }}>
       <DataGrid
-        rows={data}
+        rows={productData?.data || []}
         columns={columns}
-        hideFooter
+        loading={isLoading}
+        pagination
+        paginationModel={paginationModel}
+        onPaginationModelChange={setPaginationModel}
+        rowCount={productData?.meta?.total || 0}
+        pageSizeOptions={[5, 10, 20, 50]}
+        paginationMode="server"
         disableRowSelectionOnClick
         disableColumnSorting
         disableColumnFilter

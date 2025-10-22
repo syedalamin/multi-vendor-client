@@ -8,7 +8,11 @@ interface CountDownProps {
   title: string;
 }
 
-export default function CountDown({ title, hours, minutes }: CountDownProps) {
+export default function CountDown({
+  title,
+  hours = 0,
+  minutes = 0,
+}: CountDownProps) {
   const [secondsLeft, setSecondsLeft] = useState(0);
 
   useEffect(() => {

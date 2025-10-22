@@ -20,6 +20,7 @@ import Image from "next/image";
 import SearchButton from "@/_components/Shared/Buttons/SearchButton";
 import AllCategories from "./AllCategories";
 import DashboardButton from "@/_components/UI/DashboardButton";
+import SlideAndLogin from "./SlideAndLogin";
 
 const SearchBarWithNavbar = () => {
   const [open, setOpen] = useState(false);
@@ -89,6 +90,11 @@ const SearchBarWithNavbar = () => {
         zIndex: 1200,
       }}
     >
+      {/* ....... */}
+      <SlideAndLogin />
+
+      {/* ....... */}
+
       <Container>
         <Grid py={2} container spacing={2} alignItems={"center"}>
           {/* Mobile Nav Bar */}

@@ -8,7 +8,7 @@ import Link from "next/link";
 const DashboardButton = () => {
   const userInfo = getUserInfo();
   
-    console.log(userInfo?.role)
+   
   return (
     <Stack>
       { userInfo?.role == user_role.ADMIN || userInfo?.role == user_role.VENDOR ?  <Button

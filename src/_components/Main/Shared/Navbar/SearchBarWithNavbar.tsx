@@ -73,12 +73,14 @@ const SearchBarWithNavbar = () => {
     </>
   );
   const MainLogo = (
-    <Image
-      className="w-full bg-cover overflow-hidden"
-      height={22}
-      alt=""
-      src={trystyShop}
-    />
+    <Typography component={Link} href={"/"}>
+      <Image
+        className="w-full bg-cover overflow-hidden"
+        height={22}
+        alt=""
+        src={trystyShop}
+      />
+    </Typography>
   );
   return (
     <Stack

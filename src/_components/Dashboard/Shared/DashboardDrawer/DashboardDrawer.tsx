@@ -14,6 +14,7 @@ import AuthButton from "@/_components/UI/AuthButton";
 import Image from "next/image";
 import NotificationBell from "@/_components/Shared/Message/NotificationBellProps";
 import { Stack } from "@mui/material";
+import Link from "next/link";
 
 const drawerWidth = 270;
 
@@ -40,12 +41,14 @@ export default function DashboardDrawer({
     }
   };
   const MainLogo = (
-    <Image
-      className="w-full bg-cover overflow-hidden"
-      height={22}
-      alt=""
-      src={trystyShop}
-    />
+    <Typography component={Link} href={"/"}>
+      <Image
+        className="w-full bg-cover overflow-hidden"
+        height={22}
+        alt=""
+        src={trystyShop}
+      />
+    </Typography>
   );
   return (
     <Box sx={{ display: "flex" }}>

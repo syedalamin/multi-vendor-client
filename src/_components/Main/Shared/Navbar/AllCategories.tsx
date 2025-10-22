@@ -36,7 +36,7 @@ export default function AllCategories() {
           px: 2,
           py: 1.2,
           backgroundColor: "#00B207",
-         
+
           color: "#fff",
 
           cursor: "pointer",
@@ -61,13 +61,18 @@ export default function AllCategories() {
           horizontal: "left",
         }}
       >
-        {categoryData?.data?.slice(0, 10).map((item: Category) => (
+        {categoryData?.data?.slice(0, 8).map((item: Category) => (
           <Stack key={item?.id}>
             <Link href={`/category/${item?.slug}`}>
               <MenuItem onClick={handleClose}>
-                <Stack direction={"row"} justifyContent={"center"} alignItems={"center"} gap={2}>
+                <Stack
+                  direction={"row"}
+                  justifyContent={"center"}
+                  alignItems={"center"}
+                  gap={2}
+                >
                   <CardMedia
-                    sx={{ width: 40, height: 40 }}
+                    sx={{ width: 30, height: 30, borderRadius: 1 }}
                     component="img"
                     alt={item?.name}
                     image={item?.image}

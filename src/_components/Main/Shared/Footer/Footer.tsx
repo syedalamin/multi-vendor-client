@@ -19,7 +19,7 @@ const Footer = () => {
     { label: "Blog", hre: "/blog" },
   ];
   const SupportItems = [
-    { label: "FAQ", hre: "/faq" },
+    // { label: "FAQ", hre: "/faq" },
     { label: "Support", hre: "/support" },
     { label: "Terms", hre: "/terms" },
     { label: "Privacy", hre: "/privacy" },

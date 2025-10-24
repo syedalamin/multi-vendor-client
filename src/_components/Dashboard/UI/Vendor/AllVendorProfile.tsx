@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import EMSearchInput from "@/_components/Form/EMSearchInput";
 import { AccountBoxIcon } from "@/_Icons";
 import {
   useDeleteVendorMutation,
@@ -9,10 +10,11 @@ import {
 import { Avatar, Box, Button, CardMedia, IconButton } from "@mui/material";
 import { DataGrid, GridColDef, GridDeleteIcon } from "@mui/x-data-grid";
 
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "sonner";
 
 const AllVendorProfile = () => {
+  const [searchTerm, setSearchTerm] = useState("");
   const [paginationModel, setPaginationModel] = React.useState({
     page: 0,
     pageSize: 10,
@@ -23,11 +25,17 @@ const AllVendorProfile = () => {
     page: paginationModel.page + 1,
   });
 
- 
+  const filteredData = vendorData?.vendor
+    ?.filter((item: any) =>
+      item.email.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .reverse();
 
   const [deleteVendor] = useDeleteVendorMutation();
   const [verifyStatus] = useVerifyStatusMutation();
+
   const handleDelete = async (id: string) => {
+    console.log(id);
     try {
       const deletedVendor = await deleteVendor(id).unwrap();
       toast.success(deletedVendor?.data?.message);
@@ -149,8 +157,16 @@ const AllVendorProfile = () => {
   ];
   return (
     <Box sx={{ height: 500, width: "100%" }}>
+      <Box py={2} sx={{ width: "100%" }}>
+        <EMSearchInput
+          label="Search by Gmail"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          align="right"
+        />
+      </Box>
       <DataGrid
-        rows={vendorData?.vendor || []}
+        rows={filteredData || []}
         columns={columns}
         loading={isLoading}
         pagination

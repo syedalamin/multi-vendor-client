@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
@@ -11,12 +12,11 @@ import {
   Stack,
   Container,
 } from "@mui/material";
-
-import SubCategoryData from "./SubCategoryData";
 import { useState, useEffect } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { ArrowRightAltOutlined } from "@mui/icons-material";
 import { CloseOutlinedIcon } from "@/_Icons";
+import SubCategoryData from "./SubCategoryData";
 
 const drawerWidth = 220;
 
@@ -27,52 +27,43 @@ export default function CategorySectionDrawer({
   item: any;
   name: string;
 }) {
-  const subCategory = item?.data?.subCategory?.map((items: any) => items);
-
-  const [mobileOpen, setMobileOpen] = useState(false);
-
+  const subCategory = item?.data?.subCategory || [];
   const router = useRouter();
   const pathname = usePathname();
-  const [subCategorySlug, setSubCategorySlug] = useState(
-    subCategory?.[0]?.slug || ""
-  );
+  const searchParams = useSearchParams();
 
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [subCategorySlug, setSubCategorySlug] = useState("");
+
+ 
+  useEffect(() => {
+    const slugFromUrl = searchParams?.get("slug");
+
+    if (slugFromUrl) {
+      setSubCategorySlug(slugFromUrl);
+    } else if (subCategory?.[0]?.slug) {
+      const defaultSlug = subCategory[0].slug;
+      setSubCategorySlug(defaultSlug);
+ 
+      router.replace(`${pathname}?slug=${defaultSlug}`, { scroll: false });
+    }
+  }, [searchParams, subCategory]);
+
+ 
   const handleSubClick = (slug: string) => {
     setSubCategorySlug(slug);
-
-    router.push(`${pathname}?${slug}`, { scroll: false });
+    router.replace(`${pathname}?slug=${slug}`, { scroll: false });
   };
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const slug = params.get("subCategory");
-    if (slug) setSubCategorySlug(slug);
-  }, []);
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
+  const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
 
   const drawerContent = (
     <Box sx={{ p: 2 }}>
-      <Stack
-        direction="row"
-        sx={{
-          justifyContent: "space-between",
-          justifyItems: "center",
-        }}
-      >
-        <Typography
-          py={2}
-          sx={{
-            fontSize: {
-              xs: "1.4rem",
-            },
-          }}
-          fontWeight={600}
-        >
+      <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <Typography py={2} sx={{ fontSize: { xs: "1.4rem" } }} fontWeight={600}>
           {name}
         </Typography>
+
         <Button
           onClick={handleDrawerToggle}
           disableRipple
@@ -80,12 +71,9 @@ export default function CategorySectionDrawer({
             display: { xs: "block", sm: "none" },
             backgroundColor: "white",
             color: "black",
-            "&:hover": {
-              backgroundColor: "white",
-              boxShadow: 0,
-            },
-            padding: 0,
-            margin: 0,
+            "&:hover": { backgroundColor: "white", boxShadow: 0 },
+            p: 0,
+            m: 0,
             minWidth: 0,
             boxShadow: 0,
           }}
@@ -106,7 +94,9 @@ export default function CategorySectionDrawer({
               overflow: "hidden",
               border: "1px solid #e0e0e0",
               borderRadius: "8px",
-              transition: "transform 0.3s, box-shadow 0.3s , border 0.3s ",
+              transition: "transform 0.3s, box-shadow 0.3s, border 0.3s",
+              backgroundColor:
+                subCategorySlug === sub.slug ? "#e8f5e9" : "transparent",
               "&:hover": {
                 border: "1px solid #2e7d32",
                 transform: "translateY(-4px)",
@@ -120,17 +110,10 @@ export default function CategorySectionDrawer({
               image={sub?.image}
               alt={sub?.name}
             />
-            <Typography
-              sx={{
-                fontSize: {
-                  xs: "1rem",
-                },
-              }}
-              fontWeight={500}
-            >
+            <Typography sx={{ fontSize: { xs: "1rem" } }} fontWeight={500}>
               {sub?.name}
             </Typography>
-          </CardActionArea>{" "}
+          </CardActionArea>
         </Box>
       ))}
     </Box>
@@ -138,6 +121,7 @@ export default function CategorySectionDrawer({
 
   return (
     <Box sx={{ display: { sm: "flex" } }}>
+      {/* 🔹 Mobile Drawer Button */}
       <Button
         type="button"
         size="small"
@@ -151,7 +135,7 @@ export default function CategorySectionDrawer({
           fontWeight: 600,
           borderRadius: "2px",
           textTransform: "none",
-          my:1,
+          my: 1,
           py: 1,
           boxShadow: "0px 4px 12px rgba(0,0,0,0.15)",
           "&:hover": {
@@ -163,14 +147,8 @@ export default function CategorySectionDrawer({
         All
       </Button>
 
-      {/* Sidebar */}
-      <Box
-        sx={{
-          flexShrink: 0,
-          width: drawerWidth,
-          position: "relative",
-        }}
-      >
+      {/* 🔹 Drawer Sidebar */}
+      <Box sx={{ flexShrink: 0, width: drawerWidth, position: "relative" }}>
         {/* Mobile Drawer */}
         <Drawer
           variant="temporary"
@@ -209,12 +187,8 @@ export default function CategorySectionDrawer({
         </Drawer>
       </Box>
 
-      {/* Main Content */}
-      <Container
-        sx={{
-          flexGrow: 1,
-        }}
-      >
+      {/* 🔹 Main Content */}
+      <Container sx={{ flexGrow: 1 }}>
         <SubCategoryData subCategory={subCategorySlug} />
       </Container>
     </Box>

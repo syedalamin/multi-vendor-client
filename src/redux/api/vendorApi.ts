@@ -37,7 +37,7 @@ const vendorApi = baseApi.injectEndpoints({
     }),
     deleteVendor: builder.mutation({
       query: (id: string | undefined) => ({
-        url: `/vendor/${id}`,
+        url: `/vendor/soft/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: [tagTypes.vendor],

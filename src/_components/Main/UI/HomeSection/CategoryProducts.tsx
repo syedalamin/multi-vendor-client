@@ -11,7 +11,7 @@ import "swiper/css/pagination";
 import { Autoplay } from "swiper/modules";
 
 const CategoryProducts = () => {
-  const { data: subCategoryData } = useGetAllSubCategoryQuery({limit: 15});
+  const { data: subCategoryData } = useGetAllSubCategoryQuery({});
  
   return (
     <Stack>
@@ -28,7 +28,7 @@ const CategoryProducts = () => {
             <Container>
               <TitleAndButton
                 title={item?.name}
-                links={`/category/${item?.category?.slug}?${item?.slug}`}
+                links={`/category/${item?.category?.slug}?slug=${item?.slug}`}
               />
 
               <Box sx={{ width: "100%", py: 1 }}>

@@ -21,7 +21,7 @@ export async function apiFetcher(
       "Content-Type": "application/json",
      
     },
-    cache: "no-store",
+    cache: "default",
     next: { tags, revalidate },
     signal: controller.signal,
   });

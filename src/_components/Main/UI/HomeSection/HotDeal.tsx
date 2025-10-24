@@ -21,7 +21,7 @@ const HotDeal = () => {
     return productData?.data
       ?.filter(
         (item: Product) =>
-          item.discount >= 10 &&
+          item.discount >= 20 &&
           item.stock > 0 &&
           item.status === ProductStatus.ACTIVE
       )

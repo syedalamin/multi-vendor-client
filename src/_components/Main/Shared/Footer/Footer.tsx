@@ -106,7 +106,7 @@ const Footer = () => {
         <Grid container spacing={5}>
           <Grid size={{ xs: 12, md: 4 }}>
             <Typography variant="h5" fontWeight="bold" gutterBottom>
-              MultiVendor
+              Trusty Shop
             </Typography>
             <Typography variant="body2" color="grey.400">
               All your favorite vendors in one place. Safe shopping, best
@@ -166,7 +166,7 @@ const Footer = () => {
                 target="_blank"
                 color="inherit"
                 sx={{
-                  bgcolor: "rgba(255,255,255,0.05)", 
+                  bgcolor: "rgba(255,255,255,0.05)",
                   "&:hover": {
                     bgcolor: "#1877F2",
                     transform: "scale(1.1)",
@@ -184,7 +184,7 @@ const Footer = () => {
                 sx={{
                   bgcolor: "rgba(255,255,255,0.05)",
                   "&:hover": {
-                    bgcolor: "#1DA1F2", 
+                    bgcolor: "#1DA1F2",
                     transform: "scale(1.1)",
                     transition: "0.3s",
                   },
@@ -200,7 +200,7 @@ const Footer = () => {
                 sx={{
                   bgcolor: "rgba(255,255,255,0.05)",
                   "&:hover": {
-                    bgcolor: "#E1306C", 
+                    bgcolor: "#E1306C",
                     transform: "scale(1.1)",
                     transition: "0.3s",
                   },
@@ -230,7 +230,24 @@ const Footer = () => {
 
         <Box textAlign="center" pt={5} mt={3} borderTop="1px solid #333">
           <Typography variant="body2" color="grey.500" fontSize="0.85rem">
-            © {new Date().getFullYear()} MultiVendor. All rights reserved.
+            © {new Date().getFullYear()} MultiVendor. All rights reserved.{" "}
+            <br />
+            Developed by{" "}
+            <Typography
+              variant="body2"
+              component={Link}
+              target="_blank"
+              href="https://www.linkedin.com/in/syedalamin"
+              sx={{
+                fontSize: { xs: "0.8rem" },
+                fontWeight: 600,
+                textDecoration: "none",
+                color: "#2e7d32",
+                "&:hover": { textDecoration: "underline" },
+              }}
+            >
+              Syed Alamin
+            </Typography>
           </Typography>
         </Box>
       </Container>

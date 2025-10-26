@@ -3,7 +3,7 @@ import Loading from "@/_components/Shared/Loading/Loading";
 import ImgProductCard from "@/_components/UI/Card/ImgProductCard";
 
 import { Product } from "@/types/common";
-import { Grid, Stack } from "@mui/material";
+import { Grid, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 interface CategoryData {
   data: {
@@ -21,14 +21,13 @@ const SubCategoryData = ({ subCategory }: { subCategory: string }) => {
       try {
         setLoading(true);
 
- 
-        // const baseUrl = "https://api.trustyshoptbd.com/api/v1";
-        
-        const baseUrl = "http://localhost:5000/api/v1";
+        const baseUrl = "https://api.trustyshoptbd.com/api/v1";
+
+        // const baseUrl = "http://localhost:5000/api/v1";
         const res = await fetch(`${baseUrl}/sub-category/${subCategory}`);
 
         const singleSubCategory = await res.json();
-        
+
         setData(singleSubCategory);
       } catch (error) {
         console.error("Error fetching sub-category:", error);
@@ -39,16 +38,29 @@ const SubCategoryData = ({ subCategory }: { subCategory: string }) => {
 
     fetchData();
   }, [subCategory]);
- 
+
   let product;
 
   if (loading) {
-    product =  <Loading/>;
+    product = <Loading />;
   } else if (
     !categoryData?.data?.product ||
     categoryData?.data?.product.length === 0
   ) {
-    product = <Stack>No Data Found</Stack>;
+    product = (
+      <Typography
+        py={4}
+        sx={{
+          height: "100vh",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        No Data Found
+      </Typography>
+    );
   } else {
     product = (
       <Stack>
@@ -73,3 +85,5 @@ const SubCategoryData = ({ subCategory }: { subCategory: string }) => {
 };
 
 export default SubCategoryData;
+
+ 

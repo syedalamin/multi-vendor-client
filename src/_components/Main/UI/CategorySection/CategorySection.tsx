@@ -34,6 +34,7 @@ export default function CategorySectionDrawer({
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [subCategorySlug, setSubCategorySlug] = useState("");
+ 
 
  
   useEffect(() => {
@@ -189,7 +190,7 @@ export default function CategorySectionDrawer({
 
       {/* 🔹 Main Content */}
       <Container sx={{ flexGrow: 1 }}>
-        <SubCategoryData subCategory={subCategorySlug} />
+        <SubCategoryData key={subCategorySlug} subCategory={subCategorySlug} />
       </Container>
     </Box>
   );

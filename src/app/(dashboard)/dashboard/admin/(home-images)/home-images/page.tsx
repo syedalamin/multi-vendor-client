@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import EMForm from "@/_components/Form/EMForm";
+import EMImageInput from "@/_components/Form/EMImageInput";
 import EMInput from "@/_components/Form/EMInput";
 import EMUploaderMany from "@/_components/Form/EMUploaderMany";
 import {
@@ -44,10 +45,22 @@ const HomeImages = () => {
       sliderImages,
       hours,
       minutes,
+      removeSliderImages,
+      removeHeroImages,
+      removeHotDealImages,
+      removeHotMainImages,
+      removeReviewMainImages,
+      removeFooterImages,
     } = values;
     const payload = {
-      hours ,
-      minutes 
+      removeSliderImages,
+      removeHeroImages,
+      removeHotDealImages,
+      removeHotMainImages,
+      removeReviewMainImages,
+      removeFooterImages,
+      hours: Number(hours),
+      minutes: Number(minutes),
     };
 
     const data = modifyHomePayloads(payload, {
@@ -67,6 +80,7 @@ const HomeImages = () => {
         toast.success(res.message);
       }
     } catch (err: any) {
+      console.log(err);
       toast.error(err?.data);
     }
   };
@@ -90,7 +104,7 @@ const HomeImages = () => {
                 fontWeight={600}
                 sx={{ color: "#2e7d32" }}
               >
-                Create & Update
+                Update Home Section
               </Typography>
             </Box>
           </Stack>
@@ -99,6 +113,11 @@ const HomeImages = () => {
             <Grid wrap="wrap" container spacing={2} my={4}>
               <Grid size={{ xs: 12 }}>
                 <EMUploaderMany name="sliderImages" label="Slider Images" />
+                <EMImageInput
+                  name="sliderImage"
+                  removeFieldName="removeSliderImages"
+                  images={sliderImages}
+                />
                 <Grid container spacing={1} pt={2}>
                   {sliderImages?.map((item: any) => (
                     <Grid key={item} size={{ xs: 4 }}>
@@ -114,6 +133,11 @@ const HomeImages = () => {
               </Grid>
               <Grid size={{ xs: 12 }}>
                 <EMUploaderMany name="heroImages" label="Hero Images" />
+                <EMImageInput
+                  name="heroImage"
+                  removeFieldName="removeHeroImages"
+                  images={heroImages}
+                />
                 <Grid container spacing={1} pt={2}>
                   {heroImages?.map((item: any) => (
                     <Grid key={item} size={{ xs: 4 }}>
@@ -129,7 +153,11 @@ const HomeImages = () => {
               </Grid>
               <Grid size={{ xs: 12 }}>
                 <EMUploaderMany name="hotDealImages" label="Hot Deal Images" />
-
+                <EMImageInput
+                  name="hotDealImage"
+                  removeFieldName="removeHotDealImages"
+                  images={hotDealImages}
+                />
                 <Grid pt={2}>
                   <CardMedia
                     sx={{ width: "100%", height: "100%" }}
@@ -141,7 +169,11 @@ const HomeImages = () => {
               </Grid>
               <Grid size={{ xs: 12 }}>
                 <EMUploaderMany name="hotMainImages" label="Hot Main Images" />
-
+                <EMImageInput
+                  name="hotMainImage"
+                  removeFieldName="removeHotMainImages"
+                  images={hotMainImages}
+                />
                 <Grid pt={2}>
                   <CardMedia
                     sx={{ width: "100%", height: "100%" }}
@@ -157,6 +189,11 @@ const HomeImages = () => {
                   name="reviewMainImages"
                   label="Footer Main Images"
                 />
+                <EMImageInput
+                  name="reviewMainImage"
+                  removeFieldName="removeReviewMainImages"
+                  images={reviewMainImages}
+                />
                 <Grid pt={2}>
                   <CardMedia
                     sx={{ width: "100%", height: "100%" }}
@@ -168,6 +205,11 @@ const HomeImages = () => {
               </Grid>
               <Grid size={{ xs: 12 }}>
                 <EMUploaderMany name="footerImages" label="Footer Images" />
+                <EMImageInput
+                  name="footerImage"
+                  removeFieldName="removeFooterImages"
+                  images={footerImages}
+                />
                 <Grid container spacing={1} pt={2}>
                   {footerImages?.map((item: any) => (
                     <Grid key={item} size={{ xs: 6 }}>
@@ -230,7 +272,7 @@ const HomeImages = () => {
                       },
                     }}
                   >
-                    Create & Update
+                    Update
                   </Button>
                 </Grid>
               </Grid>

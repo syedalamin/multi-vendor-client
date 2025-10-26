@@ -12,7 +12,8 @@ const HeroImg = () => {
         {imageData?.data?.heroImages?.slice(0, 3)?.map((item: any) => (
           <Grid key={item} size={{ xs: 4 }}>
             <CardMedia
-              sx={{ width: "100%", height: "100%", objectFit: "cover" }}
+               sx={{ width: "100%", height: {xs: "100%", md: "80%"} ,objectFit: "cover" }}
+             
               component="img"
               alt={item}
               image={item}

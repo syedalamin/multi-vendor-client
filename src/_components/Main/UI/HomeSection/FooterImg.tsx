@@ -8,17 +8,25 @@ const FooterImg = () => {
     <Stack>
       <Box>
         <CardMedia
-          sx={{ width: "100%", height: "100%", objectFit: "cover" }}
+          sx={{
+            width: "100%",
+            objectFit: "cover",
+            maxHeight: 300,
+          }}
           component="img"
           alt={imageData?.data?.reviewMainImages?.[0]}
           image={imageData?.data?.reviewMainImages?.[0]}
         />
       </Box>
       <Grid container spacing={1} pt={2}>
-        {imageData?.data?.footerImages?.slice(0,2)?.map((item: any) => (
+        {imageData?.data?.footerImages?.slice(0, 2)?.map((item: any) => (
           <Grid key={item} size={{ xs: 6 }}>
             <CardMedia
-              sx={{ width: "100%", height: "100%" }}
+              sx={{
+                width: "100%",
+                height: { xs: "100%", md: "70%" },
+                objectFit: "cover",
+              }}
               component="img"
               alt={item}
               image={item}

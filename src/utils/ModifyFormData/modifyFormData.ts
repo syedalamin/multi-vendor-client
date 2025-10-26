@@ -14,6 +14,21 @@ export const modifyPayload = (payload: object, file?: File) => {
   return formData;
 };
 
+export const modifyProductPayload = (payload: object, file?: File | File[]) => {
+  const formData = new FormData();
+
+  formData.append("data", JSON.stringify(payload));
+
+  if (file instanceof File) {
+    formData.append("file", file);
+  } else if (Array.isArray(file)) {
+    file.forEach((f) => {
+      formData.append("file", f);
+    });
+  }
+
+  return formData;
+};
 export const modifyPayloads = (
   payload: object,
   files?: { logo?: File; banner?: File }
@@ -31,44 +46,39 @@ export const modifyPayloads = (
 
   return formData;
 };
-
-export const modifyProductPayload = (payload: object, file?: File | File[]) => {
-  const formData = new FormData();
-
-  formData.append("data", JSON.stringify(payload));
-
-  if (file instanceof File) {
-    formData.append("file", file);
-  } else if (Array.isArray(file)) {
-    file.forEach((f) => {
-      formData.append("file", f);
-    });
-  }
-
-  return formData;
-};
-
 export const modifyHomePayloads = (
   payload: object,
   files?: {
-    sliderImages?: File[];
-    heroImages?: File[];
-    hotDealImages?: File[];
-    hotMainImages?: File[];
-    reviewImages?: File[];
-    reviewMainImages?: File[];
-    footerImages?: File[];
+    sliderImages?: File;
+    heroImages?: File;
+    hotDealImages?: File;
+    hotMainImages?: File;
+    reviewImages?: File;
+    reviewMainImages?: File;
+    footerImages?: File;
   }
 ) => {
   const formData = new FormData();
   formData.append("data", JSON.stringify(payload));
-  if (!files) return formData;
 
-  Object.entries(files).forEach(([key, value]) => {
-    if (Array.isArray(value)) {
-      value.forEach((file) => formData.append(key, file));
-    }
-  });
+  if (files?.sliderImages) {
+    formData.append("sliderImages", files.sliderImages);
+  }
+  if (files?.heroImages) {
+    formData.append("heroImages", files.heroImages);
+  }
+  if (files?.hotMainImages) {
+    formData.append("hotMainImages", files.hotMainImages);
+  }
+  if (files?.reviewImages) {
+    formData.append("reviewImages", files.reviewImages);
+  }
+  if (files?.reviewMainImages) {
+    formData.append("reviewMainImages", files.reviewMainImages);
+  }
+  if (files?.footerImages) {
+    formData.append("footerImages", files.footerImages);
+  }
 
   return formData;
 };

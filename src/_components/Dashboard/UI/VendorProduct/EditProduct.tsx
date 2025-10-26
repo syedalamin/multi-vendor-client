@@ -59,7 +59,7 @@ const EditProduct = ({ id , setOpen}: { id: string , setOpen: any}) => {
 
     try {
       const res = await updateProduct({ id, data }).unwrap();
-      console.log(res);
+ 
       if (res?.success) {
         toast.success(res?.message);
         setOpen(false);

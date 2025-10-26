@@ -37,8 +37,9 @@ const metaDataApi = baseApi.injectEndpoints({
     createImageData: builder.mutation({
       query: (data) => ({
         url: "/meta-data/images",
-        method: "POST",
+        method: "PATCH",
         data: data,
+      
       }),
       transformResponse: (response) => {
         return response.data;

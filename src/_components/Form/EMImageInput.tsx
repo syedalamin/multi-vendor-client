@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, CardMedia, Tooltip } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type EMImageProps = {
   name: string;
@@ -12,6 +12,10 @@ type EMImageProps = {
 const EMImageInput = ({ name, removeFieldName, images = [] }: EMImageProps) => {
   const { control, setValue } = useFormContext();
   const [removedImages, setRemovedImages] = useState<any[]>([]);
+
+  useEffect(() => {
+    setValue(name, images);
+  }, [images, name, setValue]);
 
   return (
     <Controller
@@ -57,8 +61,6 @@ const EMImageInput = ({ name, removeFieldName, images = [] }: EMImageProps) => {
                       const newRemoved = [...removedImages, removedImage];
                       setRemovedImages(newRemoved);
                       setValue(removeFieldName, newRemoved);
-
-                    
                     }}
                   />
                 </Tooltip>

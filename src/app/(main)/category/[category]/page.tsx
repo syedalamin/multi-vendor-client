@@ -11,6 +11,7 @@ export async function generateMetadata({ params }: { params: any }) {
 
 import CategorySectionDrawer from "@/_components/Main/UI/CategorySection/CategorySection";
  
+ 
 import { apiSingleFetcher } from "@/lib/NextFetch/fetcher";
 import { Stack } from "@mui/material";
 

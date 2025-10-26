@@ -85,7 +85,7 @@ const drawerItems = (role: USER_ROLE): DrawerItem[] => {
           icon: AdminPanelSettingsIcon,
         },
         {
-          title: "Home Image",
+          title: "Home Section",
           path: `/dashboard/${role}/home-images`,
           icon: AdminPanelSettingsIcon,
         }

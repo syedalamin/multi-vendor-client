@@ -99,7 +99,7 @@ const Footer = () => {
         bgcolor: "#000",
         color: "grey.100",
         py: 6,
-        mt: 8,
+      
       }}
     >
       <Container>

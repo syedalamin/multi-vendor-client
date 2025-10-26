@@ -77,6 +77,7 @@ const SearchBarWithNavbar = () => {
       <Image
         className="w-full bg-cover overflow-hidden"
         height={22}
+        width={100}
         alt=""
         src={trystyShop}
       />
@@ -170,6 +171,7 @@ const SearchBarWithNavbar = () => {
 
                 <Stack px={1} direction={"column"} gap={1}>
                   {NavLinks}
+                   
                 </Stack>
               </Stack>
             </Drawer>

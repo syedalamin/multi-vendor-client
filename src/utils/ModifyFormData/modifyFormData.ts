@@ -29,6 +29,10 @@ export const modifyProductPayload = (payload: object, file?: File | File[]) => {
 
   return formData;
 };
+
+
+
+
 export const modifyPayloads = (
   payload: object,
   files?: { logo?: File; banner?: File }
@@ -46,39 +50,76 @@ export const modifyPayloads = (
 
   return formData;
 };
+
+
+
+
+// export const modifyHomePayloads = (
+//   payload: object,
+//   files?: {
+//     sliderImages?: File[];
+//     heroImages?: File[];
+//     hotDealImages?: File[];
+//     hotMainImages?: File[];
+//     reviewImages?: File[];
+//     reviewMainImages?: File[];
+//     footerImages?: File[];
+//   }
+// ) => {
+//   const formData = new FormData();
+//   formData.append("data", JSON.stringify(payload));
+
+//   if (files?.sliderImages) {
+//     formData.append("sliderImages", files.sliderImages);
+//   }
+//   if (files?.heroImages) {
+//     formData.append("heroImages", files.heroImages);
+//   }
+//   if (files?.hotMainImages) {
+//     formData.append("hotMainImages", files.hotMainImages);
+//   }
+//   if (files?.reviewImages) {
+//     formData.append("reviewImages", files.reviewImages);
+//   }
+//   if (files?.reviewMainImages) {
+//     formData.append("reviewMainImages", files.reviewMainImages);
+//   }
+//   if (files?.footerImages) {
+//     formData.append("footerImages", files.footerImages);
+//   }
+
+//   return formData;
+// };
+
+
 export const modifyHomePayloads = (
   payload: object,
   files?: {
-    sliderImages?: File;
-    heroImages?: File;
-    hotDealImages?: File;
-    hotMainImages?: File;
-    reviewImages?: File;
-    reviewMainImages?: File;
-    footerImages?: File;
+    sliderImages?: File[];
+    heroImages?: File[];
+    hotDealImages?: File[];
+    hotMainImages?: File[];
+    reviewImages?: File[];
+    reviewMainImages?: File[];
+    footerImages?: File[];
   }
 ) => {
   const formData = new FormData();
   formData.append("data", JSON.stringify(payload));
 
-  if (files?.sliderImages) {
-    formData.append("sliderImages", files.sliderImages);
-  }
-  if (files?.heroImages) {
-    formData.append("heroImages", files.heroImages);
-  }
-  if (files?.hotMainImages) {
-    formData.append("hotMainImages", files.hotMainImages);
-  }
-  if (files?.reviewImages) {
-    formData.append("reviewImages", files.reviewImages);
-  }
-  if (files?.reviewMainImages) {
-    formData.append("reviewMainImages", files.reviewMainImages);
-  }
-  if (files?.footerImages) {
-    formData.append("footerImages", files.footerImages);
-  }
+  const appendFiles = (key: string, fileArray?: File[]) => {
+    if (fileArray) {
+      fileArray.forEach((file) => formData.append(key, file));
+    }
+  };
+
+  appendFiles("sliderImages", files?.sliderImages);
+  appendFiles("heroImages", files?.heroImages);
+  appendFiles("hotDealImages", files?.hotDealImages);
+  appendFiles("hotMainImages", files?.hotMainImages);
+  appendFiles("reviewImages", files?.reviewImages);
+  appendFiles("reviewMainImages", files?.reviewMainImages);
+  appendFiles("footerImages", files?.footerImages);
 
   return formData;
 };

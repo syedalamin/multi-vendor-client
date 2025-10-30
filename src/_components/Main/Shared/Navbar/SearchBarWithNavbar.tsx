@@ -33,6 +33,7 @@ const SearchBarWithNavbar = () => {
     { label: "Home", hre: "/" },
     { label: "Category", hre: "/category" },
     { label: "Product", hre: "/product" },
+    { label: "Shop", hre: "/shop" },
     // { label: "Blog", hre: "/blog" },
   ];
 

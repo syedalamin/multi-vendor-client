@@ -24,7 +24,7 @@ const AllCategory = ({ page, limit }: { page: number; limit: number }) => {
   if (categoryData?.success) {
     category = (
       <Stack>
-        <Stack>
+        {/* <Stack>
           <Typography
             py={2}
             variant="h4"
@@ -49,10 +49,11 @@ const AllCategory = ({ page, limit }: { page: number; limit: number }) => {
           >
             Popular Category
           </Typography>
-        </Stack>
+        </Stack> */}
         <Grid
           container
           spacing={2}
+          py={4}
           alignItems={"stretch"}
           justifyContent={"center"}
         >
@@ -75,7 +76,18 @@ const AllCategory = ({ page, limit }: { page: number; limit: number }) => {
   } else {
     category = (
       <Stack>
-        <Typography textAlign={"center"}>NO Data</Typography>
+        <Typography
+          py={4}
+          sx={{
+            height: "100vh",
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          No Data Found
+        </Typography>
       </Stack>
     );
   }
@@ -84,4 +96,3 @@ const AllCategory = ({ page, limit }: { page: number; limit: number }) => {
 };
 
 export default AllCategory;
-

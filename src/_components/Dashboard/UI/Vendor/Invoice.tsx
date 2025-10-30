@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import PrintIcon from "@mui/icons-material/Print";
- 
+
 const Invoice = ({
   data,
   setOpen,
@@ -20,8 +20,6 @@ const Invoice = ({
   data: any;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  console.log(data);
-
   const d = new Date(data?.createdAt);
 
   const formattedDate = `${d.getDate()}-${d.getMonth() + 1}-${d.getFullYear()}`;
@@ -32,7 +30,9 @@ const Invoice = ({
     }
   };
   return (
-    <Stack>
+    <Stack
+      
+    >
       <Button
         variant="contained"
         color="success"

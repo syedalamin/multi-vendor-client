@@ -77,13 +77,4 @@ const HomePage = () => {
 };
 
 export default HomePage;
-
-//     <Container>
-//       <Stack direction={"column"} spacing={5}>
-//         <MainHeroSection />
-//         <PopularCategory />
-//         <PopularProduct />
-//         <SpecialCart />
-//         <BestSellerProductsSection />
-//       </Stack>
-//     </Container>
+ 

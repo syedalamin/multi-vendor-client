@@ -6,8 +6,7 @@ import React from "react";
 
 const SlideAndLogin = () => {
   const userInfo = getUserInfo();
-
-  console.log(userInfo?.role);
+ 
   return (
     <Stack
       alignItems={"center"}

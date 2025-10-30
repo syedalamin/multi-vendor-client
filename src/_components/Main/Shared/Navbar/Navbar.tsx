@@ -85,7 +85,7 @@ const Navbar = () => {
       sx={{
         position: "sticky",
         top: 0,
-        zIndex: 1200,
+        
         borderBottom: "2px solid #2e7d32",
         transition: "box-shadow 0.4s ease, border-bottom-color 0.4s ease",
       }}

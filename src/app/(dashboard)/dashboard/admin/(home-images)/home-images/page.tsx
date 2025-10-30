@@ -25,6 +25,7 @@ import { toast } from "sonner";
 const HomeImages = () => {
   const [createImageData] = useCreateImageDataMutation();
   const { data: imageData } = useGetImageDataQuery({});
+
   const {
     footerImages,
     heroImages,
@@ -32,6 +33,8 @@ const HomeImages = () => {
     hotMainImages,
     reviewMainImages,
     sliderImages,
+    minutes,
+    hours,
   } = imageData?.data || {};
 
   const handleImages = async (values: FieldValues) => {
@@ -158,14 +161,21 @@ const HomeImages = () => {
                   removeFieldName="removeHotDealImages"
                   images={hotDealImages}
                 />
-                <Grid pt={2}>
-                  <CardMedia
-                    sx={{ width: "100%", height: "100%" }}
-                    component="img"
-                    alt={hotDealImages?.[0]}
-                    image={hotDealImages?.[0]}
-                  />
-                </Grid>
+
+                {hotDealImages?.map((item: any) => (
+                  <Grid pt={2} key={item}>
+                    <CardMedia
+                      sx={{
+                        width: "100%",
+                        objectFit: "cover",
+                        maxHeight: 300,
+                      }}
+                      component="img"
+                      alt={item}
+                      image={item}
+                    />
+                  </Grid>
+                ))}
               </Grid>
               <Grid size={{ xs: 12 }}>
                 <EMUploaderMany name="hotMainImages" label="Hot Main Images" />
@@ -174,14 +184,20 @@ const HomeImages = () => {
                   removeFieldName="removeHotMainImages"
                   images={hotMainImages}
                 />
-                <Grid pt={2}>
-                  <CardMedia
-                    sx={{ width: "100%", height: "100%" }}
-                    component="img"
-                    alt={hotMainImages?.[0]}
-                    image={hotMainImages?.[0]}
-                  />
-                </Grid>
+                {hotMainImages?.map((item: any) => (
+                  <Grid pt={2} key={item}>
+                    <CardMedia
+                      sx={{
+                        width: "100%",
+                        objectFit: "cover",
+                        maxHeight: 250,
+                      }}
+                      component="img"
+                      alt={item}
+                      image={item}
+                    />
+                  </Grid>
+                ))}
               </Grid>
 
               <Grid size={{ xs: 12 }}>
@@ -194,14 +210,20 @@ const HomeImages = () => {
                   removeFieldName="removeReviewMainImages"
                   images={reviewMainImages}
                 />
-                <Grid pt={2}>
-                  <CardMedia
-                    sx={{ width: "100%", height: "100%" }}
-                    component="img"
-                    alt={reviewMainImages?.[0]}
-                    image={reviewMainImages?.[0]}
-                  />
-                </Grid>
+                {reviewMainImages?.map((item: any) => (
+                  <Grid pt={2} key={item}>
+                    <CardMedia
+                      sx={{
+                        width: "100%",
+                        objectFit: "cover",
+                        maxHeight: 250,
+                      }}
+                      component="img"
+                      alt={item}
+                      image={item}
+                    />
+                  </Grid>
+                ))}
               </Grid>
               <Grid size={{ xs: 12 }}>
                 <EMUploaderMany name="footerImages" label="Footer Images" />
@@ -229,9 +251,61 @@ const HomeImages = () => {
                 spacing={2}
                 my={4}
                 justifyContent={"center"}
-                alignItems={"center"}
+                alignItems={"end"}
               >
                 <Grid size={{ xs: 12, sm: 5 }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      gap: { xs: 1, sm: 2, md: 3 },
+                      mb: 2,
+                      background: "#e8f5e9",
+                      borderRadius: 2,
+                      py: { xs: 0.5, sm: 1 },
+                      px: { xs: 1, sm: 2 },
+                      width: "100%",
+                    }}
+                  >
+                    <Typography
+                      variant="h4"
+                      sx={{
+                        fontWeight: 600,
+                        color: "#2e7d32",
+                        minWidth: { xs: 30, sm: 40 },
+                        textAlign: "center",
+                        fontSize: { xs: "1rem", sm: "1.5rem" },
+                      }}
+                    >
+                      {hours ?? 0}
+                    </Typography>
+
+                    <Typography
+                      variant="h4"
+                      sx={{
+                        color: "#2e7d32",
+                        fontWeight: 600,
+                        fontSize: { xs: "1rem", sm: "1.5rem" },
+                      }}
+                    >
+                      :
+                    </Typography>
+
+                    <Typography
+                      variant="h4"
+                      sx={{
+                        fontWeight: 600,
+                        color: "#2e7d32",
+                        minWidth: { xs: 30, sm: 40 },
+                        textAlign: "center",
+                        fontSize: { xs: "1rem", sm: "1.5rem" },
+                      }}
+                    >
+                      {minutes ?? 0}
+                    </Typography>
+                  </Box>
+
                   <Box
                     sx={{
                       display: "flex",

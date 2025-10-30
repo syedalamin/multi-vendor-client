@@ -12,7 +12,7 @@ import SideCategories from "./SideCategories";
 import { useGetImageDataQuery } from "@/redux/api/metaDataApi";
 
 const HeroSection = () => {
-  const { data: imageData } = useGetImageDataQuery({});
+  const { data: imageData,  } = useGetImageDataQuery({});
   return (
     <Box sx={{ position: "relative" }}>
       <Grid container spacing={1}>

@@ -17,6 +17,16 @@ const vendorApi = baseApi.injectEndpoints({
       },
       providesTags: [tagTypes.vendor],
     }),
+    getSingleVendor: builder.query({
+      query: (slug:  string | undefined) => ({
+        url: `/vendor/slug/${slug}`,
+        method: "GET",
+      }),
+      transformResponse: (response) => {
+        return response.data;
+      },
+      providesTags: [tagTypes.vendor],
+    }),
     verifyStatus: builder.mutation({
       query: (id: string | undefined) => ({
         url: `/vendor/verify/${id}`,
@@ -49,5 +59,6 @@ export const {
   useGetAllVendorsQuery,
   useVerifyStatusMutation,
   useDeleteVendorMutation,
-  useUpdateVendorMutation
+  useUpdateVendorMutation,
+  useGetSingleVendorQuery,
 } = vendorApi;

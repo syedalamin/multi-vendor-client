@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Box,  Typography } from "@mui/material";
+import { VisibilityOutlinedIcon } from "@/_Icons";
+import { Box, IconButton, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
- 
+import Link from "next/link";
 
 const MyOrderTable = ({ data }: { data: any }) => {
   const statusStyles: Record<string, any> = {
@@ -13,7 +14,28 @@ const MyOrderTable = ({ data }: { data: any }) => {
   };
 
   const columns: GridColDef[] = [
-    
+    {
+      field: "action",
+      headerName: "Details",
+      headerAlign: "center",
+      align: "center",
+      sortable: false,
+      filterable: false,
+      hideable: false,
+      disableColumnMenu: true,
+      renderCell: ({ row }) => (
+        <Box>
+          <Typography
+            component={Link}
+            href={`/orders/${row.id}`}
+          >
+            <IconButton sx={{ color: "#1976d2" }}>
+              <VisibilityOutlinedIcon />
+            </IconButton>
+          </Typography>
+        </Box>
+      ),
+    },
 
     {
       field: "id",

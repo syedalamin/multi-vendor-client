@@ -53,9 +53,7 @@ const City = () => {
         bgcolor={"white"}
         color={"black"}
         p={2}
-        sx={{
-          zIndex: 1200,
-        }}
+       
         justifyContent={"space-between"}
         alignItems={"center"}
         direction={"row"}

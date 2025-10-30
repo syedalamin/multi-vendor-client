@@ -11,7 +11,7 @@ import {
   useUpdateOrderStatusMutation,
 } from "@/redux/api/orderApi";
 
-import { Box,  IconButton, Typography } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -345,7 +345,11 @@ const AllOrderProduct = ({ data }: { data: any }) => {
           },
         }}
       />
-      <FullScreenModal open={open} setOpen={setOpen}>
+      <FullScreenModal
+        open={open}
+        setOpen={setOpen}
+       
+      >
         {selectedOrder && <Invoice data={selectedOrder} setOpen={setOpen} />}
       </FullScreenModal>
     </Box>
@@ -353,5 +357,3 @@ const AllOrderProduct = ({ data }: { data: any }) => {
 };
 
 export default AllOrderProduct;
-
- 

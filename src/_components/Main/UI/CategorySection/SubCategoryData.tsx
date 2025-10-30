@@ -67,7 +67,7 @@ const SubCategoryData = ({ subCategory }: { subCategory: string }) => {
         <Grid
           container
           spacing={2}
-          pt={4}
+          py={4}
           alignItems={"center"}
           justifyContent={"center"}
         >

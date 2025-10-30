@@ -1,34 +1,34 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { AccountBoxIcon, VisibilityOutlinedIcon } from "@/_Icons";
-import { Avatar, Box, CardMedia, IconButton } from "@mui/material";
+import { AccountBoxIcon,   } from "@/_Icons";
+import { Avatar, Box, CardMedia,   } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import Link from "next/link";
+ 
 
 const SingleOrderTable = ({ data }: { data: any }) => {
   
   const columns: GridColDef[] = [
-    {
-      field: "action",
-      headerName: "Details",
-      headerAlign: "center",
-      align: "center",
-      sortable: false,
-      filterable: false,
-      hideable: false,
-      disableColumnMenu: true,
-      renderCell: ({ row }) => (
-        <Box>
-          <IconButton sx={{ color: "#1976d2" }}>
-            <VisibilityOutlinedIcon />
-          </IconButton>
-          <Link
-            href={`/product/${row?.product?.slug}`}
-            style={{ position: "absolute", inset: 0, zIndex: 1 }}
-          />
-        </Box>
-      ),
-    },
+    // {
+    //   field: "action",
+    //   headerName: "Details",
+    //   headerAlign: "center",
+    //   align: "center",
+    //   sortable: false,
+    //   filterable: false,
+    //   hideable: false,
+    //   disableColumnMenu: true,
+    //   renderCell: ({ row }) => (
+    //     <Box>
+    //       <IconButton sx={{ color: "#1976d2" }}>
+    //         <VisibilityOutlinedIcon />
+    //       </IconButton>
+    //       <Link
+    //         href={`/product/${row?.product?.slug}`}
+    //         style={{ position: "absolute", inset: 0, zIndex: 1 }}
+    //       />
+    //     </Box>
+    //   ),
+    // },
     {
       field: "orderId",
       headerName: "Order Id",

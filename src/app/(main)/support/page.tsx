@@ -34,7 +34,7 @@ const SupportPage = () => {
             <strong>ইমেইল:</strong> trustyshoptbd@gmail.com
           </Typography>
           <Typography variant="body1">
-            <strong>ফোন:</strong> +880 1813-022222
+            <strong>ফোন:</strong> +880 1315-831065
           </Typography>
         </Stack>
  

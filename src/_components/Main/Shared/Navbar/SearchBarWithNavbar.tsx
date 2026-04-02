@@ -31,9 +31,9 @@ const SearchBarWithNavbar = () => {
 
   const NavItems = [
     { label: "Home", hre: "/" },
-    { label: "Category", hre: "/category" },
-    { label: "Product", hre: "/product" },
-    { label: "Shop", hre: "/shop" },
+    { label: "Categories", hre: "/category" },
+    { label: "Products", hre: "/product" },
+    { label: "Shops", hre: "/shop" },
     // { label: "Blog", hre: "/blog" },
   ];
 
@@ -286,7 +286,7 @@ const SearchBarWithNavbar = () => {
                     fontWeight: 500,
                   }}
                 >
-                  📞 +880 1813-022222
+                  📞 +880 1315-831065
                 </Typography>
               </Box>
               <DashboardButton />

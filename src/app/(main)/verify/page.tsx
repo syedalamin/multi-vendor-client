@@ -127,7 +127,7 @@ const VerifyPage = () => {
               color="#2a5298"
               sx={{ fontSize: { xs: "0.9rem", sm: "1rem" } }}
             >
-              +880 1813-022222
+              +880 1315-831065
             </Typography>
           </Box>
         </Box>

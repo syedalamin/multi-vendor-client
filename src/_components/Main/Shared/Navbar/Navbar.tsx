@@ -29,7 +29,7 @@ const Navbar = () => {
 
   const NavItems = [
     { label: "Home", hre: "/" },
-    { label: "Category", hre: "/category" },
+    { label: "Categories", hre: "/category" },
     { label: "Product", hre: "/product" },
     { label: "Blog", hre: "/blog" },
   ];

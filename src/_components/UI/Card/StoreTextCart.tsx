@@ -27,7 +27,7 @@ export default function StoreTextCard({ item }: { item: any }) {
       }}
     >
       <Link
-        href={`/shop/${item?.shopSlug}`}
+        href={`/shops/${item?.shopSlug}`}
         style={{ height: "100%", width: "100%" }}
       >
         <CardActionArea>

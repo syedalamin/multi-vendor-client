@@ -32,7 +32,7 @@ const SearchBarWithNavbar = () => {
   const NavItems = [
     { label: "Home", hre: "/" },
     { label: "Categories", hre: "/category" },
-    { label: "Products", hre: "/product" },
+    { label: "Products", hre: "/products" },
     { label: "Shops", hre: "/shops" },
     // { label: "Blog", hre: "/blog" },
   ];
